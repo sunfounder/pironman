@@ -1,0 +1,16 @@
+[all]
+# power_key_pin, gpio pin to power key
+# fan_gpio, gpio pin to switch fan
+# fan_temp, Temperature at which the fan switches on, 
+#           in celcius (default 50),in range (30 ~ 80)
+# screen_off_time, screen off after <screen_off_time> seconds
+# rgb_color, color of the RGB indicator inside the case
+# update_frequency, oled display data update frequency,in seconds
+
+fan_temp = 50
+screen_always_on = False
+screen_off_time = 30
+rgb_switch = True
+rgb_blink_speed = 50
+rgb_color = #0000FF
+

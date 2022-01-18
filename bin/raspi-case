@@ -1,0 +1,201 @@
+#!/bin/bash
+# /usr/local/bin/raspi-case
+
+####
+#### Usage:
+####   raspi-case <OPTION> <input>
+####
+#### Options:
+####   start            start raspi-case service
+####   stop             stop raspi-case service
+####   restart          restart raspi-case service
+####   -h,--help               help, show this help
+####   -a,--auto        [ on ],enable auto-start at boot
+####                    [ off ], disable auto-start at boot
+####   -f,--fan         [ temp ], Temperature at which the fan switches on, 
+####                    in celcius (default 50),in range (30 ~ 80)
+####   -al,--always_on  [Ture/Flase], whether the screen is always on,
+####                    default False
+####   -s,--staty_time  [time], screen display duration in second,
+####                    in second, default 30
+####   -rw,--rgb_sw     [Ture/Flase], rgb strip switch
+####   -rs,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
+####                    default: #0000FF
+####
+
+User=${SUDO_USER:-$LOGNAME}
+UserHome=$(getent passwd $User | cut -d: -f 6) 
+CONF=/home/pi/.config/raspi-case/config
+
+help() {
+    echo $'\nconfig file: '$CONF
+    sed -rn 's/^#### ?//;T;p;' "$0"
+}
+
+start() {
+    if [ $USER == 'root' ];
+    then
+        python3 /opt/raspi-case/main.py &>>/opt/raspi-case/log &
+    else
+        sudo python3 /opt/raspi-case/main.py &>>/opt/raspi-case/log &
+    fi
+    echo "starting raspi-case"
+}
+
+stop() {
+    echo "stopping raspi-case"
+    sudo kill $(ps aux | grep '/opt/raspi-case/main.py' | awk '{ print $2 }')
+}
+
+
+restart() {
+    echo "restarting raspi-case"
+    stop
+    start
+}
+
+
+
+
+
+
+if [ $# == 0 ] || [ $1 == '-h' ]|| [ $1 == '--help' ];then
+    help
+    exit 0
+fi
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    -a|--auto)
+        case "$2" in
+            on)
+                echo "enable auto-start at boot"
+                sudo systemctl enable raspi-case.service
+                restart
+            ;;
+            off)
+                echo "disable auto-start at boot"
+                sudo systemctl disable raspi-case.service
+                restart
+            ;;
+            *)
+                echo "usage: raspi-case -a|--auto [on/off]"
+        esac
+        ;;
+    -f|--fan)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: raspi-case -f|--fan [temp],temperature in range (30 ~ 80) "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                if [ $2 -gt 29 ] && [ $2 -lt 81 ];
+                then
+                    echo "set the fan on temperature to $2 "
+                    sed -i -e "s:fan_temp =.*:fan_temp = $2:g" ${CONF}
+                    restart
+                else
+                    echo "out of range (30 ~ 80) "
+                fi
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;   
+    -al|--always_on)
+        case "$2" in
+            True)
+                echo "set screen_always_on to True "
+                sed -i -e "s:screen_always_on =.*:screen_always_on = $2:g" ${CONF}
+                restart
+            ;;
+            False)
+                echo "set screen_always_on to False "
+                sed -i -e "s:screen_always_on =.*:screen_always_on = $2:g" ${CONF}
+                restart
+            ;;
+            *)
+                echo "usage: raspi-case -al|--always_on [True|False]"
+        esac
+        ;;   
+    -s|--staty_time)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: raspi-case -s|--staty_time [time],time in seconds "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                    echo "set screen_off_time to $2 "
+                    sed -i -e "s:screen_off_time =.*:screen_off_time = $2:g" ${CONF}
+                    restart
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;
+    -rw|--rgb_sw) 
+        case "$2" in
+            True)
+                echo "set rgb_switch to True "
+                sed -i -e "s:rgb_switch =.*:rgb_switch = $2:g" ${CONF}
+                restart
+            ;;
+            False)
+                echo "set rgb_switch to False "
+                sed -i -e "s:rgb_switch =.*:rgb_switch = $2:g" ${CONF}
+                restart
+            ;;
+            *)
+                echo "usage: raspi-case -al|--always_on [True|False]"
+        esac
+        ;; 
+    -rs|--rgb_speed)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: raspi-case -rs|--rgb_speed [speed],speed in range (0 ~ 100) "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                if [ $2 -gt -1 ] && [ $2 -lt 101 ];
+                then
+                    echo "set rgb_blink_speed to $2 "
+                    sed -i -e "s:rgb_blink_speed =.*:rgb_blink_speed = $2:g" ${CONF}
+                    restart
+                else
+                    echo "out of range (0 ~ 100) "
+                fi
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;
+    -rc|--rgb_color)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: raspi-case -rc|--rgb_color [color],clolor in HEX. eg: FFFFFF "
+        else  
+6
+            echo "set rgb_color to $2 "
+            sed -i -e "s:rgb_color =.*:rgb_color = $2:g" ${CONF}
+            restart
+        fi
+        ;;
+
+    *)
+        echo "no this command: $1"
+        echo "please run [ raspi-case ] or [ raspi-case -h ] to get help infomation "
+        exit 1
+        ;;
+
+esac
+
+exit 0

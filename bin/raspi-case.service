@@ -1,0 +1,14 @@
+[Unit]
+Description=raspi-case service
+After=network.target
+
+[Service]
+Type=simple 
+WorkingDirectory=/opt/raspi-case      
+ExecStart=/usr/local/bin/raspi-case start  
+ExecStop=/usr/local/bin/raspi-case stop
+ExecRestart=/usr/local/bin/raspi-case restart             
+PrivateTmp=True         
+
+[Install]
+WantedBy=multi-user.target
