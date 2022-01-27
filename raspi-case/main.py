@@ -1,11 +1,10 @@
-from logging import ERROR
 import os
+import sys
 import time
 import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
-from rpi_ws281x import Adafruit_NeoPixel, Color
 from oled import SSD1306_128_64
 from system_status import *
 from utils import log, run_command
@@ -15,7 +14,6 @@ from ws2812 import WS2812
 line = '-'*24
 _time = time.strftime("%y/%m/%d %H:%M:%S", time.localtime())
 log('\n%s%s%s'%(line,_time,line), timestamp=False)
-
 log('%s version: %s'%(App_name, Version), timestamp=False)
 log('User: %s'%User)
 log('Config_file: %s'%Config_file, timestamp=False)
@@ -162,14 +160,15 @@ def main():
 
 
     while True:
-      
+
+        # CPU informatiom 
+        CPU_temp = float(getCPUtemperature())
+        CPU_usage = float(getCPUuse())  
+
         if oled_stat == True: 
         # clear draw buffer
             draw.rectangle((0,0,width,height), outline=0, fill=0)
         # get info
-            # CPU informatiom 
-            CPU_temp = float(getCPUtemperature())
-            CPU_usage = float(getCPUuse())
             # RAM 
             RAM_stats = getRAMinfo()
             RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
