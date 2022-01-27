@@ -68,7 +68,7 @@ class WS2812():
 			
 			for i in range(2,101):
 				r, g, b = [int(x*i*0.01) for x in color]
-				print('%s: %s, %s, %s'%(i,r,g,b))
+				# print('%s: %s, %s, %s'%(i,r,g,b))
 				for j in range(self.led_count):
 					self.strip.setPixelColor(j, Color(r,g,b))	
 				self.strip.show()
