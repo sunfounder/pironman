@@ -1,8 +1,4 @@
-import os
-import sys
-import time
 import subprocess
-
 
 '''
 Use subprocess.popen instead of os.popen to avoid some errors
