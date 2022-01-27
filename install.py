@@ -102,12 +102,12 @@ def install():
     )
     #
     do(msg='copy service file',
-        cmd='sudo cp -rpf ./bin/%s.service /etc/systemd/system/%s.service '%(app_name, app_name)
+        cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(app_name, app_name)
         +' && sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(app_name, app_name)
         +' && sudo cp -rpf ./%s/* /opt/%s/'%(app_name, app_name)
     ) 
     do(msg="add excutable mode for service file",
-        cmd='sudo chmod +x /etc/systemd/system/%s.service'%app_name
+        cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%app_name
         +' && sudo chmod +x /usr/local/bin/%s'%app_name
         +' && sudo chmod -R 774 /opt/%s'%app_name
         +' && sudo chown -R %s /opt/%s'%(User, app_name)
@@ -120,7 +120,7 @@ def install():
         run_command('sudo  chown %s %s/.config'%(User, UserHome))    
     do(msg='copy config file',
         cmd='sudo mkdir -p %s/.config/%s '%(UserHome, app_name)
-        +' && sudo cp -rpf ./config /home/pi/.config/%s/config '%(app_name)
+        +' && sudo cp -rpf ./config.txt /home/pi/.config/%s/config.txt '%(app_name)
     )
     #     
     print('check startup files')

@@ -14,19 +14,17 @@
 ####                    [ off ], disable auto-start at boot
 ####   -f,--fan         [ temp ], Temperature at which the fan switches on, 
 ####                    in celcius (default 50),in range (30 ~ 80)
-####   -al,--always_on  [Ture/Flase], whether the screen is always on,
+####   -al,--always_on  [on/off], whether the screen is always on,
 ####                    default False
 ####   -s,--staty_time  [time], screen display duration in second,
 ####                    in second, default 30
-####   -rw,--rgb_sw     [Ture/Flase], rgb strip switch
+####   -rw,--rgb_sw     [on/off], rgb strip switch
 ####   -rs,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
 ####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
 ####                    default: #0000FF
 ####
 
-User=${SUDO_USER:-$LOGNAME}
-UserHome=$(getent passwd $User | cut -d: -f 6) 
-CONF=/home/pi/.config/raspi-case/config
+CONF=/home/pi/.config/raspi-case/config.txt
 
 help() {
     echo $'\nconfig file: '$CONF
@@ -34,13 +32,13 @@ help() {
 }
 
 start() {
-    if [ $USER == 'root' ];
-    then
-        python3 /opt/raspi-case/main.py &>>/opt/raspi-case/log &
+    sudo python3 /opt/raspi-case/main.py 1>/dev/null 2>/opt/raspi-case/log &
+    if [ $? == '0' ];then     
+        echo "raspi-case start succeed"       
     else
-        sudo python3 /opt/raspi-case/main.py &>>/opt/raspi-case/log &
-    fi
-    echo "starting raspi-case"
+        echo "raspi-case start failed"
+        echo $?
+    fi 
 }
 
 stop() {
@@ -54,10 +52,6 @@ restart() {
     stop
     start
 }
-
-
-
-
 
 
 if [ $# == 0 ] || [ $1 == '-h' ]|| [ $1 == '--help' ];then
@@ -113,18 +107,18 @@ case "$1" in
         ;;   
     -al|--always_on)
         case "$2" in
-            True)
-                echo "set screen_always_on to True "
-                sed -i -e "s:screen_always_on =.*:screen_always_on = $2:g" ${CONF}
+            on)
+                echo "set screen_always_on to on "
+                sed -i -e "s:screen_always_on =.*:screen_always_on = True:g" ${CONF}
                 restart
             ;;
-            False)
-                echo "set screen_always_on to False "
-                sed -i -e "s:screen_always_on =.*:screen_always_on = $2:g" ${CONF}
+            off)
+                echo "set screen_always_on to off "
+                sed -i -e "s:screen_always_on =.*:screen_always_on = False:g" ${CONF}
                 restart
             ;;
             *)
-                echo "usage: raspi-case -al|--always_on [True|False]"
+                echo "usage: raspi-case -al|--always_on [on|off]"
         esac
         ;;   
     -s|--staty_time)
@@ -144,18 +138,18 @@ case "$1" in
         ;;
     -rw|--rgb_sw) 
         case "$2" in
-            True)
-                echo "set rgb_switch to True "
-                sed -i -e "s:rgb_switch =.*:rgb_switch = $2:g" ${CONF}
+            on)
+                echo "set rgb_switch to on "
+                sed -i -e "s:rgb_switch =.*:rgb_switch = True:g" ${CONF}
                 restart
             ;;
-            False)
-                echo "set rgb_switch to False "
-                sed -i -e "s:rgb_switch =.*:rgb_switch = $2:g" ${CONF}
+            off)
+                echo "set rgb_switch to off "
+                sed -i -e "s:rgb_switch =.*:rgb_switch = False:g" ${CONF}
                 restart
             ;;
             *)
-                echo "usage: raspi-case -al|--always_on [True|False]"
+                echo "usage: raspi-case -al|--always_on [on|off]"
         esac
         ;; 
     -rs|--rgb_speed)
@@ -183,7 +177,6 @@ case "$1" in
         then
             echo "usage: raspi-case -rc|--rgb_color [color],clolor in HEX. eg: FFFFFF "
         else  
-6
             echo "set rgb_color to $2 "
             sed -i -e "s:rgb_color =.*:rgb_color = $2:g" ${CONF}
             restart
