@@ -24,7 +24,18 @@
 ####                    default: #0000FF
 ####
 
-CONF=/home/pi/.config/raspi-case/config.txt
+main='/opt/raspi-case/main.py'
+User=$(ls -l $main |awk '{print $3}')
+Group=$(ls -l $main |awk '{print $3}')
+UserHome=$(getent passwd $User |cut -d: -f 6)
+CONF=$UserHome/.config/raspi-case/config.txt
+
+# echo $main
+# echo $User
+# echo $Group
+# echo $UserHome
+# echo $CONF
+echo 'config file:'$CONF
 
 help() {
     echo $'\nconfig file: '$CONF
@@ -32,7 +43,7 @@ help() {
 }
 
 start() {
-    sudo python3 /opt/raspi-case/main.py 1>/dev/null 2>/opt/raspi-case/log &
+    sudo python3 $main 1>/dev/null 2>/opt/raspi-case/log &
     if [ $? == '0' ];then     
         echo "raspi-case start succeed"       
     else
@@ -43,7 +54,7 @@ start() {
 
 stop() {
     echo "stopping raspi-case"
-    sudo kill $(ps aux | grep '/opt/raspi-case/main.py' | awk '{ print $2 }')
+    sudo kill $(ps aux | grep $main | awk '{ print $2 }')
 }
 
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import os,sys,time
+import os
+import sys
+import time
 
 # user and User home directory
 User = os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
@@ -99,6 +101,7 @@ def install():
     do(msg="create dir",
         cmd='sudo mkdir -p /opt/%s'%app_name
         +' && sudo chmod 774 /opt/%s'%app_name  
+        +' && sudo chown %s:%s /opt/%s'%(User, User, app_name) 
     )
     #
     do(msg='copy service file',
@@ -110,17 +113,18 @@ def install():
         cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%app_name
         +' && sudo chmod +x /usr/local/bin/%s'%app_name
         +' && sudo chmod -R 774 /opt/%s'%app_name
-        +' && sudo chown -R %s /opt/%s'%(User, app_name)
+        +' && sudo chown -R %s:%s /opt/%s'%(User, User, app_name)
     ) 
     #
     print('create config file')
     if not os.path.exists('%s/.config'%UserHome):
         os.mkdir('%s/.config'%UserHome)
         os.popen('sudo chmod 774 %s/.config'%UserHome)  
-        run_command('sudo  chown %s %s/.config'%(User, UserHome))    
+        run_command('sudo  chown %s:%s %s/.config'%(User, User, UserHome))    
     do(msg='copy config file',
         cmd='sudo mkdir -p %s/.config/%s '%(UserHome, app_name)
-        +' && sudo cp -rpf ./config.txt /home/pi/.config/%s/config.txt '%(app_name)
+        +' && sudo cp -rpf ./config.txt %s/.config/%s/config.txt '%(UserHome, app_name)
+        +' && sudo chown  -R %s:%s %s/.config/%s'%(User, User, UserHome, app_name)
     )
     #     
     print('check startup files')
