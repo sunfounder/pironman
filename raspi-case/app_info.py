@@ -9,4 +9,4 @@ User = os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
 UserHome = os.popen('getent passwd %s | cut -d: -f 6'%User).readline().strip()
 print('[app_info] User: %s'%User)  # pi
 print('[app_info] UserHome: %s'%UserHome)  # /home/pi
-Config_file = '%s/.config/%s/config'%(UserHome, App_name)
+Config_file = '%s/.config/%s/config.txt'%(UserHome, App_name)
