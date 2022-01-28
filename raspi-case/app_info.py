@@ -5,7 +5,7 @@ from sys import path
 
 
 App_name = 'raspi-case'
-Version = '0.0.2'
+Version = '0.0.3'
 
 # # user and User home directory 
 # User = os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
