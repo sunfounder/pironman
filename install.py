@@ -141,6 +141,7 @@ def install():
     # do(msg='run the service',
     #     cmd='sudo systemctl restart %s.service'%app_name
     # )
+    time.sleep(0.1)
     do(msg='run the service',
         cmd='sudo raspi-case restart'
     )
