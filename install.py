@@ -130,7 +130,7 @@ def install():
     print('check startup files')
     run_command('sudo systemctl daemon-reload')
     status, result = run_command('sudo systemctl list-unit-files|grep %s'%app_name)
-    if status==0 and result.find('%s.service'%app_name) != -1:
+    if status==0 or status==None and result.find('%s.service'%app_name) != -1:
         do(msg='enable the service to auto-start at boot',
             cmd='sudo systemctl enable %s.service'%app_name
         )
