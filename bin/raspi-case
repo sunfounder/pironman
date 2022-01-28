@@ -21,7 +21,7 @@
 ####   -rw,--rgb_sw     [on/off], rgb strip switch
 ####   -rs,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
 ####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
-####                    default: #0000FF
+####                    default: 0000FF
 ####
 
 main='/opt/raspi-case/main.py'
@@ -43,7 +43,8 @@ help() {
 }
 
 start() {
-    sudo python3 $main 1>/dev/null 2>/opt/raspi-case/log &
+    sudo python3 $main 1>/dev/null 2>>/opt/raspi-case/log &
+    # sudo python3 $main 1>/dev/null 2>&1 &
     if [ $? == '0' ];then     
         echo "raspi-case start succeed"       
     else
@@ -61,6 +62,7 @@ stop() {
 restart() {
     echo "restarting raspi-case"
     stop
+    usleep 500
     start
 }
 
