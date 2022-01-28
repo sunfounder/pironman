@@ -141,14 +141,12 @@ def main():
     oled_stat = True
     power_key_flag = False
     power_timer = 0
-    # strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
+    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
 
     def rgb_show():
         log('rgb_show')
         try:
-            while True:
-                strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
-                strip.display('breath', rgb_color, rgb_blink_speed, 255)
+            strip.display('breath', rgb_color, rgb_blink_speed, 255)
         except Exception as e:
             log(e,level='rgb_strip')
             
@@ -159,17 +157,18 @@ def main():
         rgb_thread.setDaemon(True)
         rgb_thread.start()
     else:
-        strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
         strip.clear()
 
 
     while True:
 
-        # CPU informatiom 
+        # CPU temp
         CPU_temp = float(getCPUtemperature())
-        CPU_usage = float(getCPUuse())  
+         
 
         if oled_stat == True: 
+        # CPU usage
+            CPU_usage = float(getCPUuse()) 
         # clear draw buffer
             draw.rectangle((0,0,width,height), outline=0, fill=0)
         # get info

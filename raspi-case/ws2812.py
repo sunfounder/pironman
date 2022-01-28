@@ -65,7 +65,6 @@ class WS2812():
 		speed = 101 - speed
 		self.strip.begin()
 		while True:
-			
 			for i in range(2,101):
 				r, g, b = [int(x*i*0.01) for x in color]
 				# print('%s: %s, %s, %s'%(i,r,g,b))
