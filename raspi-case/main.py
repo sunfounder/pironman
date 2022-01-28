@@ -15,8 +15,9 @@ line = '-'*24
 _time = time.strftime("%y/%m/%d %H:%M:%S", time.localtime())
 log('\n%s%s%s'%(line,_time,line), timestamp=False)
 log('%s version: %s'%(App_name, Version), timestamp=False)
-log('User: %s'%User)
-log('Config_file: %s'%Config_file, timestamp=False)
+log('User: %s'%User, timestamp=False)
+log('Config_file: %s \n'%Config_file, timestamp=False)
+
 
 # region: config 
 power_key_pin = 16
@@ -140,22 +141,25 @@ def main():
     oled_stat = True
     power_key_flag = False
     power_timer = 0
-    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
+    # strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
 
     def rgb_show():
-        print('rgb_show')
-        strip.display('breath', rgb_color, rgb_blink_speed, 255)
+        log('rgb_show')
+        try:
+            while True:
+                strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
+                strip.display('breath', rgb_color, rgb_blink_speed, 255)
+        except Exception as e:
+            log(e,level='rgb_strip')
+            
 
     # rgb_strip thread
     if rgb_switch == True:
-        # rgb_thread = threading.Thread(
-        #     target=strip.display,
-        #     args=('breath', rgb_color, rgb_blink_speed, 255)
-        # )
         rgb_thread = threading.Thread(target=rgb_show)
         rgb_thread.setDaemon(True)
         rgb_thread.start()
     else:
+        strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
         strip.clear()
 
 
