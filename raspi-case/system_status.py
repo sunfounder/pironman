@@ -20,8 +20,11 @@ def getRAMinfo():
 # Return % of CPU used as a character string
 def getCPUuse(): 
     cmd = "top -bn1 |awk '/Cpu\(s\):/ {print $8}'"
-    CPU_usage = subprocess.check_output(cmd,shell=True) .decode()
-    CPU_usage = round(100 - float(CPU_usage),1)
+    try:
+        CPU_usage = subprocess.check_output(cmd,shell=True) .decode()
+        CPU_usage = round(100 - float(CPU_usage),1)
+    except:
+        return 0.0
     return CPU_usage
 
 # Return information about disk space as a list (unit included)                     
