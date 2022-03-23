@@ -279,7 +279,7 @@ def main():
         elif temp_unit == 'F':
             if CPU_temp_F > fan_temp:
                 fan_on()
-            elif CPU_temp_F < fan_temp -50:
+            elif CPU_temp_F < fan_temp -10*1.8:
                 fan_off()
         else:
             log('temp_unit error, use defalut value: 50\'C')
