@@ -168,7 +168,7 @@ def main():
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
-
+    ip = None
     # rgb_strip thread
     if rgb_switch == True:
         rgb_thread = threading.Thread(target=rgb_show)
@@ -274,19 +274,20 @@ def main():
         if temp_unit == 'C':
             if CPU_temp_C > fan_temp:
                 fan_on()
-            else:
+            elif CPU_temp_C < fan_temp -10:
                 fan_off()
         elif temp_unit == 'F':
             if CPU_temp_F > fan_temp:
                 fan_on()
-            else:
+            elif CPU_temp_F < fan_temp -50:
                 fan_off()
         else:
             log('temp_unit error, use defalut value: 50\'C')
             if CPU_temp_C > 50:
                 fan_on()
-            else:
+            elif CPU_temp_C < 40:
                 fan_off()
+
 
     # power key event
         if get_io(power_key_pin) == 0:
