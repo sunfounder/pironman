@@ -9,11 +9,14 @@
 ####   start            start raspi-case service
 ####   stop             stop raspi-case service
 ####   restart          restart raspi-case service
-####   -h,--help               help, show this help
+####   -h,--help        help, show this help
+####   -c,--check       show all configurations
 ####   -a,--auto        [ on ],enable auto-start at boot
 ####                    [ off ], disable auto-start at boot
+####   -u,--unit        [ C/F ], set the unit of temperature,
+####                        C or F (Celsius/Fahrenheit)
 ####   -f,--fan         [ temp ], Temperature at which the fan switches on, 
-####                    in celcius (default 50),in range (30 ~ 80)
+####                    in celsius (default 50),in range (30 ~ 80)
 ####   -al,--always_on  [on/off], whether the screen is always on,
 ####                    default False
 ####   -s,--staty_time  [time], screen display duration in second,
@@ -35,7 +38,7 @@ CONF=$UserHome/.config/raspi-case/config.txt
 # echo $Group
 # echo $UserHome
 # echo $CONF
-echo 'config file:'$CONF
+# echo 'config file:'$CONF
 
 help() {
     echo $'\nconfig file: '$CONF
@@ -55,14 +58,14 @@ start() {
 
 stop() {
     echo "stopping raspi-case"
-    sudo kill $(ps aux | grep $main | awk '{ print $2 }')
+    sudo kill $(ps aux | grep $main | awk '{ print $2 }') >/dev/null 2>&1
 }
 
 
 restart() {
     echo "restarting raspi-case"
     stop
-    usleep 500
+    sleep 0.5
     start
 }
 
@@ -82,6 +85,10 @@ case "$1" in
     restart)
         restart
         ;;
+    -c|--check)
+        echo 'config file:'$CONF
+        grep -E '*=.*' $CONF
+        ;;
     -a|--auto)
         case "$2" in
             on)
@@ -98,6 +105,20 @@ case "$1" in
                 echo "usage: raspi-case -a|--auto [on/off]"
         esac
         ;;
+    -u|--unit)
+        if [ $# -lt 2 ] ;then
+            echo "usage: raspi-case -c|--check [C/F]"
+        else
+            if [ $2 == 'C' ] || [ $2 == 'F' ];then
+                sed -i "s/^unit=.*/unit=$2/" $CONF
+                sed -i -e "s:temp_unit.*=.*:temp_unit = $2:g" ${CONF}
+                echo "set temperature unit to "$2
+                restart
+            else
+                echo "unit must be C or F"
+            fi
+        fi
+        ;;
     -f|--fan)
         if [ $# -lt 2 ] ;
         then
@@ -105,14 +126,14 @@ case "$1" in
         else  
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
-                if [ $2 -gt 29 ] && [ $2 -lt 81 ];
-                then
+                # if [ $2 -gt 29 ] && [ $2 -lt 81 ];
+                # then
                     echo "set the fan on temperature to $2 "
-                    sed -i -e "s:fan_temp =.*:fan_temp = $2:g" ${CONF}
+                    sed -i -e "s:fan_temp.*=.*:fan_temp = $2:g" ${CONF}
                     restart
-                else
-                    echo "out of range (30 ~ 80) "
-                fi
+                # else
+                #     echo "out of range (30 ~ 80) "
+                # fi
             else
                 echo "parameter must be integer"
             fi
@@ -122,12 +143,12 @@ case "$1" in
         case "$2" in
             on)
                 echo "set screen_always_on to on "
-                sed -i -e "s:screen_always_on =.*:screen_always_on = True:g" ${CONF}
+                sed -i -e "s:screen_always_on.*=.*:screen_always_on = True:g" ${CONF}
                 restart
             ;;
             off)
                 echo "set screen_always_on to off "
-                sed -i -e "s:screen_always_on =.*:screen_always_on = False:g" ${CONF}
+                sed -i -e "s:screen_always_on.*=.*:screen_always_on = False:g" ${CONF}
                 restart
             ;;
             *)
@@ -142,7 +163,7 @@ case "$1" in
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
                     echo "set screen_off_time to $2 "
-                    sed -i -e "s:screen_off_time =.*:screen_off_time = $2:g" ${CONF}
+                    sed -i -e "s:screen_off_time.*=.*:screen_off_time = $2:g" ${CONF}
                     restart
             else
                 echo "parameter must be integer"
@@ -153,12 +174,12 @@ case "$1" in
         case "$2" in
             on)
                 echo "set rgb_switch to on "
-                sed -i -e "s:rgb_switch =.*:rgb_switch = True:g" ${CONF}
+                sed -i -e "s:rgb_switch.*=.*:rgb_switch = True:g" ${CONF}
                 restart
             ;;
             off)
                 echo "set rgb_switch to off "
-                sed -i -e "s:rgb_switch =.*:rgb_switch = False:g" ${CONF}
+                sed -i -e "s:rgb_switch.*=.*:rgb_switch = False:g" ${CONF}
                 restart
             ;;
             *)
@@ -175,7 +196,7 @@ case "$1" in
                 if [ $2 -gt -1 ] && [ $2 -lt 101 ];
                 then
                     echo "set rgb_blink_speed to $2 "
-                    sed -i -e "s:rgb_blink_speed =.*:rgb_blink_speed = $2:g" ${CONF}
+                    sed -i -e "s:rgb_blink_speed.*=.*:rgb_blink_speed = $2:g" ${CONF}
                     restart
                 else
                     echo "out of range (0 ~ 100) "
@@ -191,7 +212,7 @@ case "$1" in
             echo "usage: raspi-case -rc|--rgb_color [color],clolor in HEX. eg: FFFFFF "
         else  
             echo "set rgb_color to $2 "
-            sed -i -e "s:rgb_color =.*:rgb_color = $2:g" ${CONF}
+            sed -i -e "s:rgb_color.*=.*:rgb_color = $2:g" ${CONF}
             restart
         fi
         ;;
