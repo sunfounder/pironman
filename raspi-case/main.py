@@ -5,12 +5,13 @@ import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
-from oled import SSD1306_128_64
+from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from system_status import *
 from utils import log, run_command
 from app_info import App_name, Version, User, UserHome, Config_file
 from ws2812 import WS2812
 
+# print info
 line = '-'*24
 _time = time.strftime("%y/%m/%d %H:%M:%S", time.localtime())
 log('\n%s%s%s'%(line,_time,line), timestamp=False)
@@ -25,6 +26,7 @@ fan_pin = 6
 rgb_pin = 12
 update_frequency = 0.5  # second
 
+temp_unit = 'C' # 'C' or 'F'
 fan_temp = 50 # celsius
 screen_always_on = False
 screen_off_time = 30
@@ -54,6 +56,7 @@ if not os.path.exists(Config_file):
 # read Config_file
 try:
     config.read(Config_file)
+    temp_unit = config['all']['temp_unit']
     fan_temp = float(config['all']['fan_temp'])
     screen_always_on = config['all']['screen_always_on']
     if screen_always_on == 'True':
@@ -84,6 +87,7 @@ log("power_key_pin : %s"%power_key_pin)
 log("fan_pin : %s"%fan_pin) 
 log("rgb_pin : %s"%rgb_pin) 
 log("update_frequency : %s"%update_frequency) 
+log("temp_unit : %s"%temp_unit)
 log("fan_temp : %s"%fan_temp) 
 log("screen_always_on : %s"%screen_always_on) 
 log("screen_off_time : %s"%screen_off_time) 
@@ -94,21 +98,29 @@ log("rgb_color : %s"%rgb_color)
 # endregion: config
 
 # region: oled init
-oled = SSD1306_128_64()
-width = oled.width
-height = oled.height
-oled.begin()
-oled.clear()
-oled.on()
+oled_stat = False
 
-image = Image.new('1', (width, height))
-draw = ImageDraw.Draw(image)
-font_8 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%App_name, 8)
-font_12 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%App_name, 12) 
+try:
+    oled = SSD1306_128_64()
+    width = oled.width
+    height = oled.height
+    oled.begin()
+    oled.clear()
+    oled.on()
 
-def draw_text(text,x,y,fill=1):
-    text = str(text)
-    draw.text((x, y), text=text, font=font_8, fill=fill)
+    image = Image.new('1', (width, height))
+    draw = ImageDraw.Draw(image)
+    font_8 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%App_name, 8)
+    font_12 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%App_name, 12) 
+
+    def draw_text(text,x,y,fill=1):
+        text = str(text)
+        draw.text((x, y), text=text, font=font_8, fill=fill)
+
+    oled_stat = True
+except Exception as e:
+    log('oled init failed:\n%s'%e)
+    oled_stat = False
 
 #endregion: oled init
 
@@ -134,22 +146,28 @@ def fan_off():
 
 # endregion: io control
 
+# region: rgb_strip init
+try:
+    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
+except Exception as e:
+    log('rgb_strip init failed:\n%s'%e)
+    rgb_switch = False
+
+def rgb_show():
+    log('rgb_show')
+    try:
+        strip.display('breath', rgb_color, rgb_blink_speed, 255)
+    except Exception as e:
+        log(e,level='rgb_strip')
+
+# endregion: rgb_strip init
 
 def main():
-    global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin          
+    global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin 
+    global oled_stat        
     time_start = time.time()
-    oled_stat = True
     power_key_flag = False
     power_timer = 0
-    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin)
-
-    def rgb_show():
-        log('rgb_show')
-        try:
-            strip.display('breath', rgb_color, rgb_blink_speed, 255)
-        except Exception as e:
-            log(e,level='rgb_strip')
-            
 
     # rgb_strip thread
     if rgb_switch == True:
@@ -163,9 +181,9 @@ def main():
     while True:
 
         # CPU temp
-        CPU_temp = float(getCPUtemperature())
+        CPU_temp_C = float(getCPUtemperature()) # celcius
+        CPU_temp_F = float(CPU_temp_C * 1.8 + 32) # fahrenheit
          
-
         if oled_stat == True: 
         # CPU usage
             CPU_usage = float(getCPUuse()) 
@@ -184,11 +202,26 @@ def main():
             DISK_perc = float(DISK_stats[3][:-1])  
             # ip address
             # ip = '0.0.0.0'
-            wlan0,eth0 = getIP()
-            if wlan0 != None:
-                ip = wlan0
-            elif eth0 != None:
-                ip = eth0
+            IPs = getIP()
+            print(IPs)
+
+            for NIC in IPs:
+                if NIC == 'lo' or NIC == 'eth0' or NIC == 'wlan0':
+                    continue
+                if IPs[NIC] != None:
+                    print(NIC, IPs[NIC])
+                    ip = IPs[NIC]
+                    break
+            
+            if ip == None:
+                if IPs['wlan0'] != None:
+                    ip = IPs['wlan0']
+                elif IPs['eth0'] != None:
+                    ip = IPs['eth0']
+                else:
+                    print('No IP found')
+
+                print("IP:%s"%ip)
             else:
                 ip = 'DISCONNECT'
         # display info 
@@ -203,9 +236,15 @@ def main():
             draw.pieslice((0, 12, 30, 42), start=180, end=int(180+180*CPU_usage*0.01), fill=1, outline=1)
             draw_text('{:^5.1f} %'.format(CPU_usage),2,27)
             # Temp
-            draw_text('{:>4.1f} \'C'.format(CPU_temp),2,38)
-            draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
-            draw.pieslice((0, 33, 30, 63), start=int(180-180*CPU_temp*0.01), end=180, fill=1, outline=1)
+            if temp_unit == 'C':
+                draw_text('{:>4.1f} \'C'.format(CPU_temp_C),2,38)
+                draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
+                draw.pieslice((0, 33, 30, 63), start=int(180-180*CPU_temp_C*0.01), end=180, fill=1, outline=1)
+            elif temp_unit == 'F':
+                draw_text('{:>4.1f} \'F'.format(CPU_temp_F),2,38)
+                draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
+                pcent = (CPU_temp_F-32)/1.8
+                draw.pieslice((0, 33, 30, 63), start=int(180-180*pcent*0.01), end=180, fill=1, outline=1)
             # RAM
             draw_text('RAM: {}/{} GB'.format(RAM_used,RAM_total),*ram_info_rect.coord())
             # draw_text('{:>5.1f}'.format(RAM_usage)+' %',92,0)
@@ -232,10 +271,22 @@ def main():
 
 
     # fan control 
-        if CPU_temp > fan_temp:
-            fan_on()
-        elif CPU_temp < fan_temp-10:
-            fan_off()
+        if temp_unit == 'C':
+            if CPU_temp_C > fan_temp:
+                fan_on()
+            else:
+                fan_off()
+        elif temp_unit == 'F':
+            if CPU_temp_F > fan_temp:
+                fan_on()
+            else:
+                fan_off()
+        else:
+            log('temp_unit error, use defalut value: 50\'C')
+            if CPU_temp_C > 50:
+                fan_on()
+            else:
+                fan_off()
 
     # power key event
         if get_io(power_key_pin) == 0:
