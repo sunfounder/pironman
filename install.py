@@ -35,7 +35,7 @@ APT_INSTALL_LIST = [
 
 
 PIP_INSTALL_LIST = [
-    'rpi_ws281x',
+    'rpi-ws281x',
     'pillow',
 ]
 
