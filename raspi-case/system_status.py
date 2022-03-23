@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 '''
@@ -38,14 +39,39 @@ def getDiskSpace():
 
 # IP address
 def getIP():
-    wlan0 = subprocess.check_output("ifconfig wlan0 |awk '/inet/'|awk 'NR==1 {print $2}'",shell=True).decode().strip('\n')
-    eth0 = subprocess.check_output("ifconfig eth0 |awk '/inet/'|awk 'NR==1 {print $2}'",shell=True).decode().strip('\n')
-    if wlan0 == '':
-        wlan0 = None
-    if eth0 == '':
-        eth0 = None
+    IPs = {}
+    NIC_devices = []
+    NIC_devices = os.listdir('/sys/class/net/')
+    # print(NIC_devices)
 
-    return wlan0,eth0
+    for NIC in NIC_devices:
+        if NIC == 'lo':
+            continue
+        try:
+            IPs[NIC] = subprocess.check_output('ifconfig ' + NIC + ' | grep "inet " | awk \'{print $2}\'', shell=True).decode().strip('\n')
+        except:
+            continue
+        # print(NIC, IPs[NIC])
+    
+    return IPs
+
+
+def getMAC():
+    MACs = {}
+    NIC_devices = []
+    NIC_devices = os.listdir('/sys/class/net/')
+    # print(NIC_devices)
+    for NIC in NIC_devices:
+        if NIC == 'lo':
+            continue
+        try:
+            with open('/sys/class/net/' + NIC + '/address', 'r') as f:
+                MACs[NIC] = f.readline().strip()
+        except:
+            continue
+        # print(NIC, MACs[NIC])
+
+    return MACs
 
 
 
