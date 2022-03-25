@@ -168,7 +168,6 @@ def main():
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
-    ip = None
     # rgb_strip thread
     if rgb_switch == True:
         rgb_thread = threading.Thread(target=rgb_show)
@@ -201,29 +200,28 @@ def main():
             DISK_used = str(DISK_stats[1])
             DISK_perc = float(DISK_stats[3][:-1])  
             # ip address
-            # ip = '0.0.0.0'
+            ip = None
             IPs = getIP()
-            print(IPs)
+            # log(IPs)
 
             for NIC in IPs:
+                
                 if NIC == 'lo' or NIC == 'eth0' or NIC == 'wlan0':
                     continue
-                if IPs[NIC] != None:
-                    print(NIC, IPs[NIC])
+                if IPs[NIC] != None and IPs[NIC] != '':
+                    # log(NIC, IPs[NIC])
                     ip = IPs[NIC]
                     break
-            
+                
             if ip == None:
-                if IPs['wlan0'] != None:
+                if IPs['wlan0'] != None and IPs['wlan0'] != '':
                     ip = IPs['wlan0']
-                elif IPs['eth0'] != None:
+                elif IPs['eth0'] != None and IPs['eth0'] != '':
                     ip = IPs['eth0']
                 else:
-                    print('No IP found')
+                    # log('No IP found')
+                    ip = 'DISCONNECT'
 
-                print("IP:%s"%ip)
-            else:
-                ip = 'DISCONNECT'
         # display info 
             ip_rect = Rect(48, 0, 81, 10)
             ram_info_rect = Rect(46, 17, 81, 10)
