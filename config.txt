@@ -20,7 +20,7 @@
 temp_unit = C
 fan_temp = 50
 screen_always_on = False
-screen_off_time = 30
+screen_off_time = 60
 rgb_switch = True
 rgb_blink_speed = 50
 rgb_color = #0000FF
