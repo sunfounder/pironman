@@ -2,13 +2,10 @@
 import os
 import sys
 import time
+sys.path.append('./pironman')
+from app_info import __app_name__, __version__, username, user_home, config_file
 
-# user and User home directory
-User = os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
-UserHome = os.popen('getent passwd %s | cut -d: -f 6'%User).readline().strip()
-# print(User)  # pi
-# print(UserHome) # /home/pi
-app_name  =  'raspi-case'
+# user and username home directory
 
 errors = []
 
@@ -74,7 +71,7 @@ def install():
             print(usage)
             quit()
     #  
-    print("%s install process starts"%app_name)
+    print("%s install process starts"%__app_name__)
     if "--no-dep" not in options:    
         do(msg="update apt",
             cmd='sudo apt update -y'
@@ -95,55 +92,57 @@ def install():
     )   
     #
     print('create WorkingDirectory')    
-    if not os.path.exists('/opt'):
-        os.mkdir('/opt')
-        os.popen('sudo chmod 774 /opt')       
+    do(msg="create /opt",
+        cmd='sudo mkdir -p /opt'
+        +' && sudo chmod 774 /opt'
+        +' && sudo chown %s:%s /opt'%(username, username) 
+    )       
     do(msg="create dir",
-        cmd='sudo mkdir -p /opt/%s'%app_name
-        +' && sudo chmod 774 /opt/%s'%app_name  
-        +' && sudo chown %s:%s /opt/%s'%(User, User, app_name) 
+        cmd='sudo mkdir -p /opt/%s'%__app_name__
+        +' && sudo chmod 774 /opt/%s'%__app_name__  
+        +' && sudo chown %s:%s /opt/%s'%(username, username, __app_name__) 
     )
     #
     do(msg='copy service file',
-        cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(app_name, app_name)
-        +' && sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(app_name, app_name)
-        +' && sudo cp -rpf ./%s/* /opt/%s/'%(app_name, app_name)
+        cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
+        +' && sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
+        +' && sudo cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
     ) 
     do(msg="add excutable mode for service file",
-        cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%app_name
-        +' && sudo chmod +x /usr/local/bin/%s'%app_name
-        +' && sudo chmod -R 774 /opt/%s'%app_name
-        +' && sudo chown -R %s:%s /opt/%s'%(User, User, app_name)
+        cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
+        +' && sudo chmod +x /usr/local/bin/%s'%__app_name__
+        +' && sudo chmod -R 774 /opt/%s'%__app_name__
+        +' && sudo chown -R %s:%s /opt/%s'%(username, username, __app_name__)
     ) 
     #
     print('create config file')
-    if not os.path.exists('%s/.config'%UserHome):
-        os.mkdir('%s/.config'%UserHome)
-        os.popen('sudo chmod 774 %s/.config'%UserHome)  
-        run_command('sudo  chown %s:%s %s/.config'%(User, User, UserHome))    
+    if not os.path.exists('%s/.config'%user_home):
+        os.mkdir('%s/.config'%user_home)
+        os.popen('sudo chmod 774 %s/.config'%user_home)  
+        run_command('sudo  chown %s:%s %s/.config'%(username, username, user_home))    
     do(msg='copy config file',
-        cmd='sudo mkdir -p %s/.config/%s '%(UserHome, app_name)
-        +' && sudo cp -rpf ./config.txt %s/.config/%s/config.txt '%(UserHome, app_name)
-        +' && sudo chown  -R %s:%s %s/.config/%s'%(User, User, UserHome, app_name)
+        cmd='sudo mkdir -p %s/.config/%s '%(user_home, __app_name__)
+        +' && sudo cp -rpf ./config.txt %s/.config/%s/config.txt '%(user_home, __app_name__)
+        +' && sudo chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
     )
     #     
     print('check startup files')
     run_command('sudo systemctl daemon-reload')
-    status, result = run_command('sudo systemctl list-unit-files|grep %s'%app_name)
-    if status==0 or status==None and result.find('%s.service'%app_name) != -1:
+    status, result = run_command('sudo systemctl list-unit-files|grep %s'%__app_name__)
+    if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
         do(msg='enable the service to auto-start at boot',
-            cmd='sudo systemctl enable %s.service'%app_name
+            cmd='sudo systemctl enable %s.service'%__app_name__
         )
     else:
         errors.append("%s error:\n  Status:%s\n  Error:%s" %
                       ('check startup files ', status, result))                  
     #
     # do(msg='run the service',
-    #     cmd='sudo systemctl restart %s.service'%app_name
+    #     cmd='sudo systemctl restart %s.service'%__app_name__
     # )
     time.sleep(0.1)
     do(msg='run the service',
-        cmd='sudo raspi-case restart'
+        cmd='sudo pironman restart'
     )
 
     if len(errors) == 0:
