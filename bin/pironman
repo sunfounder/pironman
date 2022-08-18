@@ -1,0 +1,243 @@
+#!/bin/bash
+# /usr/local/bin/pironman
+
+####
+#### Usage:
+####   pironman <OPTION> <input>
+####
+#### Options:
+####   start            start pironman service
+####   stop             stop pironman service
+####   restart          restart pironman service
+####   -h,--help        help, show this help
+####   -c,--check       show all configurations
+####   -a,--auto        [ on ],enable auto-start at boot
+####                    [ off ], disable auto-start at boot
+####   -u,--unit        [ C/F ], set the unit of temperature,
+####                        C or F (Celsius/Fahrenheit)
+####   -f,--fan         [ temp ], Temperature at which the fan switches on, 
+####                    in celsius (default 50),in range (30 ~ 80)
+####   -al,--always_on  [on/off], whether the screen is always on,
+####                    default False
+####   -s,--staty_time  [time], screen display duration in second,
+####                    in second, default 30
+####   -rw,--rgb_sw     [on/off], rgb strip switch
+####   -rs,--rgb_style  rgb strip display style, default: breath,    
+####                    in [breath / leap / flow / raise_up]
+####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
+####                    default: 0a1aff
+####   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+####
+####
+
+main='/opt/pironman/main.py'
+User=$(ls -l $main |awk '{print $3}')
+Group=$(ls -l $main |awk '{print $3}')
+UserHome=$(getent passwd $User |cut -d: -f 6)
+CONF=$UserHome/.config/pironman/config.txt
+
+# echo $main
+# echo $User
+# echo $Group
+# echo $UserHome
+# echo $CONF
+# echo 'config file:'$CONF
+
+help() {
+    echo $'\nconfig file: '$CONF
+    sed -rn 's/^#### ?//;T;p;' "$0"
+}
+
+start() {
+    sudo python3 $main 1>/dev/null 2>>/opt/pironman/log &
+    # sudo python3 $main 1>/dev/null 2>&1 &
+    if [ $? == '0' ];then     
+        echo "pironman start succeed"       
+    else
+        echo "pironman start failed"
+        echo $?
+    fi 
+}
+
+stop() {
+    echo "stopping pironman"
+    sudo kill $(ps aux | grep $main | awk '{ print $2 }') >/dev/null 2>&1
+}
+
+
+restart() {
+    echo "restarting pironman"
+    stop
+    sleep 0.5
+    start
+}
+
+
+if [ $# == 0 ] || [ $1 == '-h' ]|| [ $1 == '--help' ];then
+    help
+    exit 0
+fi
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    -c|--check)
+        echo 'config file:'$CONF
+        grep -E '*=.*' $CONF
+        ;;
+    -a|--auto)
+        case "$2" in
+            on)
+                echo "enable auto-start at boot"
+                sudo systemctl enable pironman.service
+                restart
+            ;;
+            off)
+                echo "disable auto-start at boot"
+                sudo systemctl disable pironman.service
+                restart
+            ;;
+            *)
+                echo "usage: pironman -a|--auto [on/off]"
+        esac
+        ;;
+    -u|--unit)
+        if [ $# -lt 2 ] ;then
+            echo "usage: pironman -c|--check [C/F]"
+        else
+            if [ $2 == 'C' ] || [ $2 == 'F' ];then
+                sed -i "s/^unit=.*/unit=$2/" $CONF
+                sed -i -e "s:temp_unit.*=.*:temp_unit = $2:g" ${CONF}
+                echo "set temperature unit to "$2
+                restart
+            else
+                echo "unit must be C or F"
+            fi
+        fi
+        ;;
+    -f|--fan)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: pironman -f|--fan [temp],temperature in range (30 ~ 80) "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                # if [ $2 -gt 29 ] && [ $2 -lt 81 ];
+                # then
+                    echo "set the fan on temperature to $2 "
+                    sed -i -e "s:fan_temp.*=.*:fan_temp = $2:g" ${CONF}
+                    restart
+                # else
+                #     echo "out of range (30 ~ 80) "
+                # fi
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;   
+    -al|--always_on)
+        case "$2" in
+            on)
+                echo "set screen_always_on to on "
+                sed -i -e "s:screen_always_on.*=.*:screen_always_on = True:g" ${CONF}
+                restart
+            ;;
+            off)
+                echo "set screen_always_on to off "
+                sed -i -e "s:screen_always_on.*=.*:screen_always_on = False:g" ${CONF}
+                restart
+            ;;
+            *)
+                echo "usage: pironman -al|--always_on [on|off]"
+        esac
+        ;;   
+    -s|--staty_time)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: pironman -s|--staty_time [time],time in seconds "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                    echo "set screen_off_time to $2 "
+                    sed -i -e "s:screen_off_time.*=.*:screen_off_time = $2:g" ${CONF}
+                    restart
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;
+    -rw|--rgb_sw) 
+        case "$2" in
+            on)
+                echo "set rgb_switch to on "
+                sed -i -e "s:rgb_switch.*=.*:rgb_switch = True:g" ${CONF}
+                restart
+            ;;
+            off)
+                echo "set rgb_switch to off "
+                sed -i -e "s:rgb_switch.*=.*:rgb_switch = False:g" ${CONF}
+                restart
+            ;;
+            *)
+                echo "usage: pironman -al|--always_on [on|off]"
+            ;;
+        esac
+        ;; 
+    -rs|--rgb_style)
+        case "$2" in
+            breath|leap|flow|raise_up)
+                echo "set rgb_style to $2 "
+                sed -i -e "s:rgb_style.*=.*:rgb_style = $2:g" ${CONF}
+                restart
+            ;;
+            *)
+                echo "usage: pironman -rs|--rgb_style [breath|leap|flow|raise_up]"
+            ;;
+        esac
+        ;;
+    -rc|--rgb_color)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: pironman -rc|--rgb_color [color],clolor in HEX. eg: 0a1aff "
+        else  
+            echo "set rgb_color to $2 "
+            sed -i -e "s:rgb_color.*=.*:rgb_color = $2:g" ${CONF}
+            restart
+        fi
+        ;;
+    -rb|--rgb_speed)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: pironman -rb|--rgb_speed [speed],speed in range (0 ~ 100) "
+        else  
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                if [ $2 -gt -1 ] && [ $2 -lt 101 ];
+                then
+                    echo "set rgb_blink_speed to $2 "
+                    sed -i -e "s:rgb_blink_speed.*=.*:rgb_blink_speed = $2:g" ${CONF}
+                    restart
+                else
+                    echo "out of range (0 ~ 100) "
+                fi
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;
+    *)
+        echo "no this command: $1"
+        echo "please run [ pironman ] or [ pironman -h ] to get help infomation "
+        exit 1
+        ;;
+
+esac
+
+exit 0
