@@ -1,5 +1,16 @@
 # Change Log 
 
+
+## [1.1.0] - 2022-5-12
+
+### Changed
+- Change the project name to "Pironman"
+
+
+### Fixed
+- Fix the data disorder of ws2812 RGB lights after startup
+
+
 ## [1.0.0] - 2022-3-23
 
 ### Added
