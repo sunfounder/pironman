@@ -1,20 +1,38 @@
-.. pironman documentation master file, created by
-   sphinx-quickstart on Tue Sep 13 11:38:58 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-Welcome to pironman's documentation!
-====================================
+PironMan - SunFounder Mini PC Kit for Raspberry Pi
+=================================================================
+
+.. image:: img/pironman.png
+    :width: 400
+    :align: center
+
+Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the screen, mouse and keyboard, and you can use it for projects, entertainment and office.
+
+
+* Small size of 4.43'' x 2.69'' x 4.68''
+* Raspberry Pi mini PC
+* Tower cooler can cool a 100% CPU load Pi to 39°C at 25°C room temperature
+* 0.96" OLED Display showing Raspberry Pi's CPU usage, temperature, disk usage, IP address, RAM usage etc.
+* Onboard USB to M.2 SATA SSD, TRIM supported
+* RGB Fan, with GPIO control
+* 16 WS2812 Addressable RGB LED light up the whole case with cool light effect
+* IR Receiver for multi-media center like Kodi or Volumio
+* External GPIO extender with pin name label, for easy access
+* Power status memory, remembers the power status incase accident power cut off
+* Aluminum main body with clear Acrylic side panel
+
+
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+
+    what_do_we_need    
+    list_and_assembly
+    install_the_os
+    login_raspberry_pi
+    setup_pironman
+    about_hardware
+    appendix/appendix
 
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
