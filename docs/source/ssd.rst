@@ -32,6 +32,10 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 
     .. image:: img/ssd5.jpg
 
+#. Plug in SSD Bridge and 5V/3V power supply.
+
+    .. image:: img/ssd18.jpg
+        
 
 **Booting from SSD**
 

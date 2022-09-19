@@ -2,7 +2,7 @@ WS2812 RGB Strip
 =======================
 
 .. note::
-    The IR receiver is connected to GPIO12.
+    The WS2812 RGB Strip is connected to GPIO12.
 
 The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to display Pironman's status. You can use commands to make it turn on or off, or to modify its color (default is blue), display mode and change rate.
 

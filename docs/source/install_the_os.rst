@@ -1,3 +1,5 @@
+.. _install_os:
+
 3. Installing the OS
 =======================
 

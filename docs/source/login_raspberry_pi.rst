@@ -6,21 +6,14 @@ If You Have a Screen
 
 If you have a screen, it will be easy for you to operate on the Pironman.
 
-1. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the Pironman.
+.. image:: img/connect_screen.jpg
+
+1. Insert the TF card (Micro SD card) you’ve set up with Raspberry Pi OS into the micro SD card slot on the Pironman.
 
 #. Plug in the Mouse and Keyboard.
 
 #. Connect the screen to Raspberry Pi’s HDMI port.
-
-    .. note::
-
-        If you use a Raspberry Pi 4, you need to connect the screen to the HDMI0 (nearest the power in port).
-
-#. Power on the Pironman with a 5V/3A Type C cable. After a few seconds, the Raspberry Pi OS desktop will be displayed, there will be some simple configuration that you will need to complete.
-
-    .. image:: img/image20.png
-        :align: center
-
+#. Power on the Pironman with a 5V/3A Type C cable. After a few seconds, the Raspberry Pi OS desktop will be displayed.
 #. Now you can open the terminal by clicking the icon in the upper left corner.
 
     .. image:: img/login1.png
@@ -28,17 +21,21 @@ If you have a screen, it will be easy for you to operate on the Pironman.
 If You Have No Screen
 --------------------------
 
-If you don’t have a display, you can log in to the Raspberry Pi
-remotely, but before that, you need to get the IP of the Raspberry Pi.
+If you don’t have a display, you can log in to the Raspberry Pi remotely. However, you need to get the IP address of the Raspberry Pi first and then use an application to log in to the Raspberry Pi as SSH.
 
-Get the IP Address
-^^^^^^^^^^^^^^^^^^
+.. note::
+    In order to login remotely to Raspberry Pi you must enable SSH, set up a username and password, and configure the correct Wi-Fi when installing Raspberry Pi OS. Please refer to **Step 6** of::ref:`install_os` for a detailed tutorial.
+
+.. image:: img/connect_power.jpg
+
+1. Get the IP Address
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 After the Raspberry Pi is connected to WIFI, we need to get the IP
 address of it. There are many ways to know the IP address, and two of
 them are listed as follows.
 
-**1.  Checking via the router**
+**Checking via the router**
 
 If you have permission to log in the router(such as a home network), you
 can check the addresses assigned to Raspberry Pi on the admin interface
@@ -48,7 +45,7 @@ The default hostname of the Raspberry Pi OS is **raspberrypi**, and you
 need to find it. (If you are using **ArchLinuxARM** system, please find
 **alarmpi**.)
 
-**2. Network Segment Scanning**
+**Network Segment Scanning**
 
 You can also use network scanning to look up the IP address of Raspberry
 Pi. You can apply the software, **Advanced IP scanner** and so on.
@@ -57,8 +54,8 @@ Scan the IP range set, and the name of all connected devices will be
 displayed. Similarly, the default hostname of the Raspberry Pi OS is
 **raspberrypi**, if you haven't modified it.
 
-Use the SSH Remote Control
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+2. Use the SSH Remote Control
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We can open the Bash Shell of Raspberry Pi by applying SSH. Bash is the
 standard default shell of Linux. The Shell itself is a program written
