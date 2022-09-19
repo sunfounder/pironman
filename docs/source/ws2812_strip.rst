@@ -8,19 +8,11 @@ The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to displa
 
 * Turn on the WS2812 RGB Strip.
 
-.. raw:: html
-
-    <run></run>
-
 .. code-block::
 
     pironman  -rw on
 
 * Turn it off.
-
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -28,29 +20,17 @@ The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to displa
 
 * Change its color, using hexadecimal color values.
 
-.. raw:: html
-
-    <run></run>
-
 .. code-block::
 
     pironman  -rc fe1a1a
 
 * Changing the display mode, there are four modes to choose from: ``breath``, ``leap``, ``flow``, ``raise_up``.
 
-.. raw:: html
-
-    <run></run>
-
 .. code-block::
 
     pironman  -rs leap
 
 * Change the speed of change (0 ~ 100%).
-
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -60,10 +40,6 @@ The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to displa
 
     Open this python script and modify its contents.
 
-    .. raw:: html
-
-        <run></run>
-
     .. code-block::
 
         sudo nano /opt/pironman/ws2812_RGB.py
@@ -71,10 +47,6 @@ The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to displa
     Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
 
     Run it.
-
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 

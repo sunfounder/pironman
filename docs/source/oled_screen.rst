@@ -6,11 +6,9 @@ After installation, the script will start automatically and the OLED screen will
 
 In order to extend the life of OLED screen, OLED will turn off after 60 seconds by default, and will light up by pressing the power button shortly. You can enable/disable this feature with the following command.
 
-* set to sleep mode:  "al" means to "always on".
+* set to sleep mode:  "al" means to "always on". In sleep mode, short press the power button to wake up.
 
-.. raw:: html
 
-    <run></run>
 
 .. code-block::
 
@@ -18,19 +16,15 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
 * set to always on mode:
 
-.. raw:: html
 
-    <run></run>
 
 .. code-block::
 
     pironman  -al on
 
-* Set the duration in seconds.
+* Set the duration in seconds, 
 
-.. raw:: html
 
-    <run></run>
 
 .. code-block::
 
@@ -40,10 +34,6 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
     Open this python script and modify its contents.
 
-    .. raw:: html
-
-        <run></run>
-
     .. code-block::
 
         sudo nano /opt/pironman/main.py
@@ -52,10 +42,6 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
     Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
 
     Run it.
-
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 

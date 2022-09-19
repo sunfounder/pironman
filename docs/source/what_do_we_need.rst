@@ -6,30 +6,23 @@
 
 * Raspberry Pi 4 Model B
 
-    The Raspberry Pi is a low cost, credit-card sized computer that plugs
-    into a computer monitor or TV, and uses a standard keyboard and mouse.
-    It is a capable little device that enables people of all ages to explore
-    computing, and to learn how to program in languages like Scratch and
-    Python.
+    Pirionman is fully compatible with Raspberry Pi 4 Model B. If you have Raspberry Pi 1B+/2B/3B/3B+, you can use them as well, but the tower cooler inside the Pironman may not be as compatible.
 
 * 5V/3A Power Adapter
 
-    To connect to a power socket, the Raspberry Pi 4 Model B has a Type C port (the
-    same found on many mobile phones). You will need a power supply which
-    provides at least 2.5 amps.
+    This 5V/3A power adapter plugs into Pironman's Power connector and powers all components. You can power the Raspberry Pi 4 separately if you are also connecting other devices that consume a lot of power.
+
 
 * Micro SD Card
 
-    Your Raspberry Pi needs an Micro SD card to store all its files and the
-    Raspberry Pi OS. You will need a micro SD card with a capacity of at
-    least 8GB.
+    As the Raspberry Pi is completely enclosed in the Pironman, we have reserved an additional micro SD port for you. The micro SD card you use should have a capacity at least 8GB.
 
 **Optional Components**
 
 * M.2 SATA SSD
 
     .. note::
-        The M.2 SSD hard drive interface only supports SATA protocol, not NVME/PCIe.
+        The M.2 SSD interface only supports SATA protocol, not NVME/PCIe.
 
     In the Pironman's mainboard, there is an M.2 SSD connector for installing your M.2 SSD.
 

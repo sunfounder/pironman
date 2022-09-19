@@ -9,10 +9,6 @@ Before you can start using Pironman, you need to configure the power button and 
 
 Open the ``/boot/config.txt`` file with the following command.
 
-.. raw:: html
-
-    <run></run>
-
 .. code-block::
 
     sudo nano /boot/config.txt
@@ -32,9 +28,6 @@ Install ``piroman`` module
 
 Use the following commands to download and install the ``pironman`` module.
 
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -48,10 +41,6 @@ After installation, the program will start automatically and the OLED screen wil
 .. note::
     
     If you are using Raspberry Pi OS Lite, you will need to install ``git`` and ``python3`` first, which you can do with the following commands.
-    
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
     
@@ -63,9 +52,6 @@ Set up the Pironman
 
 In the ``pironman`` module, we have some basic settings for Pironman, and you can check them with the following command.
 
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -114,9 +100,6 @@ Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructi
 
 For example, to turn off the automatic execution of programs at boot.
 
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -124,9 +107,6 @@ For example, to turn off the automatic execution of programs at boot.
 
 Or reset the color of WS2812 RGB strip.
 
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 
@@ -135,9 +115,6 @@ Or reset the color of WS2812 RGB strip.
 
 Those settings are stored in ``/.config/pironman/config.txt``, and you can also make changes directly in this file.
 
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 

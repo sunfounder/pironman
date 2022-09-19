@@ -8,29 +8,17 @@ Before you can use IR receiver, you need to test its connection and install the 
 
 #. Use the following command to test, if there is a display device then the configuration is successful.
 
-    .. raw:: html
-
-        <run></run>
-
     .. code-block::
 
         sudo ls /dev |grep lirc
 
 #. Install the ``lirc`` module.
 
-    .. raw:: html
-
-        <run></run>
-
     .. code-block::
 
         sudo apt-get install lirc -y
 
 #. Run the following command, and if you press a key on the remote controller, the code of the corresponding key will be printed.
-
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 

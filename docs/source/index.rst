@@ -12,13 +12,13 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 * Small size of 4.43'' x 2.69'' x 4.68''
 * Raspberry Pi mini PC
 * Tower cooler can cool a 100% CPU load Pi to 39°C at 25°C room temperature
-* 0.96" OLED Display showing Raspberry Pi's CPU usage, temperature, disk usage, IP address, RAM usage etc.
+* 0.96" OLED Display showing Raspberry Pi's CPU usage, temperature, disk usage, IP address, RAM usage etc
 * Onboard USB to M.2 SATA SSD, TRIM supported
 * RGB Fan, with GPIO control
-* 16 WS2812 Addressable RGB LED light up the whole case with cool light effect
+* 16 WS2812 Addressable RGB LEDs
 * IR Receiver for multi-media center like Kodi or Volumio
-* External GPIO extender with pin name label, for easy access
-* Power status memory, remembers the power status incase accident power cut off
+* External GPIO extender with pin name label
+* Power status memory, remembers the power status, automatically boot after accident power cut off
 * Aluminum main body with clear Acrylic side panel
 
 

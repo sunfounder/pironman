@@ -8,20 +8,12 @@ The working status of the Cooling Fan is decided by the CPU temperature. When th
 
 * Set the temperature unit, ``C``: Celsius, ``F``: Fahrenheit.
 
-.. raw:: html
-
-    <run></run>
-
 .. code-block::
 
     pironman  -u C
 
 
 * Set the temperature at which the fan starts, for example, 40 degrees Celsius (the unit is set by you).
-
-.. raw:: html
-
-    <run></run>
 
 .. code-block::
 

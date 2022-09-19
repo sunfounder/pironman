@@ -42,9 +42,6 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 
 #. Updating the Bootloader
 
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 
@@ -58,9 +55,6 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 
 #. Use the following command to view the name of the storage device.
 
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 
@@ -70,9 +64,6 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 
 #. Now, clone the system from the Micro SD card to the M.2 SATA SSD. Where ``if`` is followed by the sd card name and ``of`` is followed by the M.2 SSD name.
 
-    .. raw:: html
-
-        <run></run>
 
     .. code-block::
 
