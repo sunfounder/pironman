@@ -22,7 +22,7 @@ Add the following text to the end of the file, noting that there should be no sp
 
 Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
 
-Install ``piroman`` module
+Install ``pironman`` module
 ----------------------------
 
 
