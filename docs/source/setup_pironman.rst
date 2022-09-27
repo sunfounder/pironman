@@ -1,6 +1,9 @@
 5. Set up the Pironman
 ===================================
 
+.. note::
+    This Pironman is used in the same way as PC and requires the power button to power on/off.
+
 .. _change_config:
 
 Change the ``config.txt``
@@ -36,7 +39,14 @@ Use the following commands to download and install the ``pironman`` module.
     cd ~/pironman
     sudo python3 install.py
 
-After installation, the program will start automatically and the OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
+After installation, the program will start automatically. Here are the basic configurations for Pironman.
+
+   * The OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
+   * After 60 seconds, the OLED display goes into sleep mode, and you can wake it up by a short press on the power button.
+   * The fan is turned on at 50 degrees Celsius.
+   * Turn on the WS2812 RGB strip so that it displays in color #0a1aff(blue) and in breath mode (change rate is 50%).
+   * At this point, you can press and hold for 2 seconds to safely shut down or 10 seconds to forcibly shut down.
+
 
 .. note::
     
@@ -47,17 +57,18 @@ After installation, the program will start automatically and the OLED screen wil
         sudo apt update
         sudo apt install git python3-pip python3-setuptools python3-smbus 
 
-Set up the Pironman
+
+Modify the Configuration
 -----------------------------
 
-In the ``pironman`` module, we have some basic settings for Pironman, and you can check them with the following command.
+In the ``pironman`` module, we have some basic configurations for Pironman, and you can check them with the following command.
 
 
 .. code-block::
 
     pironman -c
 
-The current settings are shown below.
+The current configurations are shown below.
 
    * The fan is turned on at 50 degrees Celsius.
    * The duration of the OLED display is 60s, after 60s it will start to sleep.
@@ -66,7 +77,7 @@ The current settings are shown below.
 .. image:: img/pironman_c.png
     :align: center
 
-You can also modify these settings to suit your needs.
+You can also modify these configurations to suit your needs.
 
 Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructions, as follows.
 
@@ -113,7 +124,7 @@ Or reset the color of WS2812 RGB strip.
     pironman -rc ff8a40
 
 
-Those settings are stored in ``/.config/pironman/config.txt``, and you can also make changes directly in this file.
+Those configurations are stored in ``/.config/pironman/config.txt``, and you can also make changes directly in this file.
 
 
 .. code-block::
@@ -125,3 +136,6 @@ Those settings are stored in ``/.config/pironman/config.txt``, and you can also 
     :align: center
 
 Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
+
+.. note::
+    For details on the introduction and configuration of the components in Pironman, please refer to: :ref:`about_hardware`.

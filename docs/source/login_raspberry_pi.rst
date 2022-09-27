@@ -9,12 +9,14 @@ If you have a screen, it will be easy for you to operate on the Pironman.
 .. image:: img/connect_screen.jpg
 
 1. Insert the TF card (Micro SD card) you’ve set up with Raspberry Pi OS into the micro SD card slot on the Pironman.
-
 #. Plug in the Mouse and Keyboard.
-
 #. Connect the screen to Raspberry Pi’s HDMI port.
-#. Power on the Pironman with a 5V/3A Type C cable. After a few seconds, the Raspberry Pi OS desktop will be displayed.
+#. Power the Pironman with a 5V/3A Type C cable and press the power button on the Pironman to turn it on.
+#. After a few seconds, the Raspberry Pi OS desktop will be displayed.
 #. Now you can open the terminal by clicking the icon in the upper left corner.
+
+    .. note::
+        Don't forget to press the power button on the Pironman to turn it on.
 
     .. image:: img/login1.png
 
@@ -24,7 +26,8 @@ If You Have No Screen
 If you don’t have a display, you can log in to the Raspberry Pi remotely. However, you need to get the IP address of the Raspberry Pi first and then use an application to log in to the Raspberry Pi as SSH.
 
 .. note::
-    In order to login remotely to Raspberry Pi you must enable SSH, set up a username and password, and configure the correct Wi-Fi when installing Raspberry Pi OS. Please refer to **Step 6** of::ref:`install_os` for a detailed tutorial.
+    * In order to login remotely to Raspberry Pi you must enable SSH, set up a username and password, and configure the correct Wi-Fi when installing Raspberry Pi OS. Please refer to **Step 6** of::ref:`install_os` for a detailed tutorial.
+    * Don't forget to press the power button on the Pironman to turn it on.
 
 .. image:: img/connect_power.jpg
 

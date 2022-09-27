@@ -22,7 +22,8 @@
 * M.2 SATA SSD
 
     .. note::
-        The M.2 SSD interface only supports SATA protocol, not NVME/PCIe.
+        * The M.2 SSD interface only supports SATA protocol, not NVME/PCIe.
+        * For more information on how to mount SSD to Pironman and the related configuration, please refer to ::ref:`ssd`.
 
     In the Pironman's mainboard, there is an M.2 SSD connector for installing your M.2 SSD.
 

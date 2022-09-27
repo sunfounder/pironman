@@ -1,3 +1,5 @@
+.. _about_hardware:
+
 6. About Hardware
 =========================
 
