@@ -5,5 +5,6 @@
 .. toctree::
     
     remote_desktop
+    install_osmc_pi
 
 

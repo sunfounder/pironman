@@ -1,5 +1,5 @@
 
-PironMan - SunFounder Mini PC Kit for Raspberry Pi
+Pironman - SunFounder Mini PC Kit for Raspberry Pi
 =================================================================
 
 .. image:: img/pironman.png

@@ -76,3 +76,27 @@ language = 'en' # Before running make html, set the language.
 locale_dirs = ['locale/'] # .po files for other languages are placed in the locale/ folder.
 
 gettext_compact = False # Support for generating the contents of the folders inside source/ into other languages.
+
+
+# open link in a new window
+
+rst_epilog = """
+
+.. |link_kodi| raw:: html
+
+    <a href="https://kodi.tv/" target="_blank">Kodi</a>
+    
+.. |link_osmc| raw:: html
+
+    <a href="https://osmc.tv/" target="_blank">OSMC</a>
+
+.. |link_libreelec| raw:: html
+
+    <a href="https://libreelec.tv/" target="_blank">LibreELEC</a>
+    
+.. |link_imager| raw:: html
+
+    <a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a>
+
+
+"""

@@ -23,3 +23,6 @@ Before you can use IR receiver, you need to test its connection and install the 
     .. code-block::
 
         mode2 -d /dev/lirc0
+
+.. note::
+    If you want to play Kodi on Raspberry Pi, please refer to: :ref:`kodi_osmc`.
