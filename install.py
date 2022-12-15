@@ -94,12 +94,12 @@ def install():
     print('create WorkingDirectory')    
     do(msg="create /opt",
         cmd='sudo mkdir -p /opt'
-        +' && sudo chmod 774 /opt'
-        +' && sudo chown %s:%s /opt'%(username, username) 
+        +' && sudo chmod -R 774 /opt'
+        +' && sudo chown -R %s:%s /opt'%(username, username) 
     )       
     do(msg="create dir",
         cmd='sudo mkdir -p /opt/%s'%__app_name__
-        +' && sudo chmod 774 /opt/%s'%__app_name__  
+        +' && sudo chmod -R 774 /opt/%s'%__app_name__  
         +' && sudo chown %s:%s /opt/%s'%(username, username, __app_name__) 
     )
     #
