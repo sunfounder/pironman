@@ -31,7 +31,7 @@ fan_temp = 50 # celsius
 screen_always_on = False
 screen_off_time = 60
 rgb_switch = True
-rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up'    
+rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful'
 rgb_color = '#0a1aff'
 rgb_blink_speed = 50
 
@@ -187,7 +187,7 @@ def main():
 
 
     while True:
-
+        
         # CPU temp
         CPU_temp_C = float(getCPUtemperature()) # celcius
         CPU_temp_F = float(CPU_temp_C * 1.8 + 32) # fahrenheit

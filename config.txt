@@ -14,7 +14,7 @@
 # 
 # rgb_switch, rgb strip switch 
 #
-# rgb_style, rgb strip display style, in [breath / leap / flow / raise_up]
+# rgb_style, rgb strip display style, in [breath / leap / flow / raise_up / colorful]
 #
 # rgb_color, color of the RGB indicator inside the case
 #
@@ -28,6 +28,5 @@ screen_always_on = False
 screen_off_time = 60
 rgb_switch = True
 rgb_style = breath     
-rgb_color = #0a1aff
+rgb_color = 0a1aff
 rgb_blink_speed = 50
-

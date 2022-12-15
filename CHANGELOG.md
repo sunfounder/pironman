@@ -1,5 +1,12 @@
 # Change Log 
 
+## [1.2.0] - 2022-12-15
+
+### Fixed
+- Fix the problem of rgb wrongly flash caused by occupied rgb pwm pin
+
+### Added
+- Add "colorful" style of rgb LEDs
 
 ## [1.1.0] - 2022-5-12
 

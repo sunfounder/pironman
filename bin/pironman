@@ -23,7 +23,7 @@
 ####                    in second, default 30
 ####   -rw,--rgb_sw     [on/off], rgb strip switch
 ####   -rs,--rgb_style  rgb strip display style, default: breath,    
-####                    in [breath / leap / flow / raise_up]
+####                    in [breath / leap / flow / raise_up / colorful]
 ####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
 ####                    default: 0a1aff
 ####   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
@@ -192,13 +192,13 @@ case "$1" in
         ;; 
     -rs|--rgb_style)
         case "$2" in
-            breath|leap|flow|raise_up)
+            breath|leap|flow|raise_up|colorful)
                 echo "set rgb_style to $2 "
                 sed -i -e "s:rgb_style.*=.*:rgb_style = $2:g" ${CONF}
                 restart
             ;;
             *)
-                echo "usage: pironman -rs|--rgb_style [breath|leap|flow|raise_up]"
+                echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful]"
             ;;
         esac
         ;;
