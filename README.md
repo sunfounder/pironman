@@ -3,12 +3,14 @@ This repository is for SunFounder Pironman - A PC case for Raspberry Pi. you can
 
 Quick Links:
 
- * [About pironman](#about_this_kit)
- * [Install](#install)
- * [Update](#update)
- * [About SunFounder](#about_sunfounder)
- * [License](#license)
- * [Contact us](#contact_us)
+- [SunFounder Pironman for Raspberry Pi](#sunfounder-pironman-for-raspberry-pi)
+  - [About pironman:](#about-pironman)
+  - [Install:](#install)
+  - [Usage:](#usage)
+  - [Update:](#update)
+  - [About SunFounder](#about-sunfounder)
+  - [License](#license)
+  - [Contact us:](#contact-us)
 
 <a id="about_pironman"></a>
 ## About pironman:
@@ -22,6 +24,36 @@ The pironman is used on Raspberry Pi to control OLED to display system status in
  git clone https://github.com/sunfounder/pironman.git
  cd ~/pironman
  sudo python3 install.py
+```
+
+## Usage:
+```bash
+Usage:
+  pironman <OPTION> <input>
+
+Options:
+  start            start pironman service
+  stop             stop pironman service
+  restart          restart pironman service
+  -h,--help        help, show this help
+  -c,--check       show all configurations
+  -a,--auto        [ on ],enable auto-start at boot
+                   [ off ], disable auto-start at boot
+  -u,--unit        [ C/F ], set the unit of temperature,
+                       C or F (Celsius/Fahrenheit)
+  -f,--fan         [ temp ], Temperature at which the fan switches on, 
+                   in celsius (default 50),in range (30 ~ 80)
+  -al,--always_on  [on/off], whether the screen is always on,
+                   default False
+  -s,--staty_time  [time], screen display duration in second,
+                   in second, default 30
+  -rw,--rgb_sw     [on/off], rgb strip switch
+  -rs,--rgb_style  rgb strip display style, default: breath,    
+                   in [breath / leap / flow / raise_up / colorful]
+  -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
+                   default: 0a1aff
+  -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+
 ```
 ## Update:
 https://github.com/sunfounder/pironman/blob/master/CHANGELOG.md
