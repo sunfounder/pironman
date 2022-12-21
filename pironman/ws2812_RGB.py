@@ -37,7 +37,7 @@ class WS2812():
 		self.led_freq_hz = LED_FREQ_HZ
 		self.led_dma = LED_DMA
 		self.led_invert = LED_INVERT
-
+		self.strip = None
 		self.init()
 
 	def init(self):
@@ -47,6 +47,7 @@ class WS2812():
 									self.led_dma,
 									self.led_invert,
 									self.led_brightness)
+		time.sleep(0.01)
 		self.strip.begin()
 
 	def reinit(self):
@@ -66,6 +67,7 @@ class WS2812():
 
 	def clear(self, color:str='#000000'):
 		r, g, b = self.hex_to_rgb(color)
+		self.reinit()
 		self.strip.begin()
 		for i in range(self.led_count):
 			self.strip.setPixelColor(i, Color(r,g,b))
@@ -164,19 +166,18 @@ class WS2812():
 	def colorful(self, color:list=None, speed=50):
 		speed = 101 - speed
 		_color = list(self.hex_to_rgb(colorful_leds[i]) for i in range(self.led_count))
-		print(_color)
 		while True:
 			self.reinit()
 			for i in range(2,101):
 				for index in self.lights_order:
 					r, g, b = [int(x*i*0.01) for x in _color[index]]
-					self.strip.setPixelColor(index, Color(r,g,b))	
+					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
 				time.sleep(0.001*speed)
 			for i in range(100,1,-1): 
 				for index in self.lights_order:
 					r, g, b = [int(x*i*0.01) for x in _color[index]]
-					self.strip.setPixelColor(index, Color(r,g,b))	
+					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
 				time.sleep(0.001*speed)
 

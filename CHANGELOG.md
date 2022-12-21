@@ -1,5 +1,11 @@
 # Change Log 
 
+## [1.2.1] - 2022-12-21
+
+### Fixed
+- Fix the bug of rgb init
+  
+  
 ## [1.2.0] - 2022-12-15
 
 ### Fixed
