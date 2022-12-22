@@ -1,5 +1,11 @@
 # Change Log 
 
+## [1.2.2] - 2022-12-22
+
+### Fixed
+- Fix the bug of rgb wrongly flash when running "pironman start"
+
+
 ## [1.2.1] - 2022-12-21
 
 ### Fixed

@@ -80,7 +80,7 @@ fi
 
 case "$1" in
     start)
-        start
+        restart
         ;;
     stop)
         stop
