@@ -14,4 +14,4 @@ Assemble tutorial video:
 
 .. raw:: html
 
-    <iframe width="956" height="538" src="https://www.youtube.com/embed/YAnLBU9HVcM" title="mini pc raspberry pi 4 case" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="700" height="400" src="https://www.youtube.com/embed/YAnLBU9HVcM" title="mini pc raspberry pi 4 case" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
