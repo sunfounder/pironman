@@ -10,4 +10,8 @@ Please follow the steps on the following PDF for assembly instructions:
 
 :download:`[PDF]Component List and Assembly of Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v10-a0000891-pironman.pdf>`.
 
+Assemble tutorial video:
 
+.. raw:: html
+
+    <iframe width="956" height="538" src="https://www.youtube.com/embed/YAnLBU9HVcM" title="mini pc raspberry pi 4 case" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
