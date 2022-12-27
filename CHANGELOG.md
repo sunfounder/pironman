@@ -1,5 +1,10 @@
 # Change Log 
 
+## [1.2.3] - 2022-12-27
+
+### Fixed
+- Fix the bug that the number of files overflowed when reinitializing the ws2812_rgb object
+
 ## [1.2.2] - 2022-12-22
 
 ### Fixed

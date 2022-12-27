@@ -51,6 +51,9 @@ class WS2812():
 		self.strip.begin()
 
 	def reinit(self):
+		if self.strip is not None:
+			# del self.strip
+			self.strip._cleanup()
 		self.init()
 
 	# str or hex, eg: 'ffffff', '#ffffff', '#FFFFFF'
