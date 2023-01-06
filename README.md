@@ -4,13 +4,13 @@ This repository is for SunFounder Pironman - A PC case for Raspberry Pi. you can
 Quick Links:
 
 - [SunFounder Pironman for Raspberry Pi](#sunfounder-pironman-for-raspberry-pi)
-  - [About pironman:](#about-pironman)
-  - [Install:](#install)
-  - [Usage:](#usage)
-  - [Update:](#update)
+  - [About pironman](#about-pironman)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Update](#update)
   - [About SunFounder](#about-sunfounder)
   - [License](#license)
-  - [Contact us:](#contact-us)
+  - [Contact us](#contact-us)
 
 <a id="about_pironman"></a>
 ## About pironman:
@@ -18,7 +18,7 @@ The pironman is used on Raspberry Pi to control OLED to display system status in
 
 <a id="update"></a>
 
-## Install:
+## Install
 ```bash
  cd ~
  git clone https://github.com/sunfounder/pironman.git
@@ -26,7 +26,7 @@ The pironman is used on Raspberry Pi to control OLED to display system status in
  sudo python3 install.py
 ```
 
-## Usage:
+## Usage
 ```bash
 Usage:
   pironman <OPTION> <input>
@@ -55,7 +55,7 @@ Options:
   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
 
 ```
-## Update:
+## Update
 https://github.com/sunfounder/pironman/blob/master/CHANGELOG.md
 
 <a id="about_sunfounder"></a>
@@ -82,7 +82,7 @@ Mike Huang, Chief Executive Officer
 Email: service@sunfounder.com
 
 <a id="contact_us"></a>
-## Contact us:
+## Contact us
 website:
     www.sunfounder.com
 
