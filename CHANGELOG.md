@@ -1,4 +1,10 @@
-# Change Log 
+# Change Log
+
+## [1.2.4] - 2023-1-6
+
+### Fixed
+- Fix the bug of getting CPU useage rate when the system language is French
+
 
 ## [1.2.3] - 2022-12-27
 
@@ -15,8 +21,8 @@
 
 ### Fixed
 - Fix the bug of rgb init
-  
-  
+
+
 ## [1.2.0] - 2022-12-15
 
 ### Fixed
@@ -56,7 +62,7 @@
 
 ### Fixed
 - Fix bug of log
-- Fix bug of get system cpu usage 
+- Fix bug of get system cpu usage
 
 ### Optimized
 - Optimize code redundancy

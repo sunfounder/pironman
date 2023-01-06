@@ -5,33 +5,34 @@ import subprocess
 Use subprocess.popen instead of os.popen to avoid some errors
 '''
 
-# Return CPU temperature as a character string 
+# Return CPU temperature as a character string
 def getCPUtemperature():
     res = subprocess.check_output('vcgencmd measure_temp',shell=True).decode()
     return(res.replace("temp=","").replace("'C\n",""))
 
-# Return RAM information (unit=kb) in a list                                       
-# Index 0: total RAM                                                               
-# Index 1: used RAM                                                                 
-# Index 2: free RAM 
+# Return RAM information (unit=kb) in a list
+# Index 0: total RAM
+# Index 1: used RAM
+# Index 2: free RAM
 def getRAMinfo():
     ram = subprocess.check_output('free |grep Mem',shell=True).decode()
     return(ram.split()[1:4])
-        
+
 # Return % of CPU used as a character string
-def getCPUuse(): 
+def getCPUuse():
     cmd = "top -bn1 |awk '/Cpu\(s\):/ {print $8}'"
     try:
-        CPU_usage = subprocess.check_output(cmd,shell=True) .decode()
+        CPU_usage = subprocess.check_output(cmd,shell=True).decode().replace(',', ' ')
         CPU_usage = round(100 - float(CPU_usage),1)
-    except:
+    except Exception as e:
+        print('getCPUuse: %s' %e)
         return 0.0
     return CPU_usage
 
-# Return information about disk space as a list (unit included)                     
-# Index 0: total disk space                                                         
-# Index 1: used disk space                                                         
-# Index 2: remaining disk space                                                     
+# Return information about disk space as a list (unit included)
+# Index 0: total disk space
+# Index 1: used disk space
+# Index 2: remaining disk space
 # Index 3: percentage of disk used
 def getDiskSpace():
     disk = subprocess.check_output("df -h |grep /dev/root",shell=True).decode()
@@ -52,7 +53,7 @@ def getIP():
         except:
             continue
         # print(NIC, IPs[NIC])
-    
+
     return IPs
 
 
@@ -92,8 +93,14 @@ if __name__ == '__main__':
     DISK_used = DISK_stats[1]
     DISK_perc = DISK_stats[3]
     # IP
-    wlan0,eth0 = getIP()
-    
+    IPs = getIP()
+    wlan0 = None
+    eth0 = None
+    if IPs['wlan0'] != None and IPs['wlan0'] != '':
+        wlan0 = IPs['wlan0']
+    if IPs['eth0'] != None and IPs['eth0'] != '':
+        eth0 = IPs['eth0']
+
     print('')
     print('CPU Temperature = %s \'C' % CPU_temp)
     print('CPU Use = %s %%'%CPU_usage)
@@ -102,13 +109,12 @@ if __name__ == '__main__':
     print('RAM Used = %s MB'%RAM_used)
     print('RAM Free = %s MB'%RAM_free)
     print('RAM Usage = %s %%'%RAM_usage)
-    print('')  
+    print('')
     print('DISK Total Space = '+str(DISK_total))
     print('DISK Used Space = '+str(DISK_used))
-    print('DISK Used Percentage = '+str(DISK_perc))   
+    print('DISK Used Percentage = '+str(DISK_perc))
     print('wlan0 : %s'%wlan0)
     print('eth0 : %s'%eth0)
-    
 
 
- 
+
