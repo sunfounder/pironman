@@ -22,7 +22,7 @@ def getRAMinfo():
 def getCPUuse():
     cmd = "top -bn1 |awk '/Cpu\(s\):/ {print $8}'"
     try:
-        CPU_usage = subprocess.check_output(cmd,shell=True).decode().replace(',', ' ')
+        CPU_usage = subprocess.check_output(cmd,shell=True).decode().replace(',', '.')
         CPU_usage = round(100 - float(CPU_usage),1)
     except Exception as e:
         print('getCPUuse: %s' %e)
