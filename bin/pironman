@@ -15,14 +15,14 @@
 ####                    [ off ], disable auto-start at boot
 ####   -u,--unit        [ C/F ], set the unit of temperature,
 ####                        C or F (Celsius/Fahrenheit)
-####   -f,--fan         [ temp ], Temperature at which the fan switches on, 
+####   -f,--fan         [ temp ], Temperature at which the fan switches on,
 ####                    in celsius (default 50),in range (30 ~ 80)
 ####   -al,--always_on  [on/off], whether the screen is always on,
 ####                    default False
 ####   -s,--staty_time  [time], screen display duration in second,
 ####                    in second, default 30
 ####   -rw,--rgb_sw     [on/off], rgb strip switch
-####   -rs,--rgb_style  rgb strip display style, default: breath,    
+####   -rs,--rgb_style  rgb strip display style, default: breath,
 ####                    in [breath / leap / flow / raise_up / colorful]
 ####   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
 ####                    default: 0a1aff
@@ -51,12 +51,12 @@ help() {
 start() {
     sudo python3 $main 1>/dev/null 2>>/opt/pironman/log &
     # sudo python3 $main 1>/dev/null 2>&1 &
-    if [ $? == '0' ];then     
-        echo "pironman start succeed"       
+    if [ $? == '0' ];then
+        echo "pironman start succeed"
     else
         echo "pironman start failed"
         echo $?
-    fi 
+    fi
 }
 
 stop() {
@@ -126,7 +126,7 @@ case "$1" in
         if [ $# -lt 2 ] ;
         then
             echo "usage: pironman -f|--fan [temp],temperature in range (30 ~ 80) "
-        else  
+        else
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
                 # if [ $2 -gt 29 ] && [ $2 -lt 81 ];
@@ -141,7 +141,7 @@ case "$1" in
                 echo "parameter must be integer"
             fi
         fi
-        ;;   
+        ;;
     -al|--always_on)
         case "$2" in
             on)
@@ -157,12 +157,12 @@ case "$1" in
             *)
                 echo "usage: pironman -al|--always_on [on|off]"
         esac
-        ;;   
+        ;;
     -s|--staty_time)
         if [ $# -lt 2 ] ;
         then
             echo "usage: pironman -s|--staty_time [time],time in seconds "
-        else  
+        else
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
                     echo "set screen_off_time to $2 "
@@ -173,7 +173,7 @@ case "$1" in
             fi
         fi
         ;;
-    -rw|--rgb_sw) 
+    -rw|--rgb_sw)
         case "$2" in
             on)
                 echo "set rgb_switch to on "
@@ -189,7 +189,7 @@ case "$1" in
                 echo "usage: pironman -al|--always_on [on|off]"
             ;;
         esac
-        ;; 
+        ;;
     -rs|--rgb_style)
         case "$2" in
             breath|leap|flow|raise_up|colorful)
@@ -206,7 +206,7 @@ case "$1" in
         if [ $# -lt 2 ] ;
         then
             echo "usage: pironman -rc|--rgb_color [color],clolor in HEX. eg: 0a1aff "
-        else  
+        else
             echo "set rgb_color to $2 "
             sed -i -e "s:rgb_color.*=.*:rgb_color = $2:g" ${CONF}
             restart
@@ -216,7 +216,7 @@ case "$1" in
         if [ $# -lt 2 ] ;
         then
             echo "usage: pironman -rb|--rgb_speed [speed],speed in range (0 ~ 100) "
-        else  
+        else
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
                 if [ $2 -gt -1 ] && [ $2 -lt 101 ];

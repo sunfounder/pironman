@@ -20,7 +20,7 @@ log('username: %s'%username, timestamp=False)
 log('config_file: %s \n'%config_file, timestamp=False)
 
 
-# region: config 
+# region: config
 power_key_pin = 16
 fan_pin = 6
 rgb_pin = 12
@@ -44,14 +44,14 @@ if not os.path.exists(config_file):
     # check $user_home/.config
     if not os.path.exists('%s/.config'%user_home):
         os.mkdir('%s/.config'%user_home)
-        os.popen('sudo chmod 774 %s/.config'%user_home)  
-        run_command('sudo  chown %s %s/.config'%(username, user_home))  
+        os.popen('sudo chmod 774 %s/.config'%user_home)
+        run_command('sudo  chown %s %s/.config'%(username, user_home))
     # create config_file
     status, result = run_command(cmd='sudo mkdir -p  %s/.config/%s'%(user_home, __app_name__)
         +' && sudo touch %s'%config_file
         +' && sudo chmod -R 774 %s/.config/%s'%(user_home, __app_name__)
-        +' && sudo chown -R %s %s/.config/%s'%(username, user_home, __app_name__)    
-    ) 
+        +' && sudo chown -R %s %s/.config/%s'%(username, user_home, __app_name__)
+    )
     if status != 0:
         log('create config_file failed:\n%s'%result)
         raise Exception(result)
@@ -61,7 +61,7 @@ try:
     config.read(config_file)
     temp_unit = config['all']['temp_unit']
     fan_temp = float(config['all']['fan_temp'])
-    screen_always_on = config['all']['screen_always_on']   
+    screen_always_on = config['all']['screen_always_on']
     if screen_always_on == 'True':
         screen_always_on = True
     else:
@@ -88,17 +88,17 @@ except:
     with open(config_file, 'w') as f:
         config.write(f)
 
-log("power_key_pin : %s"%power_key_pin) 
-log("fan_pin : %s"%fan_pin) 
-log("rgb_pin : %s"%rgb_pin) 
-log("update_frequency : %s"%update_frequency) 
+log("power_key_pin : %s"%power_key_pin)
+log("fan_pin : %s"%fan_pin)
+log("rgb_pin : %s"%rgb_pin)
+log("update_frequency : %s"%update_frequency)
 log("temp_unit : %s"%temp_unit)
-log("fan_temp : %s"%fan_temp) 
-log("screen_always_on : %s"%screen_always_on) 
-log("screen_off_time : %s"%screen_off_time) 
+log("fan_temp : %s"%fan_temp)
+log("screen_always_on : %s"%screen_always_on)
+log("screen_off_time : %s"%screen_off_time)
 log("rgb_switch: %s"%rgb_switch)
-log("rgb_blink_speed : %s"%rgb_blink_speed) 
-log("rgb_color : %s"%rgb_color) 
+log("rgb_blink_speed : %s"%rgb_blink_speed)
+log("rgb_color : %s"%rgb_color)
 log("\n")
 # endregion: config
 
@@ -116,7 +116,7 @@ try:
     image = Image.new('1', (width, height))
     draw = ImageDraw.Draw(image)
     font_8 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%__app_name__, 8)
-    font_12 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%__app_name__, 12) 
+    font_12 = ImageFont.truetype('/opt/%s/Minecraftia-Regular.ttf'%__app_name__, 12)
 
     def draw_text(text,x,y,fill=1):
         text = str(text)
@@ -142,7 +142,7 @@ def get_io(pin):
     return GPIO.input(pin)
 
 def fan_on():
-    global fan_pin 
+    global fan_pin
     set_io(fan_pin,1)
 
 def fan_off():
@@ -172,8 +172,8 @@ def rgb_show():
 # endregion: rgb_strip init
 
 def main():
-    global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin 
-    global oled_stat        
+    global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
+    global oled_stat
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
@@ -187,18 +187,18 @@ def main():
 
 
     while True:
-        
+
         # CPU temp
         CPU_temp_C = float(getCPUtemperature()) # celcius
         CPU_temp_F = float(CPU_temp_C * 1.8 + 32) # fahrenheit
-         
-        if oled_stat == True: 
+
+        if oled_stat == True:
         # CPU usage
-            CPU_usage = float(getCPUuse()) 
+            CPU_usage = float(getCPUuse())
         # clear draw buffer
             draw.rectangle((0,0,width,height), outline=0, fill=0)
         # get info
-            # RAM 
+            # RAM
             RAM_stats = getRAMinfo()
             RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
             RAM_used = round(int(RAM_stats[1]) / 1024/1024,1)
@@ -207,21 +207,21 @@ def main():
             DISK_stats = getDiskSpace()
             DISK_total = str(DISK_stats[0])
             DISK_used = str(DISK_stats[1])
-            DISK_perc = float(DISK_stats[3][:-1])  
+            DISK_perc = float(DISK_stats[3][:-1])
             # ip address
             ip = None
             IPs = getIP()
             # log(IPs)
 
             for NIC in IPs:
-                
+
                 if NIC == 'lo' or NIC == 'eth0' or NIC == 'wlan0':
                     continue
                 if IPs[NIC] != None and IPs[NIC] != '':
                     # log(NIC, IPs[NIC])
                     ip = IPs[NIC]
                     break
-                
+
             if ip == None:
                 if IPs['wlan0'] != None and IPs['wlan0'] != '':
                     ip = IPs['wlan0']
@@ -231,7 +231,7 @@ def main():
                     # log('No IP found')
                     ip = 'DISCONNECT'
 
-        # display info 
+        # display info
             ip_rect = Rect(48, 0, 81, 10)
             ram_info_rect = Rect(46, 17, 81, 10)
             ram_rect = Rect(46, 29, 81, 10)
@@ -257,27 +257,27 @@ def main():
             # draw_text('{:>5.1f}'.format(RAM_usage)+' %',92,0)
             draw.rectangle(ram_rect.rect(), outline=1, fill=0)
             draw.rectangle(ram_rect.rect(RAM_usage), outline=1, fill=1)
-            # Disk 
+            # Disk
             draw_text('ROM: {}/{} GB'.format(DISK_used[:-1],DISK_total[:-1]), *rom_info_rect.coord())
             # draw_text('     ',72,32)
             # draw_text(''+' G',72,32)
             draw.rectangle(rom_rect.rect(), outline=1, fill=0)
-            draw.rectangle(rom_rect.rect(DISK_perc), outline=1, fill=1) 
-            # IP   
+            draw.rectangle(rom_rect.rect(DISK_perc), outline=1, fill=1)
+            # IP
             draw.rectangle((ip_rect.x-13,ip_rect.y,ip_rect.x+ip_rect.width,ip_rect.height), outline=1, fill=1)
             draw.pieslice((ip_rect.x-25,ip_rect.y,ip_rect.x-3,ip_rect.height+10), start=270, end=0, fill=0, outline=0)
             draw_text(ip,*ip_rect.coord(),0)
         # draw the image buffer.
-            oled.image(image)        
+            oled.image(image)
             oled.display()
-    
+
         # screen off timer
         if screen_always_on == False and (time.time()-time_start) > screen_off_time:
                 oled.off()
-                oled_stat = False     
+                oled_stat = False
 
 
-    # fan control 
+    # fan control
         if temp_unit == 'C':
             if CPU_temp_C > fan_temp:
                 fan_on()
@@ -325,7 +325,7 @@ def main():
                 os.system('sudo poweroff')
                 sys.exit(1)
         else:
-            power_key_flag = False    
+            power_key_flag = False
 
         time.sleep(update_frequency)
 
@@ -352,6 +352,6 @@ if __name__ == "__main__":
         log('error')
         log(e)
     finally:
-        GPIO.cleanup()   
+        GPIO.cleanup()
 
-    
+

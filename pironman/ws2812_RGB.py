@@ -13,7 +13,7 @@ from utils import log
 
 RGB_styles = ['breath', 'leap', 'flow', 'raise_up', 'colorful']
 colorful_leds = [
-	"#ff0000", "#e71164", "#ffa500", "#0000ff", 
+	"#ff0000", "#e71164", "#ffa500", "#0000ff",
 	"#ffC800", "#00ff00", "#0000ff", "#00ffb4",
 	"#ff0000", "#00ff00", "#00ff00", "#8b00ff",
 	"#8b00ff", "#8b00ff", "#0000ff", "#0000ff",
@@ -22,14 +22,14 @@ colorful_leds = [
 class WS2812():
 
 	lights_order = [1, 3, 5, 7, 0, 2, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15]
-	
+
 	def __init__(self,
 				LED_COUNT,
-				LED_PIN, 
+				LED_PIN,
 				LED_BRIGHTNESS=255,
-				LED_FREQ_HZ=800000, 
-				LED_DMA=10, 
-				LED_INVERT=False, 
+				LED_FREQ_HZ=800000,
+				LED_DMA=10,
+				LED_INVERT=False,
 				):
 		self.led_count = LED_COUNT
 		self.led_pin = LED_PIN
@@ -41,7 +41,7 @@ class WS2812():
 		self.init()
 
 	def init(self):
-		self.strip = Adafruit_NeoPixel(self.led_count, 
+		self.strip = Adafruit_NeoPixel(self.led_count,
 									self.led_pin,
 									self.led_freq_hz,
 									self.led_dma,
@@ -74,7 +74,7 @@ class WS2812():
 		self.strip.begin()
 		for i in range(self.led_count):
 			self.strip.setPixelColor(i, Color(r,g,b))
-		self.strip.show() 
+		self.strip.show()
 
 
 	def display(self, style:str, color:str='#0a1aff', speed=50, brightness=255):
@@ -91,23 +91,23 @@ class WS2812():
 			log(f'LED display error: {e}')
 
 # styles
-	def breath(self, color:list=[255, 255, 255], speed=50):	
+	def breath(self, color:list=[255, 255, 255], speed=50):
 		speed = 101 - speed
 		while True:
 			self.reinit()
 			for i in range(2,101):
 				r, g, b = [int(x*i*0.01) for x in color]
 				for index in self.lights_order:
-					self.strip.setPixelColor(index, Color(r,g,b))	
+					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
 				time.sleep(0.001*speed)
-			for i in range(100,1,-1): 
+			for i in range(100,1,-1):
 				r, g, b = [int(x*i*0.01) for x in color]
 				for index in self.lights_order:
-					self.strip.setPixelColor(index, Color(r,g,b))	
+					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
-				time.sleep(0.001*speed) 
-			
+				time.sleep(0.001*speed)
+
 	def leap(self, color:list=[255, 255, 255], speed=50):
 		speed = 101 - speed
 		r,g,b = color
@@ -177,7 +177,7 @@ class WS2812():
 					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
 				time.sleep(0.001*speed)
-			for i in range(100,1,-1): 
+			for i in range(100,1,-1):
 				for index in self.lights_order:
 					r, g, b = [int(x*i*0.01) for x in _color[index]]
 					self.strip.setPixelColor(index, Color(r,g,b))

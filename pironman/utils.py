@@ -13,7 +13,7 @@ def log(msg:str=None,level='DEBUG',end='\n',flush=False,timestamp=True):
             print('%s,%s[%s] %s'%(_time,_msecs,level,msg), end=end, flush=flush, file=sys.stdout)
         else:
             print('%s'%msg, end=end, flush=flush, file=log_file)
-            print('%s'%msg, end=end, flush=flush, file=sys.stdout) 
+            print('%s'%msg, end=end, flush=flush, file=sys.stdout)
 
 def run_command(cmd):
     import subprocess

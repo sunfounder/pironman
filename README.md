@@ -41,14 +41,14 @@ Options:
                    [ off ], disable auto-start at boot
   -u,--unit        [ C/F ], set the unit of temperature,
                        C or F (Celsius/Fahrenheit)
-  -f,--fan         [ temp ], Temperature at which the fan switches on, 
+  -f,--fan         [ temp ], Temperature at which the fan switches on,
                    in celsius (default 50),in range (30 ~ 80)
   -al,--always_on  [on/off], whether the screen is always on,
                    default False
   -s,--staty_time  [time], screen display duration in second,
                    in second, default 30
   -rw,--rgb_sw     [on/off], rgb strip switch
-  -rs,--rgb_style  rgb strip display style, default: breath,    
+  -rs,--rgb_style  rgb strip display style, default: breath,
                    in [breath / leap / flow / raise_up / colorful]
   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
                    default: 0a1aff
