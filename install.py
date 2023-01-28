@@ -40,8 +40,8 @@ PIP_INSTALL_LIST = [
 def run_command(cmd=""):
     import subprocess
     p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    result = p.stdout.read().decode('utf-8')
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    result = p.stdout.read()
     status = p.poll()
     return status, result
 
@@ -71,7 +71,7 @@ def install():
             print(usage)
             quit()
     #
-    print("%s install process starts"%__app_name__)
+    print(f"{__app_name__} {__version__}install process starts")
     if "--no-dep" not in options:
         do(msg="update apt",
             cmd='sudo apt update -y'
