@@ -15,8 +15,9 @@ def getCPUtemperature():
 # Index 1: used RAM
 # Index 2: free RAM
 def getRAMinfo():
-    ram = subprocess.check_output('free |grep Mem',shell=True).decode()
-    return(ram.split()[1:4])
+    cmd = "free |awk 'NR==2 {print $2,$3,$4}'"
+    ram = subprocess.check_output(cmd, shell=True).decode()
+    return(ram.split())
 
 # Return % of CPU used as a character string
 def getCPUuse():
