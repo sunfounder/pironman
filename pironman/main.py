@@ -207,7 +207,7 @@ def main():
             DISK_stats = getDiskSpace()
             DISK_total = str(DISK_stats[0])
             DISK_used = str(DISK_stats[1])
-            DISK_perc = float(DISK_stats[3][:-1])
+            DISK_perc = float(DISK_stats[3])
             # ip address
             ip = None
             IPs = getIP()
@@ -258,7 +258,7 @@ def main():
             draw.rectangle(ram_rect.rect(), outline=1, fill=0)
             draw.rectangle(ram_rect.rect(RAM_usage), outline=1, fill=1)
             # Disk
-            draw_text('ROM: {}/{} GB'.format(DISK_used[:-1],DISK_total[:-1]), *rom_info_rect.coord())
+            draw_text('ROM: {}/{} GB'.format(DISK_used ,DISK_total), *rom_info_rect.coord())
             # draw_text('     ',72,32)
             # draw_text(''+' G',72,32)
             draw.rectangle(rom_rect.rect(), outline=1, fill=0)

@@ -21,7 +21,7 @@ def getRAMinfo():
 
 # Return % of CPU used as a character string
 def getCPUuse():
-    cmd = "top -bn1 |awk '/Cpu\(s\):/ {print $8}'"
+    cmd = "top -bn1 |awk 'NR==3 {print $8}'"
     try:
         CPU_usage = subprocess.check_output(cmd,shell=True).decode().replace(',', '.')
         CPU_usage = round(100 - float(CPU_usage),1)
@@ -36,8 +36,10 @@ def getCPUuse():
 # Index 2: remaining disk space
 # Index 3: percentage of disk used
 def getDiskSpace():
-    disk = subprocess.check_output("df -h |grep /dev/root",shell=True).decode()
-    return(disk.split()[1:5])
+    cmd ="df -h |grep /dev/root"
+    disk = subprocess.check_output(cmd ,shell=True).decode().replace(',', '.')
+    disk = disk.replace("G", "").replace("%", "").split()
+    return(disk[1:5])
 
 # IP address
 def getIP():
@@ -111,9 +113,9 @@ if __name__ == '__main__':
     print('RAM Free = %s MB'%RAM_free)
     print('RAM Usage = %s %%'%RAM_usage)
     print('')
-    print('DISK Total Space = '+str(DISK_total))
-    print('DISK Used Space = '+str(DISK_used))
-    print('DISK Used Percentage = '+str(DISK_perc))
+    print('DISK Total Space = %s GB'%DISK_total)
+    print('DISK Used Space = %s GB'%DISK_used)
+    print('DISK Used Percentage = %s %%'%DISK_perc)
     print('wlan0 : %s'%wlan0)
     print('eth0 : %s'%eth0)
 
