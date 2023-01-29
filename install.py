@@ -71,7 +71,7 @@ def install():
             print(usage)
             quit()
     #
-    print(f"{__app_name__} {__version__}install process starts")
+    print(f"{__app_name__} {__version__} install process starts:")
     if "--no-dep" not in options:
         do(msg="update apt",
             cmd='sudo apt update -y'
