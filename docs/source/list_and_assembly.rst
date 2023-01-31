@@ -8,13 +8,13 @@ Before assembling the Pironman, please first verify that all parts and component
 
 Please follow the steps on the following PDF for assembly instructions: 
 
-:download:`[PDF]Component List and Assembly of Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v10-a0000891-pironman.pdf>`.
+* :download:`[PDF]Component List and Assembly of Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v12-a0000891-pironman.pdf>`
 
 **Assemble Tutorial Video**
 
 .. raw:: html
 
-    <iframe width="700" height="400" src="https://www.youtube.com/embed/EccK0PDrrzI" title="Awesome Cyberpunk Case For The Raspberry Pi 4 - Pironman by Sunfounder" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="700" height="400" src="https://www.youtube.com/embed/qRu5KqBio2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 **About GPIO Bridge Assembly**
 

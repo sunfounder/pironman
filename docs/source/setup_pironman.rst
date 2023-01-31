@@ -25,6 +25,12 @@ Add the following text to the end of the file, noting that there should be no sp
 
 Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
 
+Then you will need to reboot Raspberry Pi to take effect.
+
+.. code-block::
+
+    sudo reboot
+
 Install ``pironman`` module
 ----------------------------
 
