@@ -1,9 +1,16 @@
 # Change Log
 
+## [1.2.7] - 2023-2-14
+
+### Fixed
+- Fix the bug of showing ip address when docker is installed on the system
+
+
 ## [1.2.6] - 2023-1-29
 
 ### Fixed
 - Fix the bug of install process and get system status in different system languages
+
 
 ## [1.2.4] - 2023-1-6
 
