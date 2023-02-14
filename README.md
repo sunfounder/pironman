@@ -15,7 +15,7 @@ Quick Links:
 <a id="about_pironman"></a>
 ## About pironman:
 <div align="center">
-    <img src="./pironman.png" width="50%"  align="center" title="pironman"/>
+    <img src="https://github.com/sunfounder/pironman/blob/docs/docs/source/img/pironman.png" width="50%"  align="center" title="pironman"/>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <!-- <img src="./img/Nano_Sloth_V2.png" width="212" height="261" align="center" title="Nano_Sloth_V2"/> -->
 </div>
