@@ -1,5 +1,5 @@
 # SunFounder Pironman for Raspberry Pi
-This repository is for SunFounder Pironman - A PC case for Raspberry Pi. you can buy it on [our website](https://www.sunfounder.com/), or search sunfounder in Amazon.
+This repository is for SunFounder Pironman - A PC case for Raspberry Pi. you can buy it on [our website](https://www.sunfounder.com/products/raspberry-pi-4-case), or search sunfounder in Amazon.
 
 Quick Links:
 
@@ -14,7 +14,13 @@ Quick Links:
 
 <a id="about_pironman"></a>
 ## About pironman:
+<div align="center">
+    <img src="./pironman.png" width="50%"  align="center" title="pironman"/>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <!-- <img src="./img/Nano_Sloth_V2.png" width="212" height="261" align="center" title="Nano_Sloth_V2"/> -->
+</div>
 The pironman is used on Raspberry Pi to control OLED to display system status information, control cooling fan and RGB light strip and so on.
+
 
 <a id="update"></a>
 
