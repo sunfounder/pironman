@@ -211,25 +211,13 @@ def main():
             # ip address
             ip = None
             IPs = getIP()
-            # log(IPs)
 
-            for NIC in IPs:
-
-                if NIC == 'lo' or NIC == 'eth0' or NIC == 'wlan0':
-                    continue
-                if IPs[NIC] != None and IPs[NIC] != '':
-                    # log(NIC, IPs[NIC])
-                    ip = IPs[NIC]
-                    break
-
-            if ip == None:
-                if IPs['wlan0'] != None and IPs['wlan0'] != '':
-                    ip = IPs['wlan0']
-                elif IPs['eth0'] != None and IPs['eth0'] != '':
-                    ip = IPs['eth0']
-                else:
-                    # log('No IP found')
-                    ip = 'DISCONNECT'
+            if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
+                ip = IPs['wlan0']
+            elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
+                ip = IPs['eth0']
+            else:
+                ip = 'DISCONNECT'
 
         # display info
             ip_rect = Rect(48, 0, 81, 10)

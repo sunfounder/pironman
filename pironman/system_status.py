@@ -99,9 +99,9 @@ if __name__ == '__main__':
     IPs = getIP()
     wlan0 = None
     eth0 = None
-    if IPs['wlan0'] != None and IPs['wlan0'] != '':
+    if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
         wlan0 = IPs['wlan0']
-    if IPs['eth0'] != None and IPs['eth0'] != '':
+    if 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
         eth0 = IPs['eth0']
 
     print('')
