@@ -1,6 +1,6 @@
 import time
 import random
-from rpi_ws281x import Adafruit_NeoPixel, Color
+from rpi_ws281x import PixelStrip, Color
 from utils import log
 
 # LED strip configuration:
@@ -41,7 +41,7 @@ class WS2812():
 		self.init()
 
 	def init(self):
-		self.strip = Adafruit_NeoPixel(self.led_count,
+		self.strip = PixelStrip(self.led_count,
 									self.led_pin,
 									self.led_freq_hz,
 									self.led_dma,

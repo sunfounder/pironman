@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2.8] - 2023-2-21
+
+### Changed
+- change ws2812 Adafruit_NeoPixel to PixelStrip
+
+
 ## [1.2.7] - 2023-2-14
 
 ### Fixed
