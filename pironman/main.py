@@ -17,8 +17,22 @@ _time = time.strftime("%y/%m/%d %H:%M:%S", time.localtime())
 log('\n%s%s%s'%(line,_time,line), timestamp=False)
 log('%s version: %s'%(__app_name__, __version__), timestamp=False)
 log('username: %s'%username, timestamp=False)
-log('config_file: %s \n'%config_file, timestamp=False)
-
+log('config_file: %s'%config_file, timestamp=False)
+# Kernel Version
+status, result = run_command("uname -a")
+if status == 0:
+    log("\nKernel Version:", timestamp=False)
+    log(f"{result}", timestamp=False)
+# OS Version
+status, result = run_command("lsb_release -a|grep Description")
+if status == 0:
+    log("OS Version:", timestamp=False)
+    log(f"{result}", timestamp=False)
+# PCB information
+status, result = run_command("cat /proc/cpuinfo|grep -E \'Revision|Model\'")
+if status == 0:
+    log("PCB info:", timestamp=False)
+    log(f"{result}", timestamp=False)
 
 # region: config
 power_key_pin = 16
