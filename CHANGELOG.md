@@ -1,9 +1,19 @@
 # Change Log
 
+## [1.3.0] - 2023-2-24
+
+### Changed
+- Disable "dtparam=audio" in the /boot/config.txt
+- Auto config "gpio-poweroff" and "gpio-ir" in the /boot/config.tx
+- Cancel reinit for ws2812
+
+### Added
+- Add Kernel info, OS version, PCB info in the log
+
 ## [1.2.8] - 2023-2-21
 
 ### Changed
-- change ws2812 Adafruit_NeoPixel to PixelStrip
+- Change ws2812 Adafruit_NeoPixel to PixelStrip
 
 
 ## [1.2.7] - 2023-2-14

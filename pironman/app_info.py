@@ -5,7 +5,7 @@ from sys import path
 
 
 __app_name__ = 'pironman'
-__version__ = '1.2.8'
+__version__ = '1.3.0'
 
 # # user and User home directory
 # User = os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
