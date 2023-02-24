@@ -51,11 +51,15 @@ class WS2812():
 		self.strip.begin()
 
 	def reinit(self):
-		if self.strip is not None:
-			# del self.strip
-			self.strip._cleanup()
-		self.init()
+		# if self.strip is not None:
+		# 	# del self.strip
+		# 	self.strip._cleanup()
+		# 	self.strip = None
+		# self.init()
 
+		if self.strip is None:
+			self.init()
+			
 	# str or hex, eg: 'ffffff', '#ffffff', '#FFFFFF'
 	def hex_to_rgb(self, hex):
 		try:
