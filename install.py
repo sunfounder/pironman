@@ -56,6 +56,60 @@ def do(msg="", cmd=""):
         errors.append("%s error:\n  Status:%s\n  Error:%s" %
                       (msg, status, result))
 
+def set_config(msg="", name="", value=""):
+    print(" - %s... " % (msg), end='', flush=True)
+    try:
+        Config().set(name, value)
+        print('Done')
+    except Exception as e:
+        print('\033[1;35mError\033[0m')
+        errors.append("%s error:\n Error:%s" %(msg, e))       
+
+class Config(object):
+    '''
+        To setup /boot/config.txt
+    '''
+
+    def __init__(self, file="/boot/config.txt"):
+        self.file = file
+        with open(self.file, 'r') as f:
+            self.configs = f.read()
+        self.configs = self.configs.split('\n')
+
+    def remove(self, expected):
+        for config in self.configs:
+            if expected in config:
+                self.configs.remove(config)
+        return self.write_file()
+
+    def set(self, name, value=None):
+        have_excepted = False
+        for i in range(len(self.configs)):
+            config = self.configs[i]
+            if name in config:
+                have_excepted = True
+                tmp = name
+                if value != None:
+                    tmp += '=' + value
+                self.configs[i] = tmp
+                break
+
+        if not have_excepted:
+            tmp = name
+            if value != None:
+                tmp += '=' + value
+            self.configs.append(tmp)
+        return self.write_file()
+
+    def write_file(self):
+        try:
+            config = '\n'.join(self.configs)
+            with open(self.file, 'w') as f:
+                f.write(config)
+            return 0, config
+        except Exception as e:
+            return -1, e
+
 
 def install():
 
@@ -87,8 +141,26 @@ def install():
             do(msg="install %s"%dep,
                 cmd='sudo pip3 install %s'%dep)
     #
-    do(msg="enable i2c",
-        cmd='sudo raspi-config nonint do_i2c 0'
+    # do(msg="enable i2c",
+    #     cmd='sudo raspi-config nonint do_i2c 0'
+    # )
+    set_config(msg="enable i2c",
+        name="dtparam=i2c_arm",
+        value="on"
+    )
+    set_config(msg="disable audio",
+        name="dtparam=audio",
+        value="off"
+    )
+    # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
+    # dtoverlay=gpio-ir,gpio_pin=13
+    set_config(msg="config gpio-poweroff",
+        name="dtoverlay=gpio-poweroff,gpio_pin",
+        value="26,active_low=0\n"
+    )
+    set_config(msg="config gpio-ir",
+        name="dtoverlay=gpio-ir,gpio_pin",
+        value="13\n"
     )
     #
     print('create WorkingDirectory')
@@ -137,9 +209,6 @@ def install():
         errors.append("%s error:\n  Status:%s\n  Error:%s" %
                       ('check startup files ', status, result))
     #
-    # do(msg='run the service',
-    #     cmd='sudo systemctl restart %s.service'%__app_name__
-    # )
     time.sleep(0.1)
     do(msg='run the service',
         cmd='sudo pironman restart'
@@ -147,7 +216,18 @@ def install():
 
     if len(errors) == 0:
         print("Finished.")
-        print("You can manually clear the installation files now.")
+        print("\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m")
+        while True:
+            key = input()
+            # print(f'key: {key}')
+            if key == 'Y' or key == 'y':
+                # print(f'reboot')
+                run_command('sudo reboot')
+            elif key == 'N' or key == 'n':
+                print(f'exit')
+                sys.exit(0)
+            else:
+                continue
     else:
         print('\n\n\033[1;35mError happened in install process:\033[0m')
         for error in errors:
