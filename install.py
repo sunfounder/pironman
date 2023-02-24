@@ -141,9 +141,9 @@ def install():
             do(msg="install %s"%dep,
                 cmd='sudo pip3 install %s'%dep)
     #
-    # do(msg="enable i2c",
-    #     cmd='sudo raspi-config nonint do_i2c 0'
-    # )
+    do(msg="enable i2c",
+        cmd='sudo raspi-config nonint do_i2c 0'
+    )
     set_config(msg="enable i2c",
         name="dtparam=i2c_arm",
         value="on"
