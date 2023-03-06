@@ -20,18 +20,25 @@ Options:
 
 
 APT_INSTALL_LIST = [
-    # 'python3-pip',
+    'raspi-config',
+    'net-tools',
     'python3-smbus',
     'i2c-tools',
-    'libopenjp2-7 ',
-    'libtiff5',
-
+    'libtiff5-dev', # https://pillow.readthedocs.io/en/latest/installation.html
+    'libjpeg8-dev',
+    'libopenjp2-7-dev',
+    'zlib1g-dev',
+    'libfreetype6-dev', #
+    'libpng-dev',
+    'libxcb1-dev',
 ]
 
 
 PIP_INSTALL_LIST = [
     'rpi-ws281x',
-    'pillow',
+    # 'pillow --no-binary :all:', # https://pillow.readthedocs.io/en/latest/installation.html
+    'pillow --no-cache-dir',
+    'RPi.GPIO',
 ]
 
 
@@ -65,11 +72,27 @@ def set_config(msg="", name="", value=""):
 
 class Config(object):
     '''
-        To setup /boot/config.txt
+        To setup /boot/config.txt (raspbian)
+        /boot/firmware/config.txt (ubuntu)
+     
     '''
+    DEFAULT_FILE_1 = "/boot/config.txt" # raspbian
+    DEFAULT_FILE_2 = "/boot/firmware/config.txt" # ubuntu
 
-    def __init__(self, file="/boot/config.txt"):
-        self.file = file
+    def __init__(self, file=None):
+        # check if file exists
+        if file is None:
+            if os.path.exists(self.DEFAULT_FILE_1):
+                self.file = self.DEFAULT_FILE_1
+            elif os.path.exists(self.DEFAULT_FILE_2):
+                self.file = self.DEFAULT_FILE_2
+            else:
+                raise FileNotFoundError(f"{self.DEFAULT_FILE_1} or {self.DEFAULT_FILE_2} are not found.")
+        else:
+            self.file = file
+            if not os.path.exists(file):
+                raise FileNotFoundError(f"{self.file} is not found.")
+        # read config file
         with open(self.file, 'r') as f:
             self.configs = f.read()
         self.configs = self.configs.split('\n')
@@ -232,9 +255,8 @@ def install():
         print("\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m")
         while True:
             key = input()
-            # print(f'key: {key}')
             if key == 'Y' or key == 'y':
-                # print(f'reboot')
+                print(f'reboot')
                 run_command('sudo reboot')
             elif key == 'N' or key == 'n':
                 print(f'exit')

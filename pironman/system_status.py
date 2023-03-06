@@ -1,5 +1,6 @@
 import os
 import subprocess
+import shutil
 
 '''
 Use subprocess.popen instead of os.popen to avoid some errors
@@ -35,11 +36,18 @@ def getCPUuse():
 # Index 1: used disk space
 # Index 2: remaining disk space
 # Index 3: percentage of disk used
+# def getDiskSpace():
+#     cmd ="df -h |grep /dev/root"
+#     disk = subprocess.check_output(cmd ,shell=True).decode().replace(',', '.')
+#     disk = disk.replace("G", "").replace("%", "").split()
+#     return(disk[1:5])
 def getDiskSpace():
-    cmd ="df -h |grep /dev/root"
-    disk = subprocess.check_output(cmd ,shell=True).decode().replace(',', '.')
-    disk = disk.replace("G", "").replace("%", "").split()
-    return(disk[1:5])
+    total, used, free = shutil.disk_usage("/")
+    total = round(total / (2**30), 2)
+    used = round(used / (2**30), 2)
+    free = round(free / (2**30), 2)
+    perc = int(used/ total * 100)
+    return(total, used, free, perc)
 
 # IP address
 def getIP():
