@@ -22,7 +22,6 @@ Options:
 
 
 APT_INSTALL_LIST = [
-    # 'python3-pip',
     'python3-smbus',
     'i2c-tools',
     'libopenjp2-7 ',
@@ -153,22 +152,22 @@ def install():
         value="off"
     )
     # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
-    # dtoverlay=gpio-ir,gpio_pin=13
     set_config(msg="config gpio-poweroff",
         name="dtoverlay=gpio-poweroff,gpio_pin",
         value="26,active_low=0\n"
     )
+    # dtoverlay=gpio-ir,gpio_pin=13
     set_config(msg="config gpio-ir",
         name="dtoverlay=gpio-ir,gpio_pin",
         value="13\n"
     )
     #
     print('create WorkingDirectory')
-    do(msg="create /opt",
-        cmd='sudo mkdir -p /opt'
-        +' && sudo chmod -R 774 /opt'
-        +' && sudo chown -R %s:%s /opt'%(username, username)
-    )
+    # do(msg="create /opt",
+    #     cmd='sudo mkdir -p /opt'
+    #     +' && sudo chmod -R 774 /opt'
+    #     +' && sudo chown -R %s:%s /opt'%(username, username)
+    # )
     do(msg="create dir",
         cmd='sudo mkdir -p /opt/%s'%__app_name__
         +' && sudo chmod -R 774 /opt/%s'%__app_name__
