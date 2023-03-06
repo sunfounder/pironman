@@ -3,9 +3,7 @@ import os
 import sys
 import time
 sys.path.append('./pironman')
-from app_info import __app_name__, __version__, username, user_home, config_file
-
-# user and username home directory
+from app_info import __app_name__, __version__, username, user_home
 
 errors = []
 
@@ -22,6 +20,7 @@ Options:
 
 
 APT_INSTALL_LIST = [
+    # 'python3-pip',
     'python3-smbus',
     'i2c-tools',
     'libopenjp2-7 ',
@@ -111,6 +110,20 @@ class Config(object):
 
 
 def install():
+    print(f"{__app_name__} {__version__} install process starts:\n")
+
+    # print Kernel Version
+    status, result = run_command("uname -a")
+    if status == 0:
+        print(f"Kernel Version:\n{result}")
+    # print OS Version
+    status, result = run_command("lsb_release -a|grep Description")
+    if status == 0:
+        print(f"OS Version:\n{result}")
+    # print PCB information
+    status, result = run_command("cat /proc/cpuinfo|grep -E \'Revision|Model\'")
+    if status == 0:
+        print(f"PCB info::\n{result}")
 
     options = []
     if len(sys.argv) > 1:
@@ -124,7 +137,6 @@ def install():
             print(usage)
             quit()
     #
-    print(f"{__app_name__} {__version__} install process starts:")
     if "--no-dep" not in options:
         do(msg="update apt",
             cmd='sudo apt update -y'
@@ -139,6 +151,8 @@ def install():
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
                 cmd='sudo pip3 install %s'%dep)
+    # 
+    print("Config gpio")
     #
     do(msg="enable i2c",
         cmd='sudo raspi-config nonint do_i2c 0'
