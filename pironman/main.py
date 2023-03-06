@@ -194,7 +194,7 @@ def main():
     # rgb_strip thread
     if rgb_switch == True:
         rgb_thread = threading.Thread(target=rgb_show)
-        rgb_thread.setDaemon(True)
+        rgb_thread.daemon = True
         rgb_thread.start()
     else:
         strip.clear()
