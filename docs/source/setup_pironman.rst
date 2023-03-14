@@ -2,7 +2,8 @@
 ===================================
 
 .. note::
-    This Pironman is used in the same way as PC and requires the power button to power on/off.
+    * This Pironman is used in the same way as PC and requires the power button to power on/off.
+    * The Pironman is currently only available for Raspberry Pi OS.
 
 .. _change_config:
 

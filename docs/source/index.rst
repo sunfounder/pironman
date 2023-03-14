@@ -21,7 +21,8 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 * Power status memory, remembers the power status, automatically boot after accident power cut off
 * Aluminum main body with clear Acrylic side panel
 
-
+.. note::
+    The Pironman is currently only available for Raspberry Pi OS.
 
 .. toctree::
     :maxdepth: 2
