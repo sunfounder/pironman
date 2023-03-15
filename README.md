@@ -8,6 +8,7 @@ Quick Links:
   - [Install](#install)
   - [Usage](#usage)
   - [Update](#update)
+  - [Tested Systems](#tested-systems)
   - [About SunFounder](#about-sunfounder)
   - [License](#license)
   - [Contact us](#contact-us)
@@ -25,12 +26,19 @@ The pironman is used on Raspberry Pi to control OLED to display system status in
 <a id="update"></a>
 
 ## Install
-```bash
- cd ~
- git clone https://github.com/sunfounder/pironman.git
- cd ~/pironman
- sudo python3 install.py
-```
+- For systems that don't have git, python3 and pip pre-installed you need to install them first
+  ```bash
+  sudo apt-get update
+  sudo apt-get install git
+  sudo apt-get install python3 python3-pip python3-setuptools
+  ```
+- Execute the installation script
+  ```bash
+  cd ~
+  git clone https://github.com/sunfounder/pironman.git
+  cd ~/pironman
+  sudo python3 install.py
+  ```
 
 ## Usage
 ```bash
@@ -63,6 +71,21 @@ Options:
 ```
 ## Update
 https://github.com/sunfounder/pironman/blob/master/CHANGELOG.md
+
+## Tested Systems
+Systems that passed the test on the Raspberry Pi 4B:
+
+- Raspberry Pi OS - Bullseye (32 bit)
+- Raspberry Pi OS - Bullseye (64 bit)
+- Raspberry Pi OS lite - Bullseye (32 bit)
+- Raspberry Pi OS lite - Bullseye (64 bit)
+- Raspberry Pi OS - Buster (32 bit)
+- Raspberry Pi OS - Buster (64 bit)
+- Raspberry Pi OS lite - Buster (32 bit)
+- Raspberry Pi OS lite - Buster (64 bit)
+- Ubuntu Server 22.10 (32 bit)
+- Ubuntu Server 22.10 (64 bit)
+- Ubuntu Desktop 22.10 (64 bit)
 
 <a id="about_sunfounder"></a>
 ## About SunFounder
