@@ -1,10 +1,16 @@
 # Change Log
 
+## [1.4.0] - 2023-3-15
+
+### Added
+- Compatible Ubuntu Server, Ubuntu Desktop, Rapbian lite
+- Compatible  python3.10
+
 ## [1.3.0] - 2023-2-24
 
 ### Changed
 - Disable "dtparam=audio" in the /boot/config.txt
-- Auto config "gpio-poweroff" and "gpio-ir" in the /boot/config.tx
+- Auto config "gpio-poweroff" and "gpio-ir" in the /boot/config.t
 - Cancel reinit for ws2812
 
 ### Added
