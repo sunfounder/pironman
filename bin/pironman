@@ -28,6 +28,7 @@
 ####                    default: 0a1aff
 ####   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
 ####
+####   -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
 ####
 
 main='/opt/pironman/main.py'
@@ -219,13 +220,33 @@ case "$1" in
         else
             if [[ $2 =~ ^[[:digit:]]+$ ]];
             then
-                if [ $2 -gt -1 ] && [ $2 -lt 101 ];
+                if [ $2 -ge 0 ] && [ $2 -le 100 ];
                 then
                     echo "set rgb_blink_speed to $2 "
                     sed -i -e "s:rgb_blink_speed.*=.*:rgb_blink_speed = $2:g" ${CONF}
                     restart
                 else
                     echo "out of range (0 ~ 100) "
+                fi
+            else
+                echo "parameter must be integer"
+            fi
+        fi
+        ;;
+    -pwm|--rgb_pwm)
+        if [ $# -lt 2 ] ;
+        then
+            echo "usage: pironman -pwm|--rgb_pwm [frequency],frequency in range (400 ~ 1600) kHz"
+        else
+            if [[ $2 =~ ^[[:digit:]]+$ ]];
+            then
+                if [ $2 -ge 400 ] && [ $2 -le 1600 ];
+                then
+                    echo "set rgb_pwm_freq to $2 "
+                    sed -i -e "s:rgb_pwm_freq.*=.*:rgb_pwm_freq = $2:g" ${CONF}
+                    restart
+                else
+                    echo "out of range (400 ~ 1600) kHz "
                 fi
             else
                 echo "parameter must be integer"
