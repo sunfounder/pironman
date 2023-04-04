@@ -18,7 +18,9 @@
 #
 # rgb_color, color of the RGB indicator inside the case
 #
-# update_frequency, oled display data update frequency,in seconds
+# rgb_blink_speed, rgb color change speed (0 ~ 100, default 50)
+#
+# rgb_pwm_freq, rgb signal frequency (400 ~ 1600, default 1000 kHz)
 #
 
 
@@ -30,3 +32,4 @@ rgb_switch = True
 rgb_style = breath
 rgb_color = 0a1aff
 rgb_blink_speed = 50
+rgb_pwm_freq = 1000

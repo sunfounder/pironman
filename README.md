@@ -67,6 +67,7 @@ Options:
   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
                    default: 0a1aff
   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+  -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
 
 ```
 ## Update

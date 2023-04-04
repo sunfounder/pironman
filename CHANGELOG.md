@@ -1,16 +1,19 @@
 # Change Log
 
-## [1.4.0] - 2023-3-15
+## [1.4.0] - 2023-3-23
+
+### Changed
+- Change rgb pwm default frequency to 1000 kHz, to compatible different LED components
+- Now the oled initialization fails and the program won't terminate 
 
 ### Added
-- Compatible Ubuntu Server, Ubuntu Desktop, Rapbian lite
-- Compatible  python3.10
+- Add command to set pwm frequency
 
 ## [1.3.0] - 2023-2-24
 
 ### Changed
 - Disable "dtparam=audio" in the /boot/config.txt
-- Auto config "gpio-poweroff" and "gpio-ir" in the /boot/config.t
+- Auto config "gpio-poweroff" and "gpio-ir" in the /boot/config.txt
 - Cancel reinit for ws2812
 
 ### Added
