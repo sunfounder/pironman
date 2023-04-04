@@ -1,6 +1,6 @@
 import time
 import random
-from rpi_ws281x import PixelStrip, Color
+from rpi_ws281x import PixelStrip, Color # https://github.com/jgarff/rpi_ws281x
 from utils import log
 
 # LED strip configuration:
@@ -27,7 +27,7 @@ class WS2812():
 				LED_COUNT,
 				LED_PIN,
 				LED_BRIGHTNESS=255,
-				LED_FREQ_HZ=800000,
+				LED_FREQ_HZ=1000000,
 				LED_DMA=10,
 				LED_INVERT=False,
 				):
