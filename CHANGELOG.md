@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.5.0] - 2023-4-7
+
+### Modified
+- Now the program is compatible with multiple systems based on debian, including Ubuntu, Kali, OSMC, RetroPie, OctoPi, Homebridge
+
+### Optimized
+- Add working_tip while installing
+
+### Changed
+- Change getCPUtemperature() fuction to compatible some othee systems
+
+
 ## [1.4.0] - 2023-3-23
 
 ### Changed
