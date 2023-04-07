@@ -76,24 +76,27 @@ https://github.com/sunfounder/pironman/blob/master/CHANGELOG.md
 ## Compatible Systems
 Systems that passed the test on the Raspberry Pi 4B:
 
-- Raspberry Pi OS - Bullseye (32 bit)
-- Raspberry Pi OS - Bullseye (64 bit)
-- Raspberry Pi OS lite - Bullseye (32 bit)
-- Raspberry Pi OS lite - Bullseye (64 bit)
-- Raspberry Pi OS - Buster (32 bit)
-- Raspberry Pi OS lite - Buster (32 bit)
+- ##### Raspberry Pi OS - Bullseye (32 bit)
+- ##### Raspberry Pi OS - Bullseye (64 bit)
+- ##### Raspberry Pi OS lite - Bullseye (32 bit)
+- ##### Raspberry Pi OS lite - Bullseye (64 bit)
+- ##### Raspberry Pi OS - Buster (32 bit)
+- ##### Raspberry Pi OS lite - Buster (32 bit)
+<br>
 
-- Ubuntu Server 22.10 (32 bit)
-- Ubuntu Server 22.10 (64 bit)
-- Ubuntu Desktop 22.10 (64 bit)
+- ##### Ubuntu Server 22.10 (32 bit)
+- ##### Ubuntu Server 22.10 (64 bit)
+- ##### Ubuntu Desktop 22.10 (64 bit)
+<br>
 
-- Kali Linux (32bit)
-- Kali Linux (64bit)
+- ##### Kali Linux (32bit)
+- ##### Kali Linux (64bit)
+<br>
 
-- OSMC
-- RetroPie
-- OctoPi
-- Homebridge
+- ##### OSMC
+- ##### RetroPie
+- ##### OctoPi
+- ##### Homebridge
 
 <a id="about_sunfounder"></a>
 ## About SunFounder
