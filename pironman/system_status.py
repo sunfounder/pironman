@@ -6,10 +6,25 @@ import shutil
 Use subprocess.popen instead of os.popen to avoid some errors
 '''
 
+# # Return CPU temperature as a character string
+# def getCPUtemperature():
+#     cmd = 'vcgencmd measure_temp'
+#     try:
+#         res = subprocess.check_output(cmd,shell=True).decode()
+#         return(res.replace("temp=","").replace("'C\n",""))
+#     except Exception as e:
+#         print('getCPUtemperature: %s' %e)
+#         return 0.0
+
 # Return CPU temperature as a character string
 def getCPUtemperature():
-    res = subprocess.check_output('vcgencmd measure_temp',shell=True).decode()
-    return(res.replace("temp=","").replace("'C\n",""))
+    cmd = 'cat /sys/class/thermal/thermal_zone0/temp'
+    try:
+        temp = int(subprocess.check_output(cmd,shell=True).decode())
+        return round(temp/1000, 2)
+    except Exception as e:
+        print('getCPUtemperature: %s' %e)
+        return 0.0
 
 # Return RAM information (unit=kb) in a list
 # Index 0: total RAM
