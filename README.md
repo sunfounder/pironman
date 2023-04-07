@@ -77,7 +77,7 @@ https://github.com/sunfounder/pironman/blob/master/CHANGELOG.md
 Systems that passed the test on the Raspberry Pi 4B:
 <font size=1>
 <!-- https://apps.timwhitlock.info/emoji/tables/unicode#block-6c-other-additional-symbols -->
-  | system |   pico  |
+  | system |   is compatible ? |
   | :---   | :---:   |
   | Raspberry Pi OS - Bullseye (32/64 bit) | &#x2705; |
   | Raspberry Pi OS lite - Bullseye (32/64 bit) | &#x2705; |
@@ -85,8 +85,7 @@ Systems that passed the test on the Raspberry Pi 4B:
   | Raspberry Pi OS lite - Buster (32 bit) | &#x2705; |
   | Ubuntu Server 22.10 (32/64 bit) | &#x2705; |
   | Ubuntu Desktop 22.10 (64 bit) | &#x2705; |
-  | Kali Linux (32bit) | &#x2705; |
-  | Kali Linux (64bit) | &#x2705; |
+  | Kali Linux (32/64 bit) | &#x2705; |
   | OSMC | &#x2705; |
   | RetroPie | &#x2705; |
   | OctoPi | &#x2705; |
