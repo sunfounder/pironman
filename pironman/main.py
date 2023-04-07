@@ -126,6 +126,7 @@ oled_stat = False
 
 
 try:
+    run_command("sudo modprobe i2c-dev")
     oled = SSD1306_128_64()
     width = oled.width
     height = oled.height
