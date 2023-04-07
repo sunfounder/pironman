@@ -2,6 +2,8 @@
 import os
 import sys
 import time
+import threading
+
 sys.path.append('./pironman')
 from app_info import __app_name__, __version__, username, user_home
 
@@ -20,17 +22,20 @@ Options:
 
 
 APT_INSTALL_LIST = [
-    'raspi-config',
+    # 'libraspberrypi-bin',
+    # 'raspi-config', # http://archive.raspberrypi.org/debian/pool/main/r/raspi-config/
     'net-tools',
     'python3-smbus',
     'i2c-tools',
     'libtiff5-dev', # https://pillow.readthedocs.io/en/latest/installation.html
-    'libjpeg8-dev',
     'libopenjp2-7-dev',
     'zlib1g-dev',
-    'libfreetype6-dev', #
+    'libfreetype6-dev',
     'libpng-dev',
     'libxcb1-dev',
+    'build-essential', # arm-linux-gnueabihf-gcc for pip building
+    'python3-rpi.gpio',
+    'python3-dev', # for RPi.GPIO, rpi-ws281x pip building
 ]
 
 
@@ -38,7 +43,6 @@ PIP_INSTALL_LIST = [
     'rpi-ws281x',
     # 'pillow --no-binary :all:', # https://pillow.readthedocs.io/en/latest/installation.html
     'pillow --no-cache-dir',
-    'RPi.GPIO',
 ]
 
 
@@ -50,10 +54,38 @@ def run_command(cmd=""):
     status = p.poll()
     return status, result
 
+at_work_tip_sw = False
+def working_tip():
+    char = ['/', '-', '\\', '|']
+    i = 0
+    global at_work_tip_sw
+    while at_work_tip_sw:  
+            i = (i+1)%4 
+            sys.stdout.write('\033[?25l') # cursor invisible
+            sys.stdout.write('%s\033[1D'%char[i])
+            sys.stdout.flush()
+            time.sleep(0.5)
+
+    sys.stdout.write(' \033[1D')
+    sys.stdout.write('\033[?25h') # cursor visible 
+    sys.stdout.flush() 
 
 def do(msg="", cmd=""):
     print(" - %s... " % (msg), end='', flush=True)
+    # at_work_tip start 
+    global at_work_tip_sw
+    at_work_tip_sw = True
+    _thread = threading.Thread(target=working_tip)
+    _thread.setDaemon(True)
+    _thread.start()
+    # process run
     status, result = run_command(cmd)
+    # print(status, result)
+    # at_work_tip stop
+    at_work_tip_sw = False
+    while _thread.is_alive():
+        time.sleep(0.1)
+    # status
     if status == 0 or status == None or result == "":
         print('Done')
     else:
@@ -72,8 +104,8 @@ def set_config(msg="", name="", value=""):
 
 class Config(object):
     '''
-        To setup /boot/config.txt (raspbian)
-        /boot/firmware/config.txt (ubuntu)
+        To setup /boot/config.txt (Raspbian, Kali OSMC, etc)
+        /boot/firmware/config.txt (Ubuntu)
      
     '''
     DEFAULT_FILE_1 = "/boot/config.txt" # raspbian
@@ -103,7 +135,10 @@ class Config(object):
                 self.configs.remove(config)
         return self.write_file()
 
-    def set(self, name, value=None):
+    def set(self, name, value=None, device="[all]"):
+        '''
+        device : "[all]", "[pi3]", "[pi4]" or other
+        '''
         have_excepted = False
         for i in range(len(self.configs)):
             config = self.configs[i]
@@ -116,6 +151,7 @@ class Config(object):
                 break
 
         if not have_excepted:
+            self.configs.append(device)
             tmp = name
             if value != None:
                 tmp += '=' + value
@@ -165,9 +201,29 @@ def install():
             cmd='sudo apt update -y'
         )
         do(msg="update pip3",
-            cmd='python3 -m pip install --upgrade pip'
+            cmd='sudo python3 -m pip install --upgrade pip'
         )
+        ##
         print("Install dependency")
+        do(msg="apt --fix-broken",
+            cmd="sudo apt --fix-broken install -y"
+        )
+        # # check & install raspi-config
+        # _status, _ = run_command("sudo raspi-config nonint")
+        # if _status != 0:
+        #     _link = "http://archive.raspberrypi.org/debian/pool/main/r/raspi-config/"
+        #     _cmd = f"curl -s '{_link}' | grep -o '\"raspi-config.*.deb\"' |sort |tail -1"
+        #     _,_last_version = run_command(_cmd)
+        #     _last_version = _last_version.replace('\n', '').replace('\r', '').replace('"', ' ').strip()
+        #     _link = _link + _last_version
+
+        #     do(msg="install raspi-config",
+        #         cmd="sudo apt install lua5.1 alsa-utils triggerhappy curl -y"
+        #         +f" && wget -N {_link}"
+        #         +f" && sudo dpkg -i {_last_version}"
+        #         +"&& sudo apt --fix-broken install -y"
+        #     )
+        #
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
                 cmd='sudo apt install %s -y'%dep)
@@ -177,10 +233,13 @@ def install():
     # 
     print("Config gpio")
     #
-    do(msg="enable i2c",
-        cmd='sudo raspi-config nonint do_i2c 0'
-    )
-    set_config(msg="enable i2c",
+    _status, _ = run_command("sudo raspi-config nonint")
+    if _status == 0:
+        do(msg="enable i2c ",
+            cmd='sudo raspi-config nonint do_i2c 0'
+        )
+    #
+    set_config(msg="enable i2c in config",
         name="dtparam=i2c_arm",
         value="on"
     )
