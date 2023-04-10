@@ -76,7 +76,7 @@ def do(msg="", cmd=""):
     global at_work_tip_sw
     at_work_tip_sw = True
     _thread = threading.Thread(target=working_tip)
-    _thread.setDaemon(True)
+    _thread.daemon = True
     _thread.start()
     # process run
     status, result = run_command(cmd)
