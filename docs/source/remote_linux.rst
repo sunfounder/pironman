@@ -2,15 +2,14 @@ Linux /Unix Users
 ==========================
 
 
-#. Go to **Applications**->\ **Utilities**, find the **Terminal**, and open
-it.
+#. Go to **Applications**->\ **Utilities**, find the **Terminal**, and open it.
 
     .. image:: img/image21.png
         :align: center
 
 #. Check if your Raspberry Pi is on the same network by type in ``ping <hostname>.local``. 
 
-    .. code-block::
+    .. code-block:: shell
 
         ping raspberrypi.local
 
@@ -27,7 +26,7 @@ it.
 
 #. Type in ``ssh <username>@<hostname>.local`` (or ``ssh <username>@<IP address>``).
 
-    .. code-block::
+    .. code-block:: shell
 
         ssh pi@raspberrypi.local
 
@@ -47,16 +46,6 @@ it.
 
 
 #. Input the password you set before. (Mine is ``raspberry``.)
-
-.. .. image:: img/image23.png
-..     :align: center
-
-    .. note::
-        When you input the password, the characters do not display on
-        window accordingly, which is normal. What you need is to input the
-        correct password.
-
-
 
 #. We now get the Raspberry Pi connected and are ready to go to the nextstep.
 

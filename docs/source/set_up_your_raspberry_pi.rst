@@ -1,6 +1,13 @@
 4. Set up Your Raspberry Pi
 ============================
 
+.. note::
+
+    * If your Raspberry Pi has the following Pironman-compatible systems installed, you can skip this chapter.
+
+        .. image:: img/compitable_system.png
+    
+
 If You Have a Screen
 -------------------------
 
@@ -18,7 +25,7 @@ Raspberry Pi.
 * 1 * Mouse
 * 1 * Keyboard
 
-1. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
+#. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
 
 #. Plug in the Mouse and Keyboard.
 

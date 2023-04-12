@@ -10,7 +10,7 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman  -al off
 
@@ -18,7 +18,7 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman  -al on
 
@@ -26,7 +26,7 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman  -s 60
 
@@ -34,7 +34,7 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
     Open this python script and modify its contents.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo nano /opt/pironman/main.py
 
@@ -43,6 +43,6 @@ In order to extend the life of OLED screen, OLED will turn off after 60 seconds 
 
     Run it.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo python3 /opt/pironman/main.py

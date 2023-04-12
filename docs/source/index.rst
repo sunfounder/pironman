@@ -22,7 +22,10 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 * Aluminum main body with clear Acrylic side panel
 
 .. note::
-    The Pironman is currently only available for Raspberry Pi OS.
+
+    Pironman compatible systems are shown below. If you have other systems installed, some of the Pironman components may not be available.
+
+    .. image:: img/compitable_system.png
 
 .. toctree::
     :maxdepth: 2

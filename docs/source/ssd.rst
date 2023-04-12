@@ -45,7 +45,7 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 #. Updating the Bootloader
 
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo apt update
         sudo apt full-upgrade
@@ -58,7 +58,7 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 #. Use the following command to view the name of the storage device.
 
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo fdisk -l
 
@@ -67,7 +67,7 @@ Various lengths of M.2 SATA SSD can be mounted: 22mm x 30mm, 42mm, 60mm, and 80m
 #. Now, clone the system from the Micro SD card to the M.2 SATA SSD. Where ``if`` is followed by the sd card name and ``of`` is followed by the M.2 SSD name.
 
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo dd if=/dev/mmcblk0 of=/dev/sda bs=4M
 

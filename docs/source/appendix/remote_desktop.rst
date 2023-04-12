@@ -22,7 +22,7 @@ disabled. You need to enable it in config.
 
 Input the following command:
 
-.. code-block:: 
+.. code-block:: shell 
 
     sudo raspi-config
 
@@ -111,7 +111,7 @@ Login to Raspberry Pi by using SSH.
 
 Input the following instructions to install XRDP.
 
-.. code-block:: 
+.. code-block:: shell 
 
    sudo apt-get update
    sudo apt-get install xrdp

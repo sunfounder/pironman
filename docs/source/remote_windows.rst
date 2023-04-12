@@ -11,7 +11,7 @@ If you're a Windows user, you can use Windows PowerShell to login Raspberry Pi r
 
 #. Check if your Raspberry Pi is on the same network by type in ``ping <hostname>.local``. 
 
-    .. code-block::
+    .. code-block:: shell
 
         ping raspberrypi.local
 
@@ -26,7 +26,7 @@ If you're a Windows user, you can use Windows PowerShell to login Raspberry Pi r
 
 #. Type in ``ssh <username>@<hostname>.local`` (or ``ssh <username>@<IP address>``).
 
-    .. code-block::
+    .. code-block:: shell
 
         ssh pi@raspberrypi.local
 
@@ -72,7 +72,7 @@ disabled. You need to enable it in config.
 
         <run></run>
 
-    .. code-block:: 
+    .. code-block:: shell 
 
         sudo raspi-config
 
@@ -110,5 +110,5 @@ disabled. You need to enable it in config.
 
 #. Now you can see the desktop of the Raspberry Pi.
 
-    .. image:: img/image294.png
+    .. image:: img/mac_vnc3.png
         :align: center

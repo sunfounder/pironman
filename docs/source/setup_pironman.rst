@@ -3,48 +3,38 @@
 
 .. note::
     * This Pironman is used in the same way as PC and requires the power button to power on/off.
-    * The Pironman is currently only available for Raspberry Pi OS.
 
 .. _change_config:
 
-Change the ``config.txt``
+Compatible Systems
 -----------------------------------
-Before you can start using Pironman, you need to configure the power button and the IR receiver.
 
-Open the ``/boot/config.txt`` file with the following command.
+Pironman compatible systems are shown below.
 
-.. code-block::
+.. image:: img/compitable_system.png
 
-    sudo nano /boot/config.txt
+If your systems that don't have ``git``, ``python3`` and ``pip`` pre-installed you need to install them first.
 
-Add the following text to the end of the file, noting that there should be no spaces on either side of the ``=``.
+.. code-block:: shell
 
-.. code-block::
+    sudo apt-get update
+    sudo apt-get install git -y
+    sudo apt-get install python3 python3-pip python3-setuptools -y
 
-    dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
-    dtoverlay=gpio-ir,gpio_pin=13
 
-Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
-
-Then you will need to reboot Raspberry Pi to take effect.
-
-.. code-block::
-
-    sudo reboot
 
 Install ``pironman`` module
 ----------------------------
 
-
 Use the following commands to download and install the ``pironman`` module.
 
-
-.. code-block::
+.. code-block:: shell
 
     cd ~
     git clone https://github.com/sunfounder/pironman.git
     cd ~/pironman
     sudo python3 install.py
+
 
 After installation, the program will start automatically. Here are the basic configurations for Pironman.
 
@@ -55,15 +45,6 @@ After installation, the program will start automatically. Here are the basic con
    * At this point, you can press and hold for 2 seconds to safely shut down or 10 seconds to forcibly shut down.
 
 
-.. note::
-    
-    If you are using Raspberry Pi OS Lite, you will need to install ``git`` and ``python3`` first, which you can do with the following commands.
-
-    .. code-block::
-    
-        sudo apt update
-        sudo apt install git python3-pip python3-setuptools python3-smbus 
-
 
 Modify the Configuration
 -----------------------------
@@ -71,7 +52,7 @@ Modify the Configuration
 In the ``pironman`` module, we have some basic configurations for Pironman, and you can check them with the following command.
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman -c
 
@@ -88,7 +69,7 @@ You can also modify these configurations to suit your needs.
 
 Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructions, as follows.
 
-.. code-block::
+.. code-block:: shell
 
     Usage:
     pironman <OPTION> <input>
@@ -111,22 +92,23 @@ Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructi
                     in second, default 30
     -rw,--rgb_sw     [on/off], rgb strip switch
     -rs,--rgb_style  rgb strip display style, default: breath,
-                    in [breath / leap / flow / raise_up]
+                    in [breath / leap / flow / raise_up / colorful]
     -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
                     default: 0a1aff
     -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+    -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
 
 For example, to turn off the automatic execution of programs at boot.
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman -a off
 
 Or reset the color of WS2812 RGB strip.
 
 
-.. code-block::
+.. code-block:: shell
 
     pironman -rc ff8a40
 
@@ -134,7 +116,7 @@ Or reset the color of WS2812 RGB strip.
 Those configurations are stored in ``/.config/pironman/config.txt``, and you can also make changes directly in this file.
 
 
-.. code-block::
+.. code-block:: shell
 
     sudo nano ~/.config/pironman/config.txt
 

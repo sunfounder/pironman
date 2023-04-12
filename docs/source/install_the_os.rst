@@ -5,9 +5,9 @@
 
 .. note::
 
-    * You can check the complete tutorial on the official website of the Raspberry Pi: `raspberry-pi-setting-up <https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up>`_.
-    * If your Raspberry Pi is set up, you can skip the part and go into the next chapter.
-    * The Pironman is currently only available for Raspberry Pi OS.
+    * If your Raspberry Pi has the following Pironman-compatible systems installed, you can skip this chapter.
+
+        .. image:: img/compitable_system.png
     
 **Step 1**
 

@@ -96,7 +96,7 @@ Don't Have Temporarily Monitor (or TV)?
 #. Type ``ssh <username>@<hostname>.local`` to connect to the Raspberry Pi.
 
 
-    .. code-block::
+    .. code-block:: shell
 
         ssh pi@raspberrypi.local
 
@@ -135,7 +135,7 @@ Don't Have Temporarily Monitor (or TV)?
 
 #. Set up your Raspberry Pi so that you can log in via VNC from your Mac once you have successfully logged into it. The first step is to update your operating system by running the following commands.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo apt update
         sudo apt upgrade
@@ -148,7 +148,7 @@ Don't Have Temporarily Monitor (or TV)?
 
 #. Enter the following command to enable the **VNC Server**.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo raspi-config
 
@@ -172,7 +172,7 @@ Don't Have Temporarily Monitor (or TV)?
 
     To specify parameters for all programs for all user accounts on the computer, create ``/etc/vnc/config.d/common.custom``.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo nano /etc/vnc/config.d/common.custom
 
@@ -184,14 +184,14 @@ Don't Have Temporarily Monitor (or TV)?
 #. In addition, set a password for logging in via VNC from a Mac. You can use the same password as the Raspberry pi password or a different password. 
 
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo vncpasswd -service
 
 
 #. Once the setup is complete, restart the Raspberry Pi to apply the changes.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo sudo reboot
 

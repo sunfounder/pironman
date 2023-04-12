@@ -307,7 +307,7 @@ Run PuTTY and enter the IP address of your device and click **OK**. When prompte
 
 Open a Terminal interface and run the following command:
 
-.. code-block::
+.. code-block:: shell
 
     ssh osmc@<ip address of your device>
 
@@ -322,7 +322,7 @@ You will be prompted to accept the SSH key if this is the first time you have co
 
 #. In the terminal, check if the Raspberry Pi detects your IR receiver with the following command.
 
-    .. code-block::
+    .. code-block:: shell
 
         ls /dev/lirc*
 
@@ -330,13 +330,13 @@ You will be prompted to accept the SSH key if this is the first time you have co
 
 #. Now to see if you can receive data from the remote.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo mode2 --driver default --device /dev/lirc0
 
 #. Then press the button on the remote and see if a string of pulse data appears.
 
-    .. code-block::
+    .. code-block:: shell
 
         osmc@osmc:/etc/lirc$ sudo mode2 --driver default --device /dev/lirc0
         Using driver default on device /dev/lirc0
@@ -357,19 +357,19 @@ You will be prompted to accept the SSH key if this is the first time you have co
 
 #. Now stop lircd.
 
-    .. code-block::
+    .. code-block:: shell
 
         sudo killall lircd
 
 #. Get all available ``KEY_codes`` to match them later.
 
-    .. code-block::
+    .. code-block:: shell
 
         irrecord --list-namespace
 
 #. Now create a ``.conf`` configuration file that fits your remote.
 
-    .. code-block::
+    .. code-block:: shell
         
         irrecord -d /dev/lirc0
 
