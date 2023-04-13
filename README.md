@@ -90,8 +90,6 @@ Systems that passed the test on the Raspberry Pi 4B:
   | RetroPie | &#x2705; |
   | OctoPi | &#x2705; |
   | Homebridge | &#x2705; |
-  | Homebridge | &#x2705; |
-  | Homebridge | &#x2705; |
   | LibreELEC | &#x274C; |
   | HassOS | &#x274C; |
 </font>
