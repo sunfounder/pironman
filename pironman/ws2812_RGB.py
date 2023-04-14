@@ -188,14 +188,28 @@ class WS2812():
 				self.strip.show()
 				time.sleep(0.001*speed)
 
+	def colorful_leap(self, color:list=None, speed=50):
+		speed = 101 - speed
+		while True:
+			self.reinit()
+			for i in range(self.led_count):
+				r, g, b = self.hex_to_rgb(colorful_leds[i])
+				for index in self.lights_order:
+					self.strip.setPixelColor(index, Color(0,0,0))
+				self.strip.setPixelColor(i, Color(r,g,b))
+				self.strip.show()
+				time.sleep(0.001*speed)
+
 if __name__ == "__main__":
-	speed = 50
-	strip = WS2812(16, 12)
+	speed = 80
+	strip = WS2812(16, 21)
 	# strip.display('breath','#0000ff', speed=speed)
 	# strip.display(style='leap',color='#0000ff', speed=speed)
-	strip.display(style='colorful', speed=speed)
+	# strip.display(style='colorful', speed=speed)
 	# strip.display(style='flow',color='#1a1aff', speed=speed)
 	# strip.display(style='raise_up',color='#1a1aff', speed=speed)
+	strip.display(style='colorful_leap', speed=speed)
+
 
 
 
