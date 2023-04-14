@@ -86,6 +86,7 @@ Systems that passed the test on the Raspberry Pi 4B:
   | Ubuntu Server 22.10 (32/64 bit) | &#x2705; |
   | Ubuntu Desktop 22.10 (64 bit) | &#x2705; |
   | Kali Linux (32/64 bit) | &#x2705; |
+  | Detpi | &#x2705; |
   | OSMC | &#x2705; |
   | RetroPie | &#x2705; |
   | OctoPi | &#x2705; |
