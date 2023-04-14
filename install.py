@@ -250,12 +250,12 @@ def install():
     # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
     set_config(msg="config gpio-poweroff",
         name="dtoverlay=gpio-poweroff,gpio_pin",
-        value="26,active_low=0\n"
+        value="26,active_low=0"
     )
     # dtoverlay=gpio-ir,gpio_pin=13
     set_config(msg="config gpio-ir",
         name="dtoverlay=gpio-ir,gpio_pin",
-        value="13\n"
+        value="13"
     )
     #
     print('create WorkingDirectory')
