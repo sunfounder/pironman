@@ -33,3 +33,4 @@ rgb_style = breath
 rgb_color = 0a1aff
 rgb_blink_speed = 50
 rgb_pwm_freq = 1000
+rgb_pin = 10

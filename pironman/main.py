@@ -37,7 +37,7 @@ if status == 0:
 # region: config
 power_key_pin = 16
 fan_pin = 6
-rgb_pin = 12
+rgb_pin = 10
 update_frequency = 0.5  # second
 
 temp_unit = 'C' # 'C' or 'F'
@@ -91,6 +91,7 @@ try:
     rgb_color = str(config['all']['rgb_color'])
     rgb_blink_speed = int(config['all']['rgb_blink_speed'])
     rgb_pwm_freq = int(config['all']['rgb_pwm_freq'])
+    rgb_pin = int(config['all']['rgb_pin'])
 except:
     config['all'] ={
                     'fan_temp':fan_temp,
@@ -101,6 +102,7 @@ except:
                     'rgb_color':rgb_color,
                     'rgb_blink_speed':rgb_blink_speed,
                     'rgb_pwm_freq':rgb_pwm_freq,
+                    'rgb_pin':rgb_pin,
                     }
     with open(config_file, 'w') as f:
         config.write(f)
