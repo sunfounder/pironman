@@ -35,7 +35,7 @@ The pironman is used on Raspberry Pi to control OLED to display system status in
 - Execute the installation script
   ```bash
   cd ~
-  git clone https://github.com/sunfounder/pironman.git
+  git clone -b v2.0 https://github.com/sunfounder/pironman.git
   cd ~/pironman
   sudo python3 install.py
   ```
