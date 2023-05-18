@@ -36,12 +36,14 @@ Use the following commands to download and install the ``pironman`` module.
     sudo python3 install.py
 
 
-After installation, the program will start automatically. Here are the basic configurations for Pironman.
+Rebooting is required after installation to take effect. A reboot reminder will pop up at some point, and you can select ``y`` to reboot now or at a later time.
+
+Here are the basic configurations for Pironman.
 
    * The OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
    * After 60 seconds, the OLED display goes into sleep mode, and you can wake it up by a short press on the power button.
    * The fan is turned on at 50 degrees Celsius.
-   * Turn on the WS2812 RGB strip so that it displays in color #0a1aff(blue) and in breath mode (change rate is 50%).
+   * Turn on the WS2812 RGB strip(default connection in IO10) so that it displays in color #0a1aff(blue) and in breath mode (change rate is 50%).
    * At this point, you can press and hold for 2 seconds to safely shut down or 10 seconds to forcibly shut down.
 
 
@@ -60,7 +62,7 @@ The current configurations are shown below.
 
    * The fan is turned on at 50 degrees Celsius.
    * The duration of the OLED display is 60s, after 60s it will start to sleep.
-   * Turn on the WS2812 RGB strip so that it displays in color #0a1aff and in breath mode (change rate is 50%).
+   * Turn on the WS2812 RGB strip(default 10) so that it displays in color #0a1aff and in breath mode (change rate is 50%).
 
 .. image:: img/pironman_c.png
     :align: center
@@ -72,32 +74,49 @@ Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructi
 .. code-block:: shell
 
     Usage:
-        pironman <OPTION> <input> 
+        pironman <OPTION> <input>
+
     Options:
-        start            start pironman service   
-        stop             stop pironman service    
-        restart          restart pironman service 
-        -h,--help        help, show this help 
-        -c,--check       show all configurations  
+        start            start pironman service
+
+        stop             stop pironman service
+
+        restart          restart pironman service
+
+        -h,--help        help, show this help
+
+        -c,--check       show all configurations
+
         -a,--auto        [ on ],enable auto-start at boot
-                         [ off ], disable auto-start at boot  
+                         [ off ], disable auto-start at boot
+
         -u,--unit        [ C/F ], set the unit of temperature,
-                             C or F (Celsius/Fahrenheit)  
+                             C or F (Celsius/Fahrenheit)
+
         -f,--fan         [ temp ], Temperature at which the fan switches on,
-                         in celsius (default 50),in range (30 ~ 80)   
+                         in celsius (default 50),in range (30 ~ 80)
+
         -al,--always_on  [on/off], whether the screen is always on,
-                         default False    
+                         default False
+
         -s,--staty_time  [time], screen display duration in second,
-                         in second, default 30    
-        -rw,--rgb_sw     [on/off], rgb strip switch   
+                         in second, default 30
+
+        -rw,--rgb_sw     [on/off], rgb strip switch
+
         -rs,--rgb_style  rgb strip display style, default: breath,
-                         in [breath / leap / flow / raise_up / colorful]  
+                         in [breath / leap / flow / raise_up / colorful]
+
         -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
-                         default: 0a1aff  
-        -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)   
-        -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz) 
+                         default: 0a1aff
+
+        -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
+
+        -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
+
         -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
                          [21 / pcm / PCM], default 10
+
 
 
 For example, to turn off the automatic execution of programs at boot.
@@ -129,4 +148,4 @@ Those configurations are stored in ``/.config/pironman/config.txt``, and you can
 Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
 
 .. note::
-    For details on the introduction and configuration of the components in Pironman, please refer to: :ref:`about_hardware`.
+    The introduction and configuration of the Pironman components can be found in: :ref:`about_hardware`.

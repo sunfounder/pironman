@@ -27,7 +27,7 @@ In general, M.2 SATA SSDs are B+M-keyed (can fit in sockets for B-keyed and M-ke
 
 M.2 modules come in different sizes and can also be utilized for Wi-Fi, WWAN, Bluetooth, GPS, and NFC.
 
-M.2 SSDs typically come in four dimensions, which may be deduced from the card name —2230, 2242, 2260, and 2280 — "22" represents the width in millimeters (mm), while the next two digits represent the length, also in mm. The longer the drive, the more NAND flash chips can be mounted; hence, more capacity.
+Pironman supports four M.2 SATA SSD sizes based on their names: 2230, 2242, 2260, and 2280. The "22" is the width in millimeters (mm), and the two following numbers are the length. The longer the drive, the more NAND flash chips can be mounted; therefore, the more capacity.
 
 
 .. image:: img/m2_ssd_size.png

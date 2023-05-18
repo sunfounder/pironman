@@ -1,13 +1,6 @@
 4. Set up Your Raspberry Pi
 ============================
 
-.. note::
-
-    * If your Raspberry Pi has the following Pironman-compatible systems installed, you can skip this chapter.
-
-        .. image:: img/compitable_system.png
-    
-
 If You Have a Screen
 -------------------------
 
