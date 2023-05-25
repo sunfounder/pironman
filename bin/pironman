@@ -48,7 +48,8 @@
 ####
 
 main='/opt/pironman/main.py'
-User=$(ls -l $main |awk '{print $3}')
+# User=$(ls -l $main |awk '{print $3}')
+User=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 UserHome=$(getent passwd $User |cut -d: -f 6)
 CONF=$UserHome/.config/pironman/config.txt
 
@@ -118,7 +119,7 @@ restart() {
 want_reboot() {
     read -e -p "$(echo -e ${GREEN}Do you want to reboot to make change take effect?\(Y/N\): ${NC} )" choice
     if [ "$choice" == "Y" ] || [ "$choice" == "y" ]; then
-        echo "Rebooting now..."
+        echo "Rebooting now ..."
         sudo reboot
     fi
 }
