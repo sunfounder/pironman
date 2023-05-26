@@ -9,7 +9,7 @@ from app_info import __app_name__, __version__, username, user_home
 
 errors = []
 
-avaiable_options = ['-h', '--help', '--no-dep']
+avaiable_options = ['-h', '--help', '--no-dep', '--skip-config-txt', '--skip-auto-startup']
 
 usage = '''
 Usage:
@@ -233,30 +233,31 @@ def install():
     # 
     print("Config gpio")
     #
-    _status, _ = run_command("sudo raspi-config nonint")
-    if _status == 0:
-        do(msg="enable i2c ",
-            cmd='sudo raspi-config nonint do_i2c 0'
+    if "--skip-config-txt" not in options:
+        _status, _ = run_command("sudo raspi-config nonint")
+        if _status == 0:
+            do(msg="enable i2c ",
+                cmd='sudo raspi-config nonint do_i2c 0'
+            )
+        #
+        set_config(msg="enable i2c in config",
+            name="dtparam=i2c_arm",
+            value="on"
         )
-    #
-    set_config(msg="enable i2c in config",
-        name="dtparam=i2c_arm",
-        value="on"
-    )
-    set_config(msg="disable audio",
-        name="dtparam=audio",
-        value="off"
-    )
-    # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
-    set_config(msg="config gpio-poweroff",
-        name="dtoverlay=gpio-poweroff,gpio_pin",
-        value="26,active_low=0"
-    )
-    # dtoverlay=gpio-ir,gpio_pin=13
-    set_config(msg="config gpio-ir",
-        name="dtoverlay=gpio-ir,gpio_pin",
-        value="13"
-    )
+        set_config(msg="disable audio",
+            name="dtparam=audio",
+            value="off"
+        )
+        # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
+        set_config(msg="config gpio-poweroff",
+            name="dtoverlay=gpio-poweroff,gpio_pin",
+            value="26,active_low=0"
+        )
+        # dtoverlay=gpio-ir,gpio_pin=13
+        set_config(msg="config gpio-ir",
+            name="dtoverlay=gpio-ir,gpio_pin",
+            value="13"
+        )
     #
     print('create WorkingDirectory')
     # do(msg="create /opt",
@@ -270,14 +271,19 @@ def install():
         +' && sudo chown %s:%s /opt/%s'%(username, username, __app_name__)
     )
     #
-    do(msg='copy service file',
-        cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
-        +' && sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
+    if "--skip-auto-startup" not in options:
+        do(msg='copy service file',
+            cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
+        )
+        do(msg="add excutable mode for service file",
+            cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
+        )
+    do(msg='copy bin file',
+        cmd='sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
         +' && sudo cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
     )
-    do(msg="add excutable mode for service file",
-        cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
-        +' && sudo chmod +x /usr/local/bin/%s'%__app_name__
+    do(msg="add excutable mode for bin file",
+        cmd='sudo chmod +x /usr/local/bin/%s'%__app_name__
         +' && sudo chmod -R 774 /opt/%s'%__app_name__
         +' && sudo chown -R %s:%s /opt/%s'%(username, username, __app_name__)
     )
@@ -293,21 +299,22 @@ def install():
         +' && sudo chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
     )
     #
-    print('check startup files')
-    run_command('sudo systemctl daemon-reload')
-    status, result = run_command('sudo systemctl list-unit-files|grep %s'%__app_name__)
-    if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
-        do(msg='enable the service to auto-start at boot',
-            cmd='sudo systemctl enable %s.service'%__app_name__
+    if "--skip-auto-startup" not in options:
+        print('check startup files')
+        run_command('sudo systemctl daemon-reload')
+        status, result = run_command('sudo systemctl list-unit-files|grep %s'%__app_name__)
+        if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
+            do(msg='enable the service to auto-start at boot',
+                cmd='sudo systemctl enable %s.service'%__app_name__
+            )
+        else:
+            errors.append("%s error:\n  Status:%s\n  Error:%s" %
+                        ('check startup files ', status, result))
+        #
+        time.sleep(0.1)
+        do(msg='run the service',
+            cmd='sudo pironman restart'
         )
-    else:
-        errors.append("%s error:\n  Status:%s\n  Error:%s" %
-                      ('check startup files ', status, result))
-    #
-    time.sleep(0.1)
-    do(msg='run the service',
-        cmd='sudo pironman restart'
-    )
 
     if len(errors) == 0:
         print("Finished.")
