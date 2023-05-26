@@ -9,15 +9,18 @@ from app_info import __app_name__, __version__, username, user_home
 
 errors = []
 
-avaiable_options = ['-h', '--help', '--no-dep', '--skip-config-txt', '--skip-auto-startup']
+avaiable_options = ['-h', '--help', '--no-dep', '--skip-config-txt', '--skip-auto-startup', '--skip-reboot']
 
 usage = '''
 Usage:
     sudo python3 install.py [option]
 
 Options:
-               --no-dep    Do not download dependencies
-    -h         --help      Show this help text and exit
+               --no-dep             Do not download dependencies
+               --skip-config-txt    Skip config /boot/config.txt
+               --skip-auto-startup  Skip enable auto startup
+               --skip-reboot        Skip reboot after install
+    -h         --help               Show this help text and exit
 '''
 
 
@@ -318,17 +321,21 @@ def install():
 
     if len(errors) == 0:
         print("Finished.")
-        print("\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m")
-        while True:
-            key = input()
-            if key == 'Y' or key == 'y':
-                print(f'reboot')
-                run_command('sudo reboot')
-            elif key == 'N' or key == 'n':
-                print(f'exit')
-                sys.exit(0)
-            else:
-                continue
+        if "--skip-reboot" not in options:
+            print("\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m")
+            while True:
+                key = input()
+                if key == 'Y' or key == 'y':
+                    print(f'reboot')
+                    run_command('sudo reboot')
+                elif key == 'N' or key == 'n':
+                    print(f'exit')
+                    sys.exit(0)
+                else:
+                    continue
+        else:
+            print("\033[1;32mPlease reboot for the changes to take effect.\033[0m")
+            sys.exit(0)
     else:
         print('\n\n\033[1;35mError happened in install process:\033[0m')
         for error in errors:
