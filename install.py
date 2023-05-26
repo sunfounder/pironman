@@ -191,7 +191,7 @@ def install():
             if opt not in avaiable_options:
                 print("Option {} is not found.".format(opt))
                 print(usage)
-                quit()
+                sys.exit(1)
         if "-h" in options or "--help" in options:
             print(usage)
             quit()
