@@ -275,15 +275,19 @@ def install():
     if "--skip-auto-startup" not in options:
         do(msg='copy service file',
             cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
-            +' && sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
-            +' && sudo cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
         )
         do(msg="add excutable mode for service file",
             cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
-            +' && sudo chmod +x /usr/local/bin/%s'%__app_name__
-            +' && sudo chmod -R 774 /opt/%s'%__app_name__
-            +' && sudo chown -R %s:%s /opt/%s'%(username, username, __app_name__)
         )
+    do(msg='copy bin file',
+        cmd='sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
+        +' && sudo cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
+    )
+    do(msg="add excutable mode for bin file",
+        cmd='sudo chmod +x /usr/local/bin/%s'%__app_name__
+        +' && sudo chmod -R 774 /opt/%s'%__app_name__
+        +' && sudo chown -R %s:%s /opt/%s'%(username, username, __app_name__)
+    )
     #
     print('create config file')
     if not os.path.exists('%s/.config'%user_home):
