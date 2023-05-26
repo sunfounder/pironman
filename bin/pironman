@@ -321,6 +321,7 @@ case "$1" in
         then
             echo "setting rgb need boot config file. but it's not found";
             exit 1
+        fi
         case "$2" in
             spi|SPI|10)
                 echo "set rgb io to pin 10 (spi)"
