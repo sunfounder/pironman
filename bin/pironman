@@ -317,7 +317,7 @@ case "$1" in
         ;;
     -rp|--rgb_pin)
         # check boot_config
-        if [[( $boot_config == "" ]];
+        if [[ $boot_config == "" ]];
         then
             echo "setting rgb need boot config file. but it's not found";
             exit 1
