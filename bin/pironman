@@ -80,8 +80,7 @@ elif [ -f $BOOT_CONFIG_2 ]; then
     boot_config=${BOOT_CONFIG_2}
 else
     boot_config=""
-    echo -e "${RED}Error: Cannot find boot configuration file${NC}"
-    exit 1
+    echo -e "${RED}Warning: Cannot find boot configuration file${NC}"
 fi
 
 # echo "boot_config: ${boot_config}"
@@ -317,6 +316,11 @@ case "$1" in
         fi
         ;;
     -rp|--rgb_pin)
+        # check boot_config
+        if [[( $boot_config == "" ]];
+        then
+            echo "setting rgb need boot config file. but it's not found";
+            exit 1
         case "$2" in
             spi|SPI|10)
                 echo "set rgb io to pin 10 (spi)"
