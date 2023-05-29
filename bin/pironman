@@ -386,8 +386,6 @@ case "$1" in
     -F|--foreground)
         run_in_background=false
         ;;
-    -rp|--rgb_pin)
-    
     *)
         echo "no this command: $1"
         echo "please run [ pironman ] or [ pironman -h ] to get help infomation "
