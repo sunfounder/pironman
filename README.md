@@ -4,7 +4,7 @@ This repository is for SunFounder Pironman - A PC case for Raspberry Pi. you can
 Quick Links:
 
 - [SunFounder Pironman for Raspberry Pi](#sunfounder-pironman-for-raspberry-pi)
-  - [About pironman](#about-pironman)
+  - [About pironman:](#about-pironman)
   - [Install](#install)
   - [Usage](#usage)
   - [Update](#update)
@@ -68,6 +68,9 @@ Options:
                    default: 0a1aff
   -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
   -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
+  -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
+                   [21 / pcm / PCM], default 10
+  -F,--foreground  run script in foreground
 
 ```
 ## Update

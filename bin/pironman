@@ -46,6 +46,8 @@
 ####   -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
 ####                    [21 / pcm / PCM], default 10
 ####
+####   -F,--foreground  run script in foreground
+####
 
 main='/opt/pironman/main.py'
 # User=$(ls -l $main |awk '{print $3}')
@@ -73,6 +75,8 @@ BOOT_CONFIG_1="/boot/config.txt"
 BOOT_CONFIG_2="/boot/firmware/config.txt"
 boot_config=""
 
+run_in_background=true
+
 # check boot configuration path
 if [ -f "$BOOT_CONFIG_1" ]; then
     boot_config=${BOOT_CONFIG_1}
@@ -92,7 +96,11 @@ help() {
 }
 
 start() {
-    sudo python3 $main 1>/dev/null 2>>/opt/pironman/log &
+    if [ $run_in_background == true ]; then
+        sudo python3 $main 1>/dev/null 2>>/opt/pironman/log &
+    else
+        sudo python3 $main
+    fi
     # sudo python3 $main 1>/dev/null 2>&1 &
     if [ $? == '0' ];then
         echo "pironman start succeed"
@@ -375,6 +383,11 @@ case "$1" in
                 ;;
         esac
         ;;
+    -F|--foreground)
+        run_in_background=false
+        ;;
+    -rp|--rgb_pin)
+    
     *)
         echo "no this command: $1"
         echo "please run [ pironman ] or [ pironman -h ] to get help infomation "
