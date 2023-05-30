@@ -49,6 +49,7 @@ Options:
   start            start pironman service
   stop             stop pironman service
   restart          restart pironman service
+  start_foreground run script in foreground
   -h,--help        help, show this help
   -c,--check       show all configurations
   -a,--auto        [ on ],enable auto-start at boot
@@ -70,7 +71,6 @@ Options:
   -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
   -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
                    [21 / pcm / PCM], default 10
-  -F,--foreground  run script in foreground
 
 ```
 ## Update

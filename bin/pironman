@@ -10,6 +10,8 @@
 ####
 ####   stop             stop pironman service
 ####
+####   start_foreground run script in foreground
+####
 ####   restart          restart pironman service
 ####
 ####   -h,--help        help, show this help
@@ -46,7 +48,6 @@
 ####   -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
 ####                    [21 / pcm / PCM], default 10
 ####
-####   -F,--foreground  run script in foreground
 ####
 
 main='/opt/pironman/main.py'
@@ -385,7 +386,7 @@ case "$1" in
                 ;;
         esac
         ;;
-    -F|--foreground)
+    start_foreground)
         run_in_background=false
         ;;
     *)
