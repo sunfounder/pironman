@@ -97,8 +97,10 @@ help() {
 
 start() {
     if [ $run_in_background == true ]; then
+        echo "run in background"
         sudo python3 $main 1>/dev/null 2>>/opt/pironman/log &
     else
+        echo "run in foreground"
         sudo python3 $main
     fi
     # sudo python3 $main 1>/dev/null 2>&1 &
