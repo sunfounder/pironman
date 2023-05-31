@@ -342,27 +342,27 @@ while [[ $# -gt 0 ]]; do
       ;;
     -rp|--rgb_pin)
       # check boot_config
-      if [[ $boot_config == "" ]]; then
-        echo "setting rgb need boot config file. but it's not found";
+        echo "${RED}setting rgb need boot config file. but it's not found"${NC};
         exit 1
-      fi
       case "$2" in
         spi|SPI|10)
           echo "set rgb io to pin 10 (spi)"
           # set pin
           change_config ".*rgb_pin\s*=.*"  "rgb_pin = 10" ${CONF}
           #
-          echo "boot_config: ${boot_config}"
-          ## enable audio
-          change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
-          # enable spi
-          change_config ".*dtparam=spi=.*"  "dtparam=spi=on" ${boot_config}
-          # change core_freq, core_freq_min to stabilize the spi output frequency
-          change_config ".*core_freq=.*"  "core_freq=500" ${boot_config}
-          change_config ".*core_freq_min=.*"  "core_freq_min=500" ${boot_config}
-          # whether reboot to make changes take effect
-          want_reboot
-          # restart program
+          if [[ $boot_config != "" ]]; then
+            echo "boot_config: ${boot_config}"
+            ## enable audio
+            change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
+            # enable spi
+            change_config ".*dtparam=spi=.*"  "dtparam=spi=on" ${boot_config}
+            # change core_freq, core_freq_min to stabilize the spi output frequency
+            change_config ".*core_freq=.*"  "core_freq=500" ${boot_config}
+            change_config ".*core_freq_min=.*"  "core_freq_min=500" ${boot_config}
+            # whether reboot to make changes take effect
+            want_reboot
+            # restart program
+          fi
           shift 2
           ;;
         pwm|PWM|12)
@@ -370,11 +370,13 @@ while [[ $# -gt 0 ]]; do
           # set io
           change_config ".*rgb_pin\s*=.*"  "rgb_pin = 12" ${CONF}
           #
-          echo "boot_config: ${boot_config}"
-          # disable audio
-          change_config ".*dtparam=audio=.*" "dtparam=audio=off" ${boot_config}
-          # whether reboot to make changes take effect
-          want_reboot
+          if [[ $boot_config != "" ]]; then
+            echo "boot_config: ${boot_config}"
+            # disable audio
+            change_config ".*dtparam=audio=.*" "dtparam=audio=off" ${boot_config}
+            # whether reboot to make changes take effect
+            want_reboot
+          fi
           # restart program
           shift 2
           ;;
@@ -383,14 +385,16 @@ while [[ $# -gt 0 ]]; do
           # set io
           change_config ".*rgb_pin\s*=.*"  "rgb_pin = 21" ${CONF}
           #
-          echo "boot_config: ${boot_config}"
-            ## enable audio
-          change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
-          # disable i2s
-          change_config ".*dtoverlay=hifiberry-dac$" "#dtoverlay=hifiberry-dac" ${boot_config}
-          change_config ".*dtoverlay=i2s-mmap$" "#dtoverlay=i2s-mmap" ${boot_config}
-          # whether reboot to make changes take effect
-          want_reboot
+          if [[ $boot_config != "" ]]; then
+            echo "boot_config: ${boot_config}"
+              ## enable audio
+            change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
+            # disable i2s
+            change_config ".*dtoverlay=hifiberry-dac$" "#dtoverlay=hifiberry-dac" ${boot_config}
+            change_config ".*dtoverlay=i2s-mmap$" "#dtoverlay=i2s-mmap" ${boot_config}
+            # whether reboot to make changes take effect
+            want_reboot
+          fi
           # restart program
           shift 2
           ;;
