@@ -341,9 +341,6 @@ while [[ $# -gt 0 ]]; do
       fi
       ;;
     -rp|--rgb_pin)
-      # check boot_config
-        echo "${RED}setting rgb need boot config file. but it's not found"${NC};
-        exit 1
       case "$2" in
         spi|SPI|10)
           echo "set rgb io to pin 10 (spi)"
