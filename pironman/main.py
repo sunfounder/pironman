@@ -5,10 +5,10 @@ import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
-from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
-from system_status import *
-from utils import log, run_command
-from app_info import __app_name__, __version__, username, user_home, config_file
+from .oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
+from .system_status import *
+from .utils import log, run_command
+from .app_info import __app_name__, __version__, username, user_home, config_file
 
 
 # print info
@@ -254,10 +254,10 @@ def main():
                 draw.rectangle((0,0,width,height), outline=0, fill=0)
                 # get info
                 # RAM
-                # RAM_stats = getRAMinfo()
-                # RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
-                # RAM_used = round(int(RAM_stats[1]) / 1024/1024,1)
-                # RAM_usage = round(RAM_used/RAM_total*100,1)
+                RAM_stats = getRAMinfo()
+                RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
+                RAM_used = round(int(RAM_stats[1]) / 1024/1024,1)
+                RAM_usage = round(RAM_used/RAM_total*100,1)
                 # Disk information
                 DISK_stats = getDiskSpace()
                 DISK_total = str(DISK_stats[0])

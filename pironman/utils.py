@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import time
-from app_info import __app_name__
+from .app_info import __app_name__
 
 def log(msg:str=None,level='DEBUG',end='\n',flush=False,timestamp=True):
     with open('/opt/%s/log'%__app_name__,'a+') as log_file:
