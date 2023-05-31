@@ -52,26 +52,45 @@
 #!/bin/bash
 
 main='/opt/pironman/main.py'
-User=$(ls -l $main | awk '{print $3}')
-User=${SUDO_USER:-$(who -m | awk '{print $1}')}
-UserHome=$(getent passwd $User | cut -d: -f 6)
+# User=$(ls -l $main |awk '{print $3}')
+User=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
+UserHome=$(getent passwd $User |cut -d: -f 6)
 CONF=$UserHome/.config/pironman/config.txt
 
-check_boot_configuration() {
-  BOOT_CONFIG_1="/boot/config.txt"
-  BOOT_CONFIG_2="/boot/firmware/config.txt"
+# echo $main
+# echo $User
+# echo $UserHome
+# echo $CONF
+# echo 'config file:'$CONF
 
-  if [ -f "$BOOT_CONFIG_1" ]; then
-    boot_config=$BOOT_CONFIG_1
-  elif [ -f "$BOOT_CONFIG_2" ]; then
-    boot_config=$BOOT_CONFIG_2
-  else
+# print colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+GRAY='\033[1;30m'
+#
+NC='\033[0m'
+
+# check boot configuration path
+BOOT_CONFIG_1="/boot/config.txt"
+BOOT_CONFIG_2="/boot/firmware/config.txt"
+boot_config=""
+
+run_in_background=true
+
+# check boot configuration path
+if [ -f "$BOOT_CONFIG_1" ]; then
+    boot_config=${BOOT_CONFIG_1}
+elif [ -f $BOOT_CONFIG_2 ]; then
+    boot_config=${BOOT_CONFIG_2}
+else
     boot_config=""
     echo -e "${RED}Warning: Cannot find boot configuration file${NC}"
-  fi
+fi
 
-  echo "boot_config: ${boot_config}"
-}
+# echo "boot_config: ${boot_config}"
+##################### ---- fuctions ---- #####################
 
 help() {
   echo -e "\nconfig file:${CONF}"
@@ -126,7 +145,7 @@ change_config() {
   fi
 }
 
-check_boot_configuration
+##################### ---- main ---- #####################
 
 run_in_background="false"
 
@@ -161,16 +180,17 @@ while [[ $# -gt 0 ]]; do
     -a|--auto)
       case "$2" in
         on)
-          echo "enable auto
-          change_config "#### auto-start$" "#### auto-start\nauto_start=True" "$CONF"
+          echo "enable auto-start at boot"
+          sudo systemctl enable pironman.service
           shift 2
           ;;
         off)
-          change_config "auto_start=True" "#### auto-start" "$CONF"
+          echo "disable auto-start at boot"
+          sudo systemctl disable pironman.service
           shift 2
-          ;;
+        ;;
         *)
-          echo -e "${RED}Invalid argument for -a|--auto option.${NC}"
+          echo "usage: pironman -a|--auto [on/off]"
           exit 1
           ;;
       esac
