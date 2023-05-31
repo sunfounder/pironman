@@ -259,18 +259,18 @@ while [[ $# -gt 0 ]]; do
       ;;
     -rw|--rgb_sw)
       case "$2" in
-        on)
+        "on"|true)
           echo "set rgb_switch to on "
           sed -i -e "s:rgb_switch.*=.*:rgb_switch = True:g" ${CONF}
           shift 2
         ;;
-        off)
+        "off"|false)
           echo "set rgb_switch to off "
           sed -i -e "s:rgb_switch.*=.*:rgb_switch = False:g" ${CONF}
           shift 2
         ;;
         *)
-          echo "usage: pironman -al|--always_on [on|off]"
+          echo "usage: pironman -rw|--rgb_sw [on|true|off|false]"
           exit 1
         ;;
       esac
