@@ -147,7 +147,7 @@ change_config() {
 
 ##################### ---- main ---- #####################
 
-run_in_background="false"
+run_in_background="true"
 
 if [ $# -eq 0 ]; then
   help
@@ -157,7 +157,6 @@ fi
 while [[ $# -gt 0 ]]; do
   case "$1" in
     start)
-      run_in_background="true"
       shift
       ;;
     stop)
@@ -179,12 +178,12 @@ while [[ $# -gt 0 ]]; do
       ;;
     -a|--auto)
       case "$2" in
-        on)
+        "on"|true)
           echo "enable auto-start at boot"
           sudo systemctl enable pironman.service
           shift 2
           ;;
-        off)
+        "off"|false)
           echo "disable auto-start at boot"
           sudo systemctl disable pironman.service
           shift 2
@@ -228,12 +227,12 @@ while [[ $# -gt 0 ]]; do
       ;;
     -al|--always_on)
       case "$2" in
-        on)
+        "on"|true)
           echo "set screen_always_on to on "
           sed -i -e "s:screen_always_on.*=.*:screen_always_on = True:g" ${CONF}
           shift 2
         ;;
-        off)
+        "off"|false)
           echo "set screen_always_on to off "
           sed -i -e "s:screen_always_on.*=.*:screen_always_on = False:g" ${CONF}
           shift 2
