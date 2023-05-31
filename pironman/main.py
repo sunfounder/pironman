@@ -9,7 +9,7 @@ from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from system_status import *
 from utils import log, run_command
 from app_info import __app_name__, __version__, username, user_home, config_file
-from ws2812_RGB import WS2812, RGB_styles
+
 
 # print info
 line = '-'*24
@@ -44,6 +44,7 @@ temp_unit = 'C' # 'C' or 'F'
 fan_temp = 50 # celsius
 screen_always_on = False
 screen_off_time = 60
+rgb_enable = True
 rgb_switch = True
 rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful'
 rgb_color = '#0a1aff'
@@ -82,6 +83,11 @@ try:
     else:
         screen_always_on = False
     screen_off_time = int(config['all']['screen_off_time'])
+    rgb_enable = (config['all']['rgb_enable'])
+    if rgb_enable == 'False':
+        rgb_enable = False
+    else:
+        rgb_enable = True
     rgb_switch = (config['all']['rgb_switch'])
     if rgb_switch == 'False':
         rgb_switch = False
@@ -126,6 +132,8 @@ log("\n")
 oled_ok = False
 oled_stat = False
 
+if rgb_enable:
+    from ws2812_RGB import WS2812, RGB_styles
 
 try:
     run_command("sudo modprobe i2c-dev")
@@ -177,11 +185,12 @@ def fan_off():
 # endregion: io control
 
 # region: rgb_strip init
-try:
-    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
-except Exception as e:
-    log('rgb_strip init failed:\n%s'%e)
-    rgb_switch = False
+if rgb_enable:
+    try:
+        strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
+    except Exception as e:
+        log('rgb_strip init failed:\n%s'%e)
+        rgb_switch = False
 
 def rgb_show():
     log('rgb_show')
@@ -202,13 +211,14 @@ def main():
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
-    # rgb_strip thread
-    if rgb_switch == True:
-        rgb_thread = threading.Thread(target=rgb_show)
-        rgb_thread.daemon = True
-        rgb_thread.start()
-    else:
-        strip.clear()
+    if rgb_enable:
+        # rgb_strip thread
+        if rgb_switch == True:
+            rgb_thread = threading.Thread(target=rgb_show)
+            rgb_thread.daemon = True
+            rgb_thread.start()
+        else:
+            strip.clear()
 
 
     while True:

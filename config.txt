@@ -30,6 +30,7 @@ temp_unit = C
 fan_temp = 50
 screen_always_on = False
 screen_off_time = 60
+rgb_enable = True
 rgb_switch = True
 rgb_style = breath
 rgb_color = 0a1aff
