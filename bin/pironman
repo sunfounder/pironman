@@ -258,6 +258,24 @@ while [[ $# -gt 0 ]]; do
         fi
       fi
       ;;
+    -re|--rgb_enable)
+      case "$2" in
+        "on"|true)
+          echo "set rgb_enable to on "
+          sed -i -e "s:rgb_enable.*=.*:rgb_enable = True:g" ${CONF}
+          shift 2
+        ;;
+        "off"|false)
+          echo "set rgb_enable to off "
+          sed -i -e "s:rgb_enable.*=.*:rgb_enable = False:g" ${CONF}
+          shift 2
+        ;;
+        *)
+          echo "usage: pironman -re|--rgb_enable [on|true|off|false]"
+          exit 1
+        ;;
+      esac
+      ;;
     -rw|--rgb_sw)
       case "$2" in
         "on"|true)
@@ -272,24 +290,6 @@ while [[ $# -gt 0 ]]; do
         ;;
         *)
           echo "usage: pironman -rw|--rgb_sw [on|true|off|false]"
-          exit 1
-        ;;
-      esac
-      ;;
-    -re|--rgb_enable)
-      case "$2" in
-        "on"|true)
-          echo "set rgb_enable to on "
-          sed -i -e "s:rgb_enable.*=.*:rgb_enable = True:g" ${CONF}
-          shift 2
-        ;;
-        "off"|false)
-          echo "set rgb_enable to off "
-          sed -i -e "s:rgb_enable.*=.*:rgb_enable = False:g" ${CONF}
-          shift 2
-        ;;
-        *)
-          echo "usage: pironman -rw|--rgb_enable [on|true|off|false]"
           exit 1
         ;;
       esac
