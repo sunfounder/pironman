@@ -1,7 +1,7 @@
 import time
 import random
 from rpi_ws281x import PixelStrip, Color # https://github.com/jgarff/rpi_ws281x
-from .utils import log
+from utils import log
 
 # LED strip configuration:
 # LED_COUNT      = 16      # Number of LED pixels.
