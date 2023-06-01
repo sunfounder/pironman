@@ -298,7 +298,7 @@ def install():
     print('create config file')
     do(msg='copy config file',
         cmd='cp -rpf ./config.txt /opt/pironman/config.txt'
-        +' && chown -R /opt/pironman/config.txt'
+        +' && chown -R %s:%s /opt/pironman/config.txt'%(username, username)
     )
     #
     if "--skip-auto-startup" not in options:
