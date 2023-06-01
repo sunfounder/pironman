@@ -242,9 +242,16 @@ def install():
             do(msg="enable i2c ",
                 cmd='sudo raspi-config nonint do_i2c 0'
             )
+            do(msg="enable spi ",
+                cmd='sudo raspi-config nonint do_spi 0'
+            )
         #
         set_config(msg="enable i2c in config",
             name="dtparam=i2c_arm",
+            value="on"
+        )
+        set_config(msg="enable spi in config",
+            name="dtparam=spi",
             value="on"
         )
         set_config(msg="disable audio",
