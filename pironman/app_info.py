@@ -36,7 +36,8 @@ __version__ = '2.0.0'
 username = os.popen("echo ${SUDO_USER:-$(who -m | awk '{ print $1 }')}").readline().strip()
 user_home = os.popen('getent passwd %s | cut -d: -f 6'%username).readline().strip()
 
-config_file = '%s/.config/%s/config.txt'%(user_home, __app_name__)
+# config_file = '%s/.config/%s/config.txt'%(user_home, __app_name__)
+config_file = '/opt/pironman/config.txt'
 
 # print('[app_info] abspath: %s'%abspath)
 # print('[app_info] User: %s'%User)

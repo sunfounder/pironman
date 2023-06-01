@@ -296,14 +296,9 @@ def install():
     )
     #
     print('create config file')
-    if not os.path.exists('%s/.config'%user_home):
-        os.mkdir('%s/.config'%user_home)
-        os.popen('chmod 774 %s/.config'%user_home)
-        run_command(' chown %s:%s %s/.config'%(username, username, user_home))
     do(msg='copy config file',
-        cmd='mkdir -p %s/.config/%s '%(user_home, __app_name__)
-        +' && cp -rpf ./config.txt %s/.config/%s/config.txt '%(user_home, __app_name__)
-        +' && chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
+        cmd='cp -rpf ./config.txt /opt/pironman/config.txt'
+        +' && chown -R /opt/pironman/config.txt'
     )
     #
     if "--skip-auto-startup" not in options:

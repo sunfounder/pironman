@@ -56,7 +56,7 @@ main='/opt/pironman/main.py'
 # User=$(ls -l $main |awk '{print $3}')
 User=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 UserHome=$(getent passwd $User |cut -d: -f 6)
-CONF=$UserHome/.config/pironman/config.txt
+CONF=/opt/pironman/config.txt
 
 # echo $main
 # echo $User
