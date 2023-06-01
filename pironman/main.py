@@ -5,6 +5,9 @@ import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
+
+sys.path.append('/opt/pironman')
+
 from .oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from .system_status import *
 from .utils import log, run_command

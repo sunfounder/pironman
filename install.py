@@ -233,7 +233,7 @@ def install():
         #
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='apt install %s -y'%dep)
+                cmd='apt-get install %s -y'%dep)
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
                 cmd='pip3 install %s'%dep)

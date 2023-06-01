@@ -155,8 +155,6 @@ change_config() {
 
 ##################### ---- main ---- #####################
 
-run_in_background="true"
-
 if [ $# -eq 0 ]; then
   help
   exit 0
