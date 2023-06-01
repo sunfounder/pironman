@@ -258,6 +258,14 @@ def install():
             name="dtparam=audio",
             value="off"
         )
+        set_config(msg="set core_freq to 500",
+            name="core_freq",
+            value="500"
+        )
+        set_config(msg="set core_freq_min to 500",
+            name="core_freq_min",
+            value="500"
+        )     
         # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
         set_config(msg="config gpio-poweroff",
             name="dtoverlay=gpio-poweroff,gpio_pin",
