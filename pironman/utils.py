@@ -25,6 +25,7 @@ def run_command(cmd):
 
 def ha_shutdown():
     '''shutdown homeassistant host'''
+    log(msg="Shutdown home assistant host", level='DEBUG')
     try:
         import requests
         import os

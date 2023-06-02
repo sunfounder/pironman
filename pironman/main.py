@@ -346,7 +346,7 @@ def main():
                     oled_stat = False
                     oled.off()
                     ha_shutdown() # shutdown homeassistant host
-                    os.system('sudo poweroff')
+                    os.system('poweroff')
                     sys.exit(1)
             else:
                 power_key_flag = False
