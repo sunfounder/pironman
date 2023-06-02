@@ -23,7 +23,7 @@
 ####                        C or F (Celsius/Fahrenheit)
 ####
 ####   -f,--fan             [ temp ], Temperature at which the fan switches on,
-####                        in celsius (default 50),in range (30 ~ 80)
+####                        (default 50℃), in range (30 ~ 80)
 ####
 ####   -al,--always_on      [on/true/off/false], whether the screen is always on,
 ####                        default False
@@ -218,7 +218,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -f|--fan)
       if [ $# -lt 2 ]; then
-        echo "usage: pironman -f|--fan [temp],temperature in range (30 ~ 80) "
+        echo "usage: pironman -f|--fan [temp]"
         exit 1
       else
         if [[ $2 =~ ^[[:digit:]]+$ ]]; then

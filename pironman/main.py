@@ -7,7 +7,7 @@ from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from system_status import *
-from utils import log, run_command
+from utils import log, run_command, ha_shutdown
 from app_info import __app_name__, __version__, username, user_home, config_file
 
 
@@ -345,6 +345,7 @@ def main():
                     log("POWER OFF")
                     oled_stat = False
                     oled.off()
+                    ha_shutdown() # shutdown homeassistant host
                     os.system('sudo poweroff')
                     sys.exit(1)
             else:

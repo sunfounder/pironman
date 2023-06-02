@@ -46,6 +46,7 @@ PIP_INSTALL_LIST = [
     'rpi-ws281x',
     # 'pillow --no-binary :all:', # https://pillow.readthedocs.io/en/latest/installation.html
     'pillow --no-cache-dir',
+    'requests',
 ]
 
 def check_root():
