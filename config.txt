@@ -26,8 +26,6 @@
 #
 # rgb_pin, rgb signal pin, could be 10(spi), 12(PWM) or 21(PCM)
 #
-# mode, 0: host, 1: docker
-
 
 temp_unit = C
 fan_temp = 50
@@ -40,4 +38,3 @@ rgb_color = 0a1aff
 rgb_blink_speed = 50
 rgb_pwm_freq = 1000
 rgb_pin = 10
-mode = 0
