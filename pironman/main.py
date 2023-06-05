@@ -5,9 +5,9 @@ import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
-from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
+from oled import SSD1306_128_64
 from system_status import *
-from utils import log, run_command, ha_shutdown
+from utils import log, run_command
 from app_info import __app_name__, __version__, username, user_home, config_file
 from ha_api import HomeAssistantSupervisorAPI
 
