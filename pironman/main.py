@@ -9,7 +9,19 @@ from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from system_status import *
 from utils import log, run_command, ha_shutdown
 from app_info import __app_name__, __version__, username, user_home, config_file
+from ha_api import HomeAssistantSupervisorAPI
 
+NORMAL = 0
+HOME_ASSISTANT_ADDON = 1
+
+mode = NORMAL
+
+if os.environ['SUPERVISOR_TOKEN'] != '':
+    mode = HOME_ASSISTANT_ADDON
+    ha = HomeAssistantSupervisorAPI(
+        "http://supervisor/",
+        os.environ['SUPERVISOR_TOKEN']
+    )
 
 # print info
 line = '-'*24
@@ -103,6 +115,7 @@ except:
                     'fan_temp':fan_temp,
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
+                    'rgb_enable':rgb_enable,
                     'rgb_switch':rgb_switch,
                     'rgb_style':rgb_style,
                     'rgb_color':rgb_color,
@@ -115,16 +128,18 @@ except:
 
 log("power_key_pin : %s"%power_key_pin)
 log("fan_pin : %s"%fan_pin)
-log("rgb_pin : %s"%rgb_pin)
 log("update_frequency : %s"%update_frequency)
 log("temp_unit : %s"%temp_unit)
 log("fan_temp : %s"%fan_temp)
 log("screen_always_on : %s"%screen_always_on)
 log("screen_off_time : %s"%screen_off_time)
+log("rgb_enable : %s"%rgb_enable)
 log("rgb_switch: %s"%rgb_switch)
+log("rgb_style : %s"%rgb_style)
+log("rgb_color : %s"%rgb_color)
 log("rgb_blink_speed : %s"%rgb_blink_speed)
 log("rgb_pwm_freq : %s"%rgb_pwm_freq)
-log("rgb_color : %s"%rgb_color)
+log("rgb_pin : %s"%rgb_pin)
 log("\n")
 # endregion: config
 
@@ -204,6 +219,22 @@ def rgb_show():
         log(e,level='rgb_strip')
 
 # endregion: rgb_strip init
+
+def getIPAddress():
+    ip = None
+    if mode == NORMAL:
+        IPs = getIP()
+    elif mode == HOME_ASSISTANT_ADDON:
+        IPs = ha.get_ip()
+    if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
+        ip = IPs['wlan0']
+    elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
+        ip = IPs['eth0']
+    else:
+        ip = 'DISCONNECT'
+
+    return ip
+
 
 def main():
     global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
@@ -345,9 +376,11 @@ def main():
                     log("POWER OFF")
                     oled_stat = False
                     oled.off()
-                    ha_shutdown() # shutdown homeassistant host
-                    os.system('poweroff')
-                    sys.exit(1)
+                    if mode == HOME_ASSISTANT_ADDON:
+                        ha.shutdown() # shutdown homeassistant host
+                    else:
+                        os.system('poweroff')
+                        sys.exit(1)
             else:
                 power_key_flag = False
 

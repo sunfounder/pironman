@@ -50,6 +50,8 @@
 ####
 ####   -F,--foreground      run in foreground
 ####
+####   -m,--mode            [host/docker], set the mode of the script,
+####
 #!/bin/bash
 
 main='/opt/pironman/main.py'
@@ -428,6 +430,25 @@ while [[ $# -gt 0 ]]; do
     -F|--foreground)
       run_in_background="false"
       shift
+      ;;
+    -m|--mode)
+      case "$2" in
+        host|Host|HOST)
+          echo "set mode to $2 "
+          sed -i -e "s:mode.*=.*:mode = 0:g"
+          shift 2
+        ;;
+      case "$2" in
+        docker|Docker|DOCKER)
+          echo "set mode to $2 "
+          sed -i -e "s:mode.*=.*:mode = 1:g"
+          shift 2
+        ;;
+      *)
+        echo "usage: pironman -m|--mode [host / docker]"
+        exit 1
+        ;;
+      esac
       ;;
     *)
       echo -e "${RED}Invalid argument: $1.${NC}"

@@ -22,21 +22,3 @@ def run_command(cmd):
     result = p.stdout.read().decode()
     status = p.poll()
     return status, result
-
-def ha_shutdown():
-    '''shutdown homeassistant host'''
-    log(msg="Shutdown home assistant host", level='DEBUG')
-    try:
-        import requests
-        import os
-
-        url = "http://supervisor/host/shutdown"
-
-        headers = {
-            "Authorization": f"Bearer {os.environ['SUPERVISOR_TOKEN']}",
-            "Content-Type": "application/json",
-        }
-
-        requests.post(url, headers=headers)
-    except Exception as e:
-        log(msg="Shutdown home assistant host error: " + e, level='DEBUG')
