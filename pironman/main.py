@@ -22,6 +22,7 @@ if os.environ['SUPERVISOR_TOKEN'] != '':
         "http://supervisor/",
         os.environ['SUPERVISOR_TOKEN']
     )
+    log('Home Assistant Addon mode')
 
 # print info
 line = '-'*24
@@ -226,6 +227,7 @@ def getIPAddress():
         IPs = getIP()
     elif mode == HOME_ASSISTANT_ADDON:
         IPs = ha.get_ip()
+    log("Got IPs: %s" % IPs)
     if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
         ip = IPs['wlan0']
     elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
