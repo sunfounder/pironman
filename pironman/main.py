@@ -227,6 +227,8 @@ def getIPAddress():
         IPs = getIP()
     elif mode == HOME_ASSISTANT_ADDON:
         IPs = ha.get_ip()
+        if len(IPs) == 0:
+            IPs = getIP()
     log("Got IPs: %s" %IPs)
     if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
         ip = IPs['wlan0']
