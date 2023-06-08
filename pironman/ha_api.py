@@ -20,6 +20,14 @@ class HomeAssistantSupervisorAPI:
         except Exception as e:
             log(msg="home assistant get error: " + e, level='DEBUG')
 
+    def set(self, endpoint, data=None):
+        try:
+            url = f"{self.url}{endpoint}"
+            requests.post(url, headers=self.headers)
+        except Exception as e:
+            log(msg="home assistant get error: " + e, level='DEBUG')
+
+
 
     def get_ip(self):
         IPs = {}
@@ -41,5 +49,5 @@ class HomeAssistantSupervisorAPI:
     def shutdown(self):
         '''shutdown homeassistant host'''
         log(msg="Shutdown home assistant host", level='DEBUG')
-        self.get("host/shutdown")
+        self.set("host/shutdown")
 
