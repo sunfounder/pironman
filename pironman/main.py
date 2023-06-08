@@ -253,6 +253,8 @@ def main():
         else:
             strip.clear()
 
+    # ip address
+    ip = getIPAddress()
 
     while True:
 
@@ -296,8 +298,6 @@ def main():
                 DISK_total = str(DISK_stats[0])
                 DISK_used = str(DISK_stats[1])
                 DISK_perc = float(DISK_stats[3])
-                # ip address
-                ip = getIPAddress()
 
                 # display info
                 ip_rect = Rect(48, 0, 81, 10)
