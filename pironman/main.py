@@ -227,7 +227,7 @@ def getIPAddress():
         IPs = getIP()
     elif mode == HOME_ASSISTANT_ADDON:
         IPs = ha.get_ip()
-    log("Got IPs: %s" % IPs)
+    log("Got IPs: %s" %IPs)
     if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
         ip = IPs['wlan0']
     elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
@@ -297,15 +297,7 @@ def main():
                 DISK_used = str(DISK_stats[1])
                 DISK_perc = float(DISK_stats[3])
                 # ip address
-                ip = None
-                IPs = getIP()
-
-                if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
-                    ip = IPs['wlan0']
-                elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
-                    ip = IPs['eth0']
-                else:
-                    ip = 'DISCONNECT'
+                ip = getIPAddress()
 
                 # display info
                 ip_rect = Rect(48, 0, 81, 10)
