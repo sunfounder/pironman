@@ -29,7 +29,11 @@ class HomeAssistantSupervisorAPI:
         interfaces = data["data"]["interfaces"]
         for interface in interfaces:
             name = interface['interface']
-            ip = interface['ipv4']['ip_address']
+            ip = interface['ipv4']['address'][0]
+            if ip == '':
+                continue
+            if "/" in ip:
+                ip = ip.split("/")[0]
             IPs[name] = ip
         return IPs
 
