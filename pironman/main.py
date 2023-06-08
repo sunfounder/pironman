@@ -253,8 +253,8 @@ def main():
         else:
             strip.clear()
 
-    # ip address
-    ip = getIPAddress()
+
+    ip = 'DISCONNECT'
 
     while True:
 
@@ -305,6 +305,10 @@ def main():
                 ram_rect = Rect(46, 29, 81, 10)
                 rom_info_rect = Rect(46, 41, 81, 10)
                 rom_rect = Rect(46, 53, 81, 10)
+
+                # get ip if disconnected
+                if ip == 'DISCONNECT':
+                    ip = getIPAddress()
 
                 draw_text('CPU',6,0)
                 draw.pieslice((0, 12, 30, 42), start=180, end=0, fill=0, outline=1)
