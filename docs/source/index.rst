@@ -44,6 +44,7 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
     install_the_os
     set_up_your_raspberry_pi
     setup_pironman
+    home-assistant
     about_hardware
     appendix/appendix
     faq

@@ -1,7 +1,11 @@
 .. _install_os:
 
-3. Installing the OS
-=======================
+3. Installing the OS (Common)
+========================================
+
+.. note::
+
+    If you want to use Home Assistance, please :ref:`install_hassos` .
 
 .. note::
 
