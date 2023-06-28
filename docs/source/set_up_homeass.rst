@@ -175,19 +175,19 @@ Alternatively, follow the steps below to install manually:
 
     .. image:: img/sp230628_150338.png
 
-2. Click the menu button in the top right corner and select "Repositories".
+3. Click the menu button in the top right corner and select "Repositories".
 
     .. image:: img/sp230627_145728.png
 
-3. Type the repository URL: ``https://github.com/sunfounder/home-assistant-addon`` , and click Add. After adding the SunFounder repository, close the popup window.
+4. Type the repository URL: ``https://github.com/sunfounder/home-assistant-addon`` , and click Add. After adding the SunFounder repository, close the popup window.
 
     .. image:: img/sp230627_150423.png
 
-4. Click the menu button again, and click "Check for updates".
+5. Click the menu button again, and click "Check for updates".
 
     .. image:: img/sp230627_150716.png
 
-5. After a few seconds, the Pironman addon will appear at the end of the addon store. If not, try refreshing the page.
+6. After a few seconds, the Pironman addon will appear at the end of the addon store. If not, try refreshing the page.
 
     .. image:: img/sp230627_150717.png
 
