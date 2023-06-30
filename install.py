@@ -204,7 +204,7 @@ def install():
             cmd='sudo apt update -y'
         )
         do(msg="update pip3",
-            cmd='sudo python3 -m pip install --upgrade pip'
+            cmd='sudo python3 -m pip install --upgrade pip --break-system-packages'
         )
         ##
         print("Install dependency")
@@ -232,7 +232,7 @@ def install():
                 cmd='sudo apt install %s -y'%dep)
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='sudo pip3 install %s'%dep)
+                cmd='sudo pip3 install %s --break-system-packages'%dep)
     # 
     print("Config gpio")
     #
