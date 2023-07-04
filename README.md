@@ -94,7 +94,7 @@ Systems that passed the test on the Raspberry Pi 4B:
   | OctoPi | &#x2705; |
   | Homebridge | &#x2705; |
   | LibreELEC | &#x274C; |
-  | HassOS | &#x274C; |
+  | <a href="https://pironman-v2.readthedocs.io/en/latest/home_assistant.html">HassOS</a> | &#x2705; |
 </font>
 
 <a id="about_sunfounder"></a>
