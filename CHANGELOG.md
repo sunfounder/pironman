@@ -1,5 +1,12 @@
 # Change Log
 
+
+## [1.6.0] - 2023-6-30
+
+### Fixed
+- Fix installation failure due to PEP 668 restrictions
+
+
 ## [1.5.0] - 2023-4-7
 
 ### Modified

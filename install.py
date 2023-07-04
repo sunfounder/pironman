@@ -209,7 +209,7 @@ def install():
             cmd='apt update -y'
         )
         do(msg="update pip3",
-            cmd='python3 -m pip install --upgrade pip'
+            cmd='python3 -m pip install --upgrade pip --break-system-packages'
         )
         ##
         print("Install dependency")
@@ -234,10 +234,10 @@ def install():
         #
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='apt-get install %s -y'%dep)
+                cmd='apt-get install %s -y' % dep)
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='pip3 install %s'%dep)
+                cmd='pip3 install %s --break-system-packages' % dep)
     # 
     print("Config gpio")
     #
@@ -247,15 +247,30 @@ def install():
             do(msg="enable i2c ",
                 cmd='raspi-config nonint do_i2c 0'
             )
+            do(msg="enable spi ",
+                cmd='sudo raspi-config nonint do_spi 0'
+            )
         #
         set_config(msg="enable i2c in config",
             name="dtparam=i2c_arm",
+            value="on"
+        )
+        set_config(msg="enable spi in config",
+            name="dtparam=spi",
             value="on"
         )
         set_config(msg="disable audio",
             name="dtparam=audio",
             value="off"
         )
+        set_config(msg="set core_freq to 500",
+            name="core_freq",
+            value="500"
+        )
+        set_config(msg="set core_freq_min to 500",
+            name="core_freq_min",
+            value="500"
+        )     
         # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
         set_config(msg="config gpio-poweroff",
             name="dtoverlay=gpio-poweroff,gpio_pin",
