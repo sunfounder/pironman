@@ -135,7 +135,7 @@ restart() {
 }
 
 want_reboot() {
-  read -e -p "$(echo -e ${GREEN}Do you want to reboot to make the changes take effect? (Y/N): ${NC})" choice
+  read -e -p "$(echo -e ${GREEN}Do you want to reboot to make the changes take effect? \(Y/N\): ${NC})" choice
   if [ "$choice" == "Y" ] || [ "$choice" == "y" ]; then
     echo "Rebooting now ..."
     reboot
