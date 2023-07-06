@@ -1,5 +1,21 @@
 # Change Log
 
+## [2.0.1] - 2023-6-1
+
+### Changed
+- Remove control of the "dtparam=audio" in /boot/config.txt
+
+## [2.0.0] - 2023-6-1
+
+### Optimized
+- Compatible with python 3.10
+- Optimize option command
+
+### Added
+- Add settings of rgb pin
+- Add colorful_leap style
+
+
 ## [1.5.0] - 2023-4-7
 
 ### Modified
