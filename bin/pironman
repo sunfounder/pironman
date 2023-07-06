@@ -341,7 +341,7 @@ case "$1" in
                 #
                 echo "boot_config: ${boot_config}"
                 ## enable audio
-                change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
+                # change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
                 # enable spi
                 change_config ".*dtparam=spi=.*"  "dtparam=spi=on" ${boot_config}
                 # change core_freq, core_freq_min to stabilize the spi output frequency
@@ -359,7 +359,7 @@ case "$1" in
                 #
                 echo "boot_config: ${boot_config}"
                 # disable audio
-                change_config ".*dtparam=audio=.*" "dtparam=audio=off" ${boot_config}
+                # change_config ".*dtparam=audio=.*" "dtparam=audio=off" ${boot_config}
                 # whether reboot to make changes take effect
                 want_reboot
                 # restart program
@@ -372,7 +372,7 @@ case "$1" in
                 #
                 echo "boot_config: ${boot_config}"
                  ## enable audio
-                change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
+                # change_config ".*dtparam=audio=.*" "dtparam=audio=on" ${boot_config}
                 # disable i2s
                 change_config ".*dtoverlay=hifiberry-dac$" "#dtoverlay=hifiberry-dac" ${boot_config}
                 change_config ".*dtoverlay=i2s-mmap$" "#dtoverlay=i2s-mmap" ${boot_config}

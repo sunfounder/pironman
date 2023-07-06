@@ -254,10 +254,10 @@ def install():
             name="dtparam=spi",
             value="on"
         )
-        set_config(msg="disable audio",
-            name="dtparam=audio",
-            value="off"
-        )
+        # set_config(msg="disable audio",
+        #     name="dtparam=audio",
+        #     value="off"
+        # )
         set_config(msg="set core_freq to 500",
             name="core_freq",
             value="500"
