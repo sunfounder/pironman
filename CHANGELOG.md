@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.1] - 2023-7-6
+
+
+### Changed
+- Remove control of "dtparam=audio" in the "/boot/config.txt"
+
+
 ## [1.5.0] - 2023-4-7
 
 ### Modified
