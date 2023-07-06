@@ -244,10 +244,10 @@ def install():
             name="dtparam=i2c_arm",
             value="on"
         )
-        set_config(msg="disable audio",
-            name="dtparam=audio",
-            value="off"
-        )
+        # set_config(msg="disable audio",
+        #     name="dtparam=audio",
+        #     value="off"
+        # )
         # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
         set_config(msg="config gpio-poweroff",
             name="dtoverlay=gpio-poweroff,gpio_pin",
