@@ -16,7 +16,7 @@ HOME_ASSISTANT_ADDON = 1
 
 mode = NORMAL
 
-if os.environ['SUPERVISOR_TOKEN'] != '':
+if 'SUPERVISOR_TOKEN' in os.environ:
     mode = HOME_ASSISTANT_ADDON
     ha = HomeAssistantSupervisorAPI(
         "http://supervisor/",
