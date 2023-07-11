@@ -20,6 +20,9 @@ Options:
     -h         --help      Show this help text and exit
 '''
 
+if os.geteuid() != 0:
+    print("Script must be run as root. Try 'sudo python3 install.py'")
+    sys.exit(1)
 
 APT_INSTALL_LIST = [
     # 'libraspberrypi-bin',
@@ -197,19 +200,27 @@ def install():
             quit()
     #
     if "--no-dep" not in options:
+        # update apt
         do(msg="update apt",
-            cmd='sudo apt update -y'
+            cmd='apt update -y'
         )
+        # check whether pip has the option "--break-system-packages"
+        _is_bsps = ''
+        status, _ = run_command("pip3 help install|grep break-system-packages")
+        if status == 0: # if true
+            _is_bsps = "--break-system-packages"
+            print("pip3 install need --break-system-packages")
+        # update pip
         do(msg="update pip3",
-            cmd='sudo python3 -m pip install --upgrade pip'
+            cmd=f'python3 -m pip install --upgrade pip {_is_bsps}'
         )
         ##
-        print("Install dependency")
+        print("Install dependencies with apt-get")
         do(msg="apt --fix-broken",
-            cmd="sudo apt --fix-broken install -y"
+            cmd="apt --fix-broken install -y"
         )
         # # check & install raspi-config
-        # _status, _ = run_command("sudo raspi-config nonint")
+        # _status, _ = run_command("raspi-config nonint")
         # if _status != 0:
         #     _link = "http://archive.raspberrypi.org/debian/pool/main/r/raspi-config/"
         #     _cmd = f"curl -s '{_link}' | grep -o '\"raspi-config.*.deb\"' |sort |tail -1"
@@ -218,26 +229,28 @@ def install():
         #     _link = _link + _last_version
 
         #     do(msg="install raspi-config",
-        #         cmd="sudo apt install lua5.1 alsa-utils triggerhappy curl -y"
+        #         cmd="apt install lua5.1 alsa-utils triggerhappy curl -y"
         #         +f" && wget -N {_link}"
-        #         +f" && sudo dpkg -i {_last_version}"
-        #         +"&& sudo apt --fix-broken install -y"
+        #         +f" && dpkg -i {_last_version}"
+        #         +"&& apt --fix-broken install -y"
         #     )
         #
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='sudo apt install %s -y'%dep)
+                cmd='apt install %s -y'%dep)
+
+        print("Install dependencies with pip3")
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='sudo pip3 install %s'%dep)
+                cmd=f'pip3 install {dep} {_is_bsps}')
     # 
     print("Config gpio")
     #
     if "--skip-config-txt" not in options:
-        _status, _ = run_command("sudo raspi-config nonint")
+        _status, _ = run_command("raspi-config nonint")
         if _status == 0:
             do(msg="enable i2c ",
-                cmd='sudo raspi-config nonint do_i2c 0'
+                cmd='raspi-config nonint do_i2c 0'
             )
         #
         set_config(msg="enable i2c in config",
@@ -262,51 +275,51 @@ def install():
     #
     print('create WorkingDirectory')
     # do(msg="create /opt",
-    #     cmd='sudo mkdir -p /opt'
-    #     +' && sudo chmod -R 774 /opt'
-    #     +' && sudo chown -R %s:%s /opt'%(username, username)
+    #     cmd='mkdir -p /opt'
+    #     +' && chmod -R 774 /opt'
+    #     +' && chown -R %s:%s /opt'%(username, username)
     # )
     do(msg="create dir",
-        cmd='sudo mkdir -p /opt/%s'%__app_name__
-        +' && sudo chmod -R 774 /opt/%s'%__app_name__
-        +' && sudo chown %s:%s /opt/%s'%(username, username, __app_name__)
+        cmd='mkdir -p /opt/%s'%__app_name__
+        +' && chmod -R 774 /opt/%s'%__app_name__
+        +' && chown %s:%s /opt/%s'%(username, username, __app_name__)
     )
     #
     if "--skip-auto-startup" not in options:
         do(msg='copy service file',
-            cmd='sudo cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
+            cmd='cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
         )
         do(msg="add excutable mode for service file",
-            cmd='sudo chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
+            cmd='chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
         )
     do(msg='copy bin file',
-        cmd='sudo cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
-        +' && sudo cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
+        cmd='cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
+        +' && cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
     )
     do(msg="add excutable mode for bin file",
-        cmd='sudo chmod +x /usr/local/bin/%s'%__app_name__
-        +' && sudo chmod -R 774 /opt/%s'%__app_name__
-        +' && sudo chown -R %s:%s /opt/%s'%(username, username, __app_name__)
+        cmd='chmod +x /usr/local/bin/%s'%__app_name__
+        +' && chmod -R 774 /opt/%s'%__app_name__
+        +' && chown -R %s:%s /opt/%s'%(username, username, __app_name__)
     )
     #
     print('create config file')
     if not os.path.exists('%s/.config'%user_home):
         os.mkdir('%s/.config'%user_home)
-        os.popen('sudo chmod 774 %s/.config'%user_home)
-        run_command('sudo  chown %s:%s %s/.config'%(username, username, user_home))
+        os.popen('chmod 774 %s/.config'%user_home)
+        run_command(' chown %s:%s %s/.config'%(username, username, user_home))
     do(msg='copy config file',
-        cmd='sudo mkdir -p %s/.config/%s '%(user_home, __app_name__)
-        +' && sudo cp -rpf ./config.txt %s/.config/%s/config.txt '%(user_home, __app_name__)
-        +' && sudo chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
+        cmd='mkdir -p %s/.config/%s '%(user_home, __app_name__)
+        +' && cp -rpf ./config.txt %s/.config/%s/config.txt '%(user_home, __app_name__)
+        +' && chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
     )
     #
     if "--skip-auto-startup" not in options:
         print('check startup files')
-        run_command('sudo systemctl daemon-reload')
-        status, result = run_command('sudo systemctl list-unit-files|grep %s'%__app_name__)
+        run_command('systemctl daemon-reload')
+        status, result = run_command('systemctl list-unit-files|grep %s'%__app_name__)
         if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
             do(msg='enable the service to auto-start at boot',
-                cmd='sudo systemctl enable %s.service'%__app_name__
+                cmd='systemctl enable %s.service'%__app_name__
             )
         else:
             errors.append("%s error:\n  Status:%s\n  Error:%s" %
@@ -314,7 +327,7 @@ def install():
         #
         time.sleep(0.1)
         do(msg='run the service',
-            cmd='sudo pironman restart'
+            cmd='pironman restart'
         )
 
     if len(errors) == 0:
@@ -324,7 +337,7 @@ def install():
             key = input()
             if key == 'Y' or key == 'y':
                 print(f'reboot')
-                run_command('sudo reboot')
+                run_command('reboot')
             elif key == 'N' or key == 'n':
                 print(f'exit')
                 sys.exit(0)
