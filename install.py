@@ -208,11 +208,18 @@ def install():
         do(msg="update apt",
             cmd='apt update -y'
         )
+        # check whether pip has the option "--break-system-packages"
+        _is_bsps = ''
+        status, _ = run_command("pip3 help install|grep break-system-packages")
+        if status == 0: # if true
+            _is_bsps = "--break-system-packages"
+            print("pip3 install need --break-system-packages")
+        # update pip
         do(msg="update pip3",
-            cmd='python3 -m pip install --upgrade pip --break-system-packages'
+            cmd=f'python3 -m pip install --upgrade pip {_is_bsps}'
         )
         ##
-        print("Install dependency")
+        print("Install dependencies with apt-get")
         do(msg="apt --fix-broken",
             cmd="apt --fix-broken install -y"
         )
@@ -235,9 +242,11 @@ def install():
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
                 cmd='apt-get install %s -y' % dep)
+        
+        print("Install dependencies with pip3")
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='pip3 install %s --break-system-packages' % dep)
+                cmd=f'pip3 install %s {_is_bsps}' % dep)
     # 
     print("Config gpio")
     #

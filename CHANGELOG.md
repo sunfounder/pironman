@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.6.1] - 2023-7-11
+
+### Fixed
+- Fix bug of no the option "--break-system-packages"
+
 
 ## [1.6.0] - 2023-6-30
 
