@@ -246,7 +246,7 @@ def install():
         print("Install dependencies with pip3")
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='pip3 install %s'%dep)
+                cmd=f'pip3 install {dep} {_is_bsps}')
     # 
     print("Config gpio")
     #
