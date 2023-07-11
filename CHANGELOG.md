@@ -1,7 +1,12 @@
 # Change Log
 
-## [1.5.1] - 2023-7-6
+## [1.6.0] - 2023-7-11
 
+### Changed
+- Add the option "--break-system-packages" for "pip3" to "install.py" to compatibile the Ubuntu 23.0 PEP668 restrictions
+- Add tip "Run with sudo" for "install.py"
+
+## [1.5.1] - 2023-7-6
 
 ### Changed
 - Remove control of "dtparam=audio" in the "/boot/config.txt"
