@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.1] - 2023-7-12
+
+### Fixed
+- Fix the bug of the cursor does not display when the program terminates
+
+
 ## [2.1.0] - 2023-7-10
 
 ### Changed
