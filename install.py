@@ -373,3 +373,7 @@ if __name__ == "__main__":
        install()
     except KeyboardInterrupt:
         print("\n\nCanceled.")
+    finally:
+        sys.stdout.write(' \033[1D')
+        sys.stdout.write('\033[?25h') # cursor visible 
+        sys.stdout.flush()
