@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.6.1] - 2023-7-14
+
+### Fixed
+- Disable "dtparam=audio" in the /boot/config.txt to fix the bug of rgb flashing in confusion
+
 ## [1.6.1] - 2023-7-12
 
 ### Fixed
