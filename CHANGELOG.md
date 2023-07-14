@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.1.2] - 2023-7-14
+
+### Fixed
+- Fix the bug of rgb flashing in confusion when use pwm io and the
+"dtparam=audio=on" 
+
+
 ## [2.1.1] - 2023-7-12
 
 ### Fixed
