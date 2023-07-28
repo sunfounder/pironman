@@ -5,7 +5,7 @@ import time
 import threading
 
 sys.path.append('./pironman')
-from app_info import __app_name__, __version__, username, user_home
+from app_info import __app_name__, __version__, username, config_file
 
 if os.geteuid() != 0:
     print("Script must be run as root. Try 'sudo python3 install.py'")
@@ -52,11 +52,11 @@ PIP_INSTALL_LIST = [
     'pillow --no-cache-dir',
 ]
 
-
 def run_command(cmd=""):
     import subprocess
     p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    p.wait()
     result = p.stdout.read()
     status = p.poll()
     return status, result
@@ -91,7 +91,7 @@ def do(msg="", cmd=""):
     # at_work_tip stop
     at_work_tip_sw = False
     while _thread.is_alive():
-        time.sleep(0.1)
+        time.sleep(0.01)
     # status
     if status == 0 or status == None or result == "":
         print('Done')
@@ -176,7 +176,7 @@ class Config(object):
 
 
 def install():
-    print(f"{__app_name__} {__version__} install process starts:\n")
+    print(f"{__app_name__} {__version__} install process starts for {username}:\n")
 
     # print Kernel Version
     status, result = run_command("uname -a")
@@ -292,11 +292,6 @@ def install():
         )
     #
     print('create WorkingDirectory')
-    # do(msg="create /opt",
-    #     cmd='mkdir -p /opt'
-    #     +' && chmod -R 774 /opt'
-    #     +' && chown -R %s:%s /opt'%(username, username)
-    # )
     do(msg="create dir",
         cmd='mkdir -p /opt/%s'%__app_name__
         +' && chmod -R 774 /opt/%s'%__app_name__
@@ -319,34 +314,19 @@ def install():
         +' && chmod -R 774 /opt/%s'%__app_name__
         +' && chown -R %s:%s /opt/%s'%(username, username, __app_name__)
     )
-    #
-    print('create config file')
-    if not os.path.exists('%s/.config'%user_home):
-        os.mkdir('%s/.config'%user_home)
-        os.popen('chmod 774 %s/.config'%user_home)
-        run_command(' chown %s:%s %s/.config'%(username, username, user_home))
     do(msg='copy config file',
-        cmd='mkdir -p %s/.config/%s '%(user_home, __app_name__)
-        +' && cp -rpf ./config.txt %s/.config/%s/config.txt '%(user_home, __app_name__)
-        +' && chown  -R %s:%s %s/.config/%s'%(username, username, user_home, __app_name__)
+        cmd=f'cp -rpf ./config.txt {config_file}'
     )
     #
     if "--skip-auto-startup" not in options:
-        print('check startup files')
-        run_command('systemctl daemon-reload')
-        status, result = run_command('systemctl list-unit-files|grep %s'%__app_name__)
-        if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
-            do(msg='enable the service to auto-start at boot',
-                cmd='systemctl enable %s.service'%__app_name__
-            )
-        else:
-            errors.append("%s error:\n  Status:%s\n  Error:%s" %
-                        ('check startup files ', status, result))
-        #
-        time.sleep(0.1)
-        do(msg='run the service',
-            cmd='pironman restart'
+        do(msg='enable the service to auto-start at boot',
+            cmd='systemctl daemon-reload'
+            + f' && systemctl enable {__app_name__}.service'
         )
+    # 
+    do(msg='run the service',
+        cmd='pironman restart'
+    )
 
     if len(errors) == 0:
         print("Finished.")

@@ -8,7 +8,7 @@ from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
 from system_status import *
 from utils import log, run_command
-from app_info import __app_name__, __version__, username, user_home, config_file
+from app_info import __app_name__, __version__, username, config_file
 from ws2812_RGB import WS2812, RGB_styles
 
 # print info
@@ -56,16 +56,9 @@ config = ConfigParser()
 # check config_file
 if not os.path.exists(config_file):
     log('Configuration file does not exist, recreating ...')
-    # check $user_home/.config
-    if not os.path.exists('%s/.config'%user_home):
-        os.mkdir('%s/.config'%user_home)
-        os.popen('sudo chmod 774 %s/.config'%user_home)
-        run_command('sudo  chown %s %s/.config'%(username, user_home))
     # create config_file
-    status, result = run_command(cmd='sudo mkdir -p  %s/.config/%s'%(user_home, __app_name__)
-        +' && sudo touch %s'%config_file
-        +' && sudo chmod -R 774 %s/.config/%s'%(user_home, __app_name__)
-        +' && sudo chown -R %s %s/.config/%s'%(username, user_home, __app_name__)
+    status, result = run_command(cmd=f'sudo touch {config_file}'
+        +' && sudo chmod -R 774 {config_file}'
     )
     if status != 0:
         log('create config_file failed:\n%s'%result)
