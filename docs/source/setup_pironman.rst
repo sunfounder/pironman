@@ -36,6 +36,8 @@ Use the following commands to download and install the ``pironman`` module.
     sudo python3 install.py
 
 
+.. note::  The ``-b v2.0`` in the directive is necessary
+
 Rebooting is required after installation to take effect. A reboot reminder will pop up at some point, and you can select ``y`` to reboot now or at a later time.
 
 Here are the basic configurations for Pironman.
@@ -64,7 +66,7 @@ The current configurations are shown below.
    * The duration of the OLED display is 60s, after 60s it will start to sleep.
    * Turn on the WS2812 RGB strip(default 10) so that it displays in color #0a1aff and in breath mode (change rate is 50%).
 
-.. image:: img/pironman_c.png
+.. image:: img/pironman_c.jpg
     :align: center
 
 You can also modify these configurations to suit your needs.
@@ -134,15 +136,15 @@ Or reset the color of WS2812 RGB strip.
     pironman -rc ff8a40
 
 
-Those configurations are stored in ``/.config/pironman/config.txt``, and you can also make changes directly in this file.
+Those configurations are stored in ``/opt/pironman/config.txt``, and you can also make changes directly in this file.
 
 
 .. code-block:: shell
 
-    sudo nano ~/.config/pironman/config.txt
+    sudo nano /opt/pironman/config.txt
 
 
-.. image:: img/pironman_config.png
+.. image:: img/pironman_config.jpg
     :align: center
 
 Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
