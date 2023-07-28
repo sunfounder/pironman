@@ -46,7 +46,7 @@ screen_always_on = False
 screen_off_time = 60
 rgb_switch = True
 rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful'
-rgb_color = '#0a1aff'
+rgb_color = '0a1aff'
 rgb_blink_speed = 50
 rgb_pwm_freq = 1000 # kHz
 
@@ -85,8 +85,10 @@ try:
     rgb_blink_speed = int(config['all']['rgb_blink_speed'])
     rgb_pwm_freq = int(config['all']['rgb_pwm_freq'])
     rgb_pin = int(config['all']['rgb_pin'])
-except:
+except Exception as e:
+    log(f"read config error: {e}")
     config['all'] ={
+                    'temp_unit':temp_unit,
                     'fan_temp':fan_temp,
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
