@@ -6,6 +6,9 @@
 - Change config.txt path to '/opt/pironman/config.txt' to solve 
 the problem that the user name cannot be obtained correctly
 
+### Fixed
+- Fix bug of reset config file
+
 
 ## [2.1.2] - 2023-7-14
 
