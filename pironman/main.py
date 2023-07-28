@@ -58,7 +58,7 @@ if not os.path.exists(config_file):
     log('Configuration file does not exist, recreating ...')
     # create config_file
     status, result = run_command(cmd=f'sudo touch {config_file}'
-        +' && sudo chmod -R 774 {config_file}'
+        + f' && sudo chmod 774 {config_file}'
     )
     if status != 0:
         log('create config_file failed:\n%s'%result)
