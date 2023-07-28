@@ -8,7 +8,7 @@ from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64
 from system_status import *
 from utils import log, run_command
-from app_info import __app_name__, __version__, username, user_home, config_file
+from app_info import __app_name__, __version__, username, config_file
 from ws2812_RGB import WS2812, RGB_styles
 
 from ha_api import HomeAssistantSupervisorAPI
