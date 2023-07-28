@@ -142,6 +142,7 @@ try:
 
     oled_ok = True
     oled_stat = True
+    log('oled init success')
 except Exception as e:
     log('oled init failed:\n%s'%e)
     oled_ok = False
@@ -174,6 +175,7 @@ def fan_off():
 # region: rgb_strip init
 try:
     strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
+    log('rgb_strip init success')
 except Exception as e:
     log('rgb_strip init failed:\n%s'%e)
     rgb_switch = False
