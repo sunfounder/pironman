@@ -1,15 +1,57 @@
 # Change Log
 
-## [1.6.1] - 2023-7-11
+## [2.2.1] - 2023-7-28
+
+### Changed
+- merge with test branch with hassio pluggin support
 
 ### Fixed
-- Fix bug of no the option "--break-system-packages"
+- Fix bug of reset config file
 
+## [2.2.0] - 2023-7-28
 
-## [1.6.0] - 2023-6-30
+### Changed
+- Change config.txt path to '/opt/pironman/config.txt' to solve 
+the problem that the user name cannot be obtained correctly
 
 ### Fixed
-- Fix installation failure due to PEP 668 restrictions
+- Fix bug of reset config file
+
+
+## [2.1.2] - 2023-7-14
+
+### Fixed
+- Fix the bug of rgb flashing in confusion when use pwm io and the
+"dtparam=audio=on" 
+
+
+## [2.1.1] - 2023-7-12
+
+### Fixed
+- Fix the bug of the cursor does not display when the program terminates
+
+
+## [2.1.0] - 2023-7-10
+
+### Changed
+Add the option "--break-system-packages" for "pip3" to "install.py" to compatibile the Ubuntu 23.0 PEP668 restrictions
+Add tip "Run with sudo" for "install.py"
+
+
+## [2.0.1] - 2023-7-6
+
+### Changed
+- Remove control of the "dtparam=audio" in /boot/config.txt
+
+## [2.0.0] - 2023-6-1
+
+### Optimized
+- Compatible with python 3.10
+- Optimize option command
+
+### Added
+- Add settings of rgb pin
+- Add colorful_leap style
 
 
 ## [1.5.0] - 2023-4-7

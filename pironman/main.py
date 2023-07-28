@@ -9,6 +9,8 @@ from oled import SSD1306_128_64
 from system_status import *
 from utils import log, run_command
 from app_info import __app_name__, __version__, username, user_home, config_file
+from ws2812_RGB import WS2812, RGB_styles
+
 from ha_api import HomeAssistantSupervisorAPI
 
 NORMAL = 0
@@ -60,7 +62,7 @@ screen_off_time = 60
 rgb_enable = True
 rgb_switch = True
 rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful'
-rgb_color = '#0a1aff'
+rgb_color = '0a1aff'
 rgb_blink_speed = 50
 rgb_pwm_freq = 1000 # kHz
 
@@ -70,16 +72,9 @@ config = ConfigParser()
 # check config_file
 if not os.path.exists(config_file):
     log('Configuration file does not exist, recreating ...')
-    # check $user_home/.config
-    if not os.path.exists('%s/.config'%user_home):
-        os.mkdir('%s/.config'%user_home)
-        os.popen('sudo chmod 774 %s/.config'%user_home)
-        run_command('sudo  chown %s %s/.config'%(username, user_home))
     # create config_file
-    status, result = run_command(cmd='sudo mkdir -p  %s/.config/%s'%(user_home, __app_name__)
-        +' && sudo touch %s'%config_file
-        +' && sudo chmod -R 774 %s/.config/%s'%(user_home, __app_name__)
-        +' && sudo chown -R %s %s/.config/%s'%(username, user_home, __app_name__)
+    status, result = run_command(cmd=f'sudo touch {config_file}'
+        + f' && sudo chmod 774 {config_file}'
     )
     if status != 0:
         log('create config_file failed:\n%s'%result)
@@ -111,8 +106,10 @@ try:
     rgb_blink_speed = int(config['all']['rgb_blink_speed'])
     rgb_pwm_freq = int(config['all']['rgb_pwm_freq'])
     rgb_pin = int(config['all']['rgb_pin'])
-except:
+except Exception as e:
+    log(f"read config error: {e}")
     config['all'] ={
+                    'temp_unit':temp_unit,
                     'fan_temp':fan_temp,
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
@@ -171,6 +168,7 @@ try:
 
     oled_ok = True
     oled_stat = True
+    log('oled init success')
 except Exception as e:
     log('oled init failed:\n%s'%e)
     oled_ok = False
@@ -201,12 +199,11 @@ def fan_off():
 # endregion: io control
 
 # region: rgb_strip init
-if rgb_enable:
-    try:
-        strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
-    except Exception as e:
-        log('rgb_strip init failed:\n%s'%e)
-        rgb_switch = False
+try:
+    strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
+except Exception as e:
+    log('rgb_strip init failed:\n%s'%e)
+    rgb_switch = False
 
 def rgb_show():
     log('rgb_show')

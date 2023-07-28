@@ -53,15 +53,7 @@
 #!/bin/bash
 
 main='/opt/pironman/main.py'
-# User=$(ls -l $main |awk '{print $3}')
-User=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
-UserHome=$(getent passwd $User |cut -d: -f 6)
-CONF=/opt/pironman/config.txt
-
 # echo $main
-# echo $User
-# echo $UserHome
-# echo $CONF
 # echo 'config file:'$CONF
 
 # print colors
@@ -106,19 +98,19 @@ help() {
 }
 
 start() {
-  if [ "$run_in_background" == "true" ]; then
+  if [ $run_in_background == true ]; then
     echo "run in background"
     python3 $main 1>/dev/null 2>>/opt/pironman/log &
   else
     echo "run in foreground"
     python3 $main
   fi
-
-  if [ $? -eq 0 ]; then
-    echo "pironman start succeeded"
+  # sudo python3 $main 1>/dev/null 2>&1 &
+  if [ $? == '0' ];then
+    echo "pironman start succeed"
   else
     echo "pironman start failed"
-    exit 1
+    echo $?
   fi
 }
 

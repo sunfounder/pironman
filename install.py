@@ -5,7 +5,11 @@ import time
 import threading
 
 sys.path.append('./pironman')
-from app_info import __app_name__, __version__, username, user_home
+from app_info import __app_name__, __version__, username, config_file
+
+if os.geteuid() != 0:
+    print("Script must be run as root. Try 'sudo python3 install.py'")
+    sys.exit(1)
 
 errors = []
 
@@ -49,15 +53,11 @@ PIP_INSTALL_LIST = [
     'requests',
 ]
 
-def check_root():
-    if os.geteuid() != 0:
-        print("Script must be run as root. Try 'sudo python3 install.py'")
-        sys.exit(1)
-
 def run_command(cmd=""):
     import subprocess
     p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    p.wait()
     result = p.stdout.read()
     status = p.poll()
     return status, result
@@ -92,7 +92,7 @@ def do(msg="", cmd=""):
     # at_work_tip stop
     at_work_tip_sw = False
     while _thread.is_alive():
-        time.sleep(0.1)
+        time.sleep(0.01)
     # status
     if status == 0 or status == None or result == "":
         print('Done')
@@ -177,7 +177,7 @@ class Config(object):
 
 
 def install():
-    print(f"{__app_name__} {__version__} install process starts:\n")
+    print(f"{__app_name__} {__version__} install process starts for {username}:\n")
 
     # print Kernel Version
     status, result = run_command("uname -a")
@@ -205,6 +205,7 @@ def install():
             quit()
     #
     if "--no-dep" not in options:
+        # update apt
         do(msg="update apt",
             cmd='apt update -y'
         )
@@ -241,12 +242,12 @@ def install():
         #
         for dep in APT_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd='apt-get install %s -y' % dep)
-        
+                cmd='apt install %s -y'%dep)
+
         print("Install dependencies with pip3")
         for dep in PIP_INSTALL_LIST:
             do(msg="install %s"%dep,
-                cmd=f'pip3 install %s {_is_bsps}' % dep)
+                cmd=f'pip3 install {dep} {_is_bsps}')
     # 
     print("Config gpio")
     #
@@ -257,7 +258,7 @@ def install():
                 cmd='raspi-config nonint do_i2c 0'
             )
             do(msg="enable spi ",
-                cmd='sudo raspi-config nonint do_spi 0'
+                cmd='raspi-config nonint do_spi 0'
             )
         #
         set_config(msg="enable i2c in config",
@@ -268,10 +269,10 @@ def install():
             name="dtparam=spi",
             value="on"
         )
-        set_config(msg="disable audio",
-            name="dtparam=audio",
-            value="off"
-        )
+        # set_config(msg="disable audio",
+        #     name="dtparam=audio",
+        #     value="off"
+        # )
         set_config(msg="set core_freq to 500",
             name="core_freq",
             value="500"
@@ -292,11 +293,6 @@ def install():
         )
     #
     print('create WorkingDirectory')
-    # do(msg="create /opt",
-    #     cmd='mkdir -p /opt'
-    #     +' && chmod -R 774 /opt'
-    #     +' && chown -R %s:%s /opt'%(username, username)
-    # )
     do(msg="create dir",
         cmd='mkdir -p /opt/%s'%__app_name__
         +' && chmod -R 774 /opt/%s'%__app_name__
@@ -319,29 +315,19 @@ def install():
         +' && chmod -R 774 /opt/%s'%__app_name__
         +' && chown -R %s:%s /opt/%s'%(username, username, __app_name__)
     )
-    #
-    print('create config file')
     do(msg='copy config file',
-        cmd='cp -rpf ./config.txt /opt/pironman/config.txt'
-        +' && chown -R %s:%s /opt/pironman/config.txt'%(username, username)
+        cmd=f'cp -rpf ./config.txt {config_file}'
     )
     #
     if "--skip-auto-startup" not in options:
-        print('check startup files')
-        run_command('systemctl daemon-reload')
-        status, result = run_command('systemctl list-unit-files|grep %s'%__app_name__)
-        if status==0 or status==None and result.find('%s.service'%__app_name__) != -1:
-            do(msg='enable the service to auto-start at boot',
-                cmd='systemctl enable %s.service'%__app_name__
-            )
-        else:
-            errors.append("%s error:\n  Status:%s\n  Error:%s" %
-                        ('check startup files ', status, result))
-        #
-        time.sleep(0.1)
-        do(msg='run the service',
-            cmd='pironman restart'
+        do(msg='enable the service to auto-start at boot',
+            cmd='systemctl daemon-reload'
+            + f' && systemctl enable {__app_name__}.service'
         )
+    # 
+    do(msg='run the service',
+        cmd='pironman restart'
+    )
 
     if len(errors) == 0:
         print("Finished.")
