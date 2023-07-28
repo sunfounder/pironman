@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.2.0] - 2023-7-28
+
+### Changed
+- Change config.txt path to '/opt/pironman/config.txt' to solve 
+the problem that the user name cannot be obtained correctly
+
+
 ## [2.1.2] - 2023-7-14
 
 ### Fixed
