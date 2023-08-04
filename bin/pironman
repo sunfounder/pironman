@@ -52,6 +52,7 @@
 ####
 #!/bin/bash
 
+CONF=/opt/pironman/config.txt
 main='/opt/pironman/main.py'
 # echo $main
 # echo 'config file:'$CONF
