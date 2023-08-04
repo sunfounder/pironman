@@ -362,7 +362,7 @@ def main():
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
-                    left, top, right, bottom = font_12.getsize('POWER OFF')
+                    left, top, right, bottom = font_12.getbbox('POWER OFF')
                     text_width = right - left
                     text_height = bottom - top
                     text_x = int((width - text_width)/2-1)
