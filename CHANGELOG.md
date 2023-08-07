@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.2.1] - 2023-7-28
+
+### Changed
+- merge with test branch with hassio pluggin support
+
+### Fixed
+- Fix bug of reset config file
+
 ## [2.2.0] - 2023-7-28
 
 ### Changed

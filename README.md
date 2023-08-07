@@ -49,7 +49,6 @@ Options:
   start            start pironman service
   stop             stop pironman service
   restart          restart pironman service
-  start_foreground run script in foreground
   -h,--help        help, show this help
   -c,--check       show all configurations
   -a,--auto        [ on ],enable auto-start at boot
@@ -58,11 +57,12 @@ Options:
                        C or F (Celsius/Fahrenheit)
   -f,--fan         [ temp ], Temperature at which the fan switches on,
                    in celsius (default 50),in range (30 ~ 80)
-  -al,--always_on  [on/off], whether the screen is always on,
+  -al,--always_on  [on/true/off/false], whether the screen is always on,
                    default False
   -s,--staty_time  [time], screen display duration in second,
                    in second, default 30
-  -rw,--rgb_sw     [on/off], rgb strip switch
+  -re,--rgb-enable [on/true/off/false], rgb strip enable
+  -rw,--rgb_sw     [on/true/off/false], rgb strip switch
   -rs,--rgb_style  rgb strip display style, default: breath,
                    in [breath / leap / flow / raise_up / colorful]
   -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
@@ -71,6 +71,7 @@ Options:
   -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
   -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
                    [21 / pcm / PCM], default 10
+  -F,--foreground  run in foreground
 
 ```
 ## Update

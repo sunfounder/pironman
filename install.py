@@ -17,7 +17,7 @@ avaiable_options = ['-h', '--help', '--no-dep', '--skip-config-txt', '--skip-aut
 
 usage = '''
 Usage:
-    sudo python3 install.py [option]
+    python3 install.py [option]
 
 Options:
                --no-dep             Do not download dependencies
@@ -50,6 +50,7 @@ PIP_INSTALL_LIST = [
     'rpi-ws281x',
     # 'pillow --no-binary :all:', # https://pillow.readthedocs.io/en/latest/installation.html
     'pillow --no-cache-dir',
+    'requests',
 ]
 
 def run_command(cmd=""):

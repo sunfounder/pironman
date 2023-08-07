@@ -82,7 +82,6 @@ def getIP():
 
     return IPs
 
-
 def getMAC():
     MACs = {}
     NIC_devices = []

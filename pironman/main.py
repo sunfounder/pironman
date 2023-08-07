@@ -5,11 +5,26 @@ import threading
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
-from oled import SSD1306_128_64, SSD1306_I2C_ADDRESS
+from oled import SSD1306_128_64
 from system_status import *
 from utils import log, run_command
 from app_info import __app_name__, __version__, username, config_file
 from ws2812_RGB import WS2812, RGB_styles
+
+from ha_api import HomeAssistantSupervisorAPI
+
+NORMAL = 0
+HOME_ASSISTANT_ADDON = 1
+
+mode = NORMAL
+
+if 'SUPERVISOR_TOKEN' in os.environ:
+    mode = HOME_ASSISTANT_ADDON
+    ha = HomeAssistantSupervisorAPI(
+        "http://supervisor/",
+        os.environ['SUPERVISOR_TOKEN']
+    )
+    log('Home Assistant Addon mode')
 
 # print info
 line = '-'*24
@@ -44,6 +59,7 @@ temp_unit = 'C' # 'C' or 'F'
 fan_temp = 50 # celsius
 screen_always_on = False
 screen_off_time = 60
+rgb_enable = True
 rgb_switch = True
 rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful'
 rgb_color = '0a1aff'
@@ -75,6 +91,11 @@ try:
     else:
         screen_always_on = False
     screen_off_time = int(config['all']['screen_off_time'])
+    rgb_enable = (config['all']['rgb_enable'])
+    if rgb_enable == 'False':
+        rgb_enable = False
+    else:
+        rgb_enable = True
     rgb_switch = (config['all']['rgb_switch'])
     if rgb_switch == 'False':
         rgb_switch = False
@@ -92,6 +113,7 @@ except Exception as e:
                     'fan_temp':fan_temp,
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
+                    'rgb_enable':rgb_enable,
                     'rgb_switch':rgb_switch,
                     'rgb_style':rgb_style,
                     'rgb_color':rgb_color,
@@ -104,16 +126,18 @@ except Exception as e:
 
 log("power_key_pin : %s"%power_key_pin)
 log("fan_pin : %s"%fan_pin)
-log("rgb_pin : %s"%rgb_pin)
 log("update_frequency : %s"%update_frequency)
 log("temp_unit : %s"%temp_unit)
 log("fan_temp : %s"%fan_temp)
 log("screen_always_on : %s"%screen_always_on)
 log("screen_off_time : %s"%screen_off_time)
+log("rgb_enable : %s"%rgb_enable)
 log("rgb_switch: %s"%rgb_switch)
+log("rgb_style : %s"%rgb_style)
+log("rgb_color : %s"%rgb_color)
 log("rgb_blink_speed : %s"%rgb_blink_speed)
 log("rgb_pwm_freq : %s"%rgb_pwm_freq)
-log("rgb_color : %s"%rgb_color)
+log("rgb_pin : %s"%rgb_pin)
 log("\n")
 # endregion: config
 
@@ -121,6 +145,8 @@ log("\n")
 oled_ok = False
 oled_stat = False
 
+if rgb_enable:
+    from ws2812_RGB import WS2812, RGB_styles
 
 try:
     run_command("sudo modprobe i2c-dev")
@@ -175,7 +201,6 @@ def fan_off():
 # region: rgb_strip init
 try:
     strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
-    log('rgb_strip init success')
 except Exception as e:
     log('rgb_strip init failed:\n%s'%e)
     rgb_switch = False
@@ -193,20 +218,42 @@ def rgb_show():
 
 # endregion: rgb_strip init
 
+def getIPAddress():
+    ip = None
+    if mode == NORMAL:
+        IPs = getIP()
+    elif mode == HOME_ASSISTANT_ADDON:
+        IPs = ha.get_ip()
+        if len(IPs) == 0:
+            IPs = getIP()
+    log("Got IPs: %s" %IPs)
+    if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
+        ip = IPs['wlan0']
+    elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
+        ip = IPs['eth0']
+    else:
+        ip = 'DISCONNECT'
+
+    return ip
+
+
 def main():
     global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
     global oled_stat
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
-    # rgb_strip thread
-    if rgb_switch == True:
-        rgb_thread = threading.Thread(target=rgb_show)
-        rgb_thread.daemon = True
-        rgb_thread.start()
-    else:
-        strip.clear()
+    if rgb_enable:
+        # rgb_strip thread
+        if rgb_switch == True:
+            rgb_thread = threading.Thread(target=rgb_show)
+            rgb_thread.daemon = True
+            rgb_thread.start()
+        else:
+            strip.clear()
 
+
+    ip = 'DISCONNECT'
 
     while True:
 
@@ -250,16 +297,6 @@ def main():
                 DISK_total = str(DISK_stats[0])
                 DISK_used = str(DISK_stats[1])
                 DISK_perc = float(DISK_stats[3])
-                # ip address
-                ip = None
-                IPs = getIP()
-
-                if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
-                    ip = IPs['wlan0']
-                elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
-                    ip = IPs['eth0']
-                else:
-                    ip = 'DISCONNECT'
 
                 # display info
                 ip_rect = Rect(48, 0, 81, 10)
@@ -267,6 +304,10 @@ def main():
                 ram_rect = Rect(46, 29, 81, 10)
                 rom_info_rect = Rect(46, 41, 81, 10)
                 rom_rect = Rect(46, 53, 81, 10)
+
+                # get ip if disconnected
+                if ip == 'DISCONNECT':
+                    ip = getIPAddress()
 
                 draw_text('CPU',6,0)
                 draw.pieslice((0, 12, 30, 42), start=180, end=0, fill=0, outline=1)
@@ -321,7 +362,9 @@ def main():
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
-                    text_width, text_height = font_12.getsize('POWER OFF')
+                    left, top, right, bottom = font_12.getbbox('POWER OFF')
+                    text_width = right - left
+                    text_height = bottom - top
                     text_x = int((width - text_width)/2-1)
                     text_y = int((height - text_height)/2-1)
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
@@ -332,8 +375,11 @@ def main():
                     log("POWER OFF")
                     oled_stat = False
                     oled.off()
-                    os.system('sudo poweroff')
-                    sys.exit(1)
+                    if mode == HOME_ASSISTANT_ADDON:
+                        ha.shutdown() # shutdown homeassistant host
+                    else:
+                        os.system('poweroff')
+                        sys.exit(1)
             else:
                 power_key_flag = False
 

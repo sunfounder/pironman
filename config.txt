@@ -12,6 +12,8 @@
 #
 # always_on,  [on/off], whether the screen is always on, default False
 #
+# rgb_enable, rgb strip enable
+#
 # rgb_switch, rgb strip switch
 #
 # rgb_style, rgb strip display style, in [breath / leap / flow / raise_up / colorful]
@@ -25,11 +27,11 @@
 # rgb_pin, rgb signal pin, could be 10(spi), 12(PWM) or 21(PCM)
 #
 
-
 temp_unit = C
 fan_temp = 50
 screen_always_on = False
 screen_off_time = 60
+rgb_enable = True
 rgb_switch = True
 rgb_style = breath
 rgb_color = 0a1aff
