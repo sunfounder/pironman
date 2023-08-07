@@ -36,7 +36,7 @@ Use the following commands to download and install the ``pironman`` module.
     sudo python3 install.py
 
 
-.. note::  The ``-b v2.0`` in the directive is necessary
+.. warning::  The ``-b v2.0`` in the directive is necessary
 
 Rebooting is required after installation to take effect. A reboot reminder will pop up at some point, and you can select ``y`` to reboot now or at a later time.
 
