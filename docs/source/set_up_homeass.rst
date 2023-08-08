@@ -41,52 +41,50 @@ Save and close the file.
 
 This step involves configuring the RGB LED.
 
-Open the file named ``config.txt`` in the ``Hassio-boot`` directory.
+#. Open the file named ``config.txt`` in the ``Hassio-boot`` directory.
 
-.. image:: img/sp230628_102441.png
+    .. image:: img/sp230628_102441.png
 
-Add the following content at the bottom:
-
-.. code-block::
-
-    dtparam=i2c_vc=on
-    dtparam=i2c_arm=on
-    dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
-    dtoverlay=gpio-ir,gpio_pin=13
-
-Now you need to verify the pin used to drive the RGB LED on your Pironman.
-
-.. image:: img/strip_select.png
-
-.. note:: If your Pironman does not require a jumper for this pin, it is likely connected to GPIO12 by default.
-
-* For PWM (GPIO12), it uses audio to drive the LED, so disable the audio. Add the following at the bottom of the ``config.txt`` file:
+#. Add the following content at the bottom:
 
     .. code-block::
 
-        dtparam=audio=off
+        dtparam=i2c_vc=on
+        dtparam=i2c_arm=on
+        dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
+        dtoverlay=gpio-ir,gpio_pin=13
 
-* For SPI (GPIO10), it uses SPI to drive the LED, so enable SPI and set the core frequency to 500. Add the following at the bottom of the ``config.txt`` file:
+#. It's crucial to identify which pin you're using to drive the WS2812 LED strip.
 
-    .. code-block::
+    .. image:: img/strip_select.png
 
-        dtparam=spi=on
-        core_freq=500
-        core_freq_min=500
-        # Enable audio if you need it.
-        dtparam=audio=on
+    * If you're using the default SPI pin (GPIO10), you need to add the following commands to the ``config.txt`` file to enable SPI and set the frequency to 500bps.
 
-* For PCM (GPIO21), it uses PCM to drive the LED, and no additional configuration is needed. However, it may interfere with I2S devices such as ``hifiberry-dac`` or ``i2s-mmap`` , so make sure to disable them. Enable audio if you need it.
+        .. code-block::
 
-    .. code-block::
+            dtparam=spi=on
+            core_freq=500
+            core_freq_min=500
+            # Enable audio if you need it.
+            dtparam=audio=on
+    
+    * If you're using PWM (GPIO12), which is also used for audio output, you must disable the audio. Insert the following command into the ``config.txt`` file:
 
-        # Enable audio if you need it.
-        dtparam=audio=on
-        # Comment out the i2s device.
-        # dtoverlay=hifiberry-dac
-        # dtoverlay=i2s-mmap
+        .. code-block::
 
-Save and close the file.
+            dtparam=audio=off
+
+    * For those using PCM (GPIO21), there's no extra setup. But remember, it might conflict with I2S devices like ``hifiberry-dac`` or ``i2s-mmap``. Ensure these are disabled and turn on audio if necessary.
+
+        .. code-block::
+
+            # Enable audio if you need it.
+            dtparam=audio=on
+            # Comment out the i2s device.
+            # dtoverlay=hifiberry-dac
+            # dtoverlay=i2s-mmap
+
+#. Finally, save and close this file.
 
 
 **Step3**
