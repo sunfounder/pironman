@@ -1,6 +1,20 @@
 
-Pironman - SunFounder Mini PC Kit for Raspberry Pi
+Pironman V1.0- SunFounder Mini PC Kit for Raspberry Pi
 =================================================================
+
+.. note::
+
+    We offer two versions of Pironman. It's crucial to note that the scripts in each version's online tutorial are not interchangeable. 
+    
+    To ensure the proper setup, you'll need to identify your version using the short link provided in your instruction sheet:
+
+    * If the link is "pironman.rtfd.io", continue with this tutorial.
+    * If the link displays "pironman-v2.rtfd.io", kindly follow the tutorial at |link_pironman_v2|.
+
+    .. image:: img/about_version.jpg
+        :width: 500
+        :align: center
+
 
 .. image:: img/pironman.png
     :width: 400

@@ -98,5 +98,13 @@ rst_epilog = """
 
     <a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a>
 
+.. |link_pironman_v1| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/pironman/en/latest/" target="_blank">Pironman V1.0</a>
+
+.. |link_pironman_v2| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/pironman-v2/en/latest/" target="_blank">Pironman V2.0</a>
+
 
 """
