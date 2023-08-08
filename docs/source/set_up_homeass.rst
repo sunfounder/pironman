@@ -54,37 +54,13 @@ Add the following content at the bottom:
     dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
     dtoverlay=gpio-ir,gpio_pin=13
 
-Now you need to verify the pin used to drive the RGB LED on your Pironman.
 
-.. image:: img/strip_select.png
-
-.. note:: If your Pironman does not require a jumper for this pin, it is likely connected to GPIO12 by default.
-
-* For PWM (GPIO12), it uses audio to drive the LED, so disable the audio. Add the following at the bottom of the ``config.txt`` file:
+Due to the usage of GPIO12 by WS2812, which is also employed for audio output, it's necessary to disable the audio by adding the following command to the ``config.txt`` file.
 
     .. code-block::
 
         dtparam=audio=off
 
-* For SPI (GPIO10), it uses SPI to drive the LED, so enable SPI and set the core frequency to 500. Add the following at the bottom of the ``config.txt`` file:
-
-    .. code-block::
-
-        dtparam=spi=on
-        core_freq=500
-        core_freq_min=500
-        # Enable audio if you need it.
-        dtparam=audio=on
-
-* For PCM (GPIO21), it uses PCM to drive the LED, and no additional configuration is needed. However, it may interfere with I2S devices such as ``hifiberry-dac`` or ``i2s-mmap`` , so make sure to disable them. Enable audio if you need it.
-
-    .. code-block::
-
-        # Enable audio if you need it.
-        dtparam=audio=on
-        # Comment out the i2s device.
-        # dtoverlay=hifiberry-dac
-        # dtoverlay=i2s-mmap
 
 Save and close the file.
 
