@@ -30,8 +30,10 @@ Raspberry Pi.
 
 #. Use the power adapter to power the Raspberry Pi. After a few seconds, the Raspberry Pi OS desktop will be displayed.
 
-    .. image:: img/image20.png
+    .. image:: img/login1.png
         :align: center
+
+.. _no_screen:
 
 If You Have No Screen
 --------------------------

@@ -35,7 +35,7 @@ Have Temporarily Monitor (or TV)?
 
 #. A VNC icon appears on the upper right of the screen and the VNC server starts.
 
-    .. image:: img/mac_vnc3.png
+    .. image:: img/login1.png
         :align: center
 
 
