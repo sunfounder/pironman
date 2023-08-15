@@ -14,7 +14,7 @@ If You Have a Screen
 If you have a screen, it will be easy for you to operate on the
 Raspberry Pi.
 
-**Required Components**
+**Required Components**
 
 * Any Raspberry Pi   
 * 1 * Power Adapter
@@ -25,11 +25,11 @@ Raspberry Pi.
 * 1 * Mouse
 * 1 * Keyboard
 
-#. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
+#. Insert the SD card you've set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
 
 #. Plug in the Mouse and Keyboard.
 
-#. Connect the screen to Raspberry Pi’s HDMI port and make sure your screen is plugged into a wall socket and switched on.
+#. Connect the screen to Raspberry Pi's HDMI port and make sure your screen is plugged into a wall socket and switched on.
 
     .. note::
 
@@ -37,8 +37,10 @@ Raspberry Pi.
 
 #. Use the power adapter to power the Raspberry Pi. After a few seconds, the Raspberry Pi OS desktop will be displayed.
 
-    .. image:: img/image20.png
+    .. image:: img/login1.png
         :align: center
+
+.. _no_screen:
 
 If You Have No Screen
 --------------------------

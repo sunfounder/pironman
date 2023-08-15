@@ -76,9 +76,6 @@ disabled. You need to enable it in config.
 
         sudo raspi-config
 
-    .. image:: img/image287.png
-        :align: center
-
 #. Choose **3** **Interfacing Options** by press the down arrow key on your keyboard, then press the **Enter** key.
 
     .. image:: img/image282.png
@@ -110,5 +107,5 @@ disabled. You need to enable it in config.
 
 #. Now you can see the desktop of the Raspberry Pi.
 
-    .. image:: img/mac_vnc3.png
+    .. image:: img/login1.png
         :align: center

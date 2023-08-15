@@ -20,3 +20,44 @@ Please check the following conditions.
 
     .. image:: img/gpio_bridge1.gif
     .. image:: img/gpio_bridge2.gif
+
+.. _copy_lite:
+
+How to copy Raspberry Pi OS Lite from Micro SD to SSD？
+----------------------------------------------------------
+
+#. Updating the Bootloader
+
+
+    .. code-block:: shell
+
+        sudo apt update
+        sudo apt full-upgrade
+        sudo rpi-update
+        sudo rpi-eeprom-update -d -a
+
+    After setting, reboot to take effect.
+
+
+#. Use the following command to view the name of the storage device.
+
+
+    .. code-block:: shell
+
+        sudo fdisk -l
+
+#. You will see a list of all the drives connected to your Raspberry Pi. In most cases, ``/dev/mmcxxx`` refers to your Micro SD card, and ``/dev/sda/`` refers to your SSD.
+
+    .. image:: img/ssd16.png
+
+#. Now, use the following command to clone the system from the Micro SD card to the SATA M.2 SSD.
+
+    .. note::
+        Replace ``/dev/mmcblk0`` with the name of your Micro SD card, and also modify ``/dev/sda`` to match the name of your SSD if it has a different name.
+
+
+    .. code-block:: shell
+
+        sudo dd if=/dev/mmcblk0 of=/dev/sda bs=4M
+
+#. Pull out the Micro SD card, connect the M.2 SATA SSD and then power on the Pironman.
