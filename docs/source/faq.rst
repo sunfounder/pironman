@@ -1,32 +1,32 @@
 FAQ
 ============
 
-Pironman's LED lights up but Raspberry Pi won't boot when power button is pressed?
+PironmanのLEDは点灯しているが、電源ボタンを押してもRaspberry Piが起動しないのは？
 -------------------------------------------------------------------------------------------
 
-Please check the following conditions.
+以下の条件を確認してください。
 
-#. Is there a separate power supply for the Raspberry Pi?
+#. Raspberry Pi用の別の電源はありますか？
 
-    Please do not do this, for the following reasons.
+    以下の理由でこれを行わないでください。
 
-    Since the Raspberry Pi itself has no on/off control, it can only be powered on by powering up the Raspberry Pi. 
-    So Pironman will power off the Raspberry Pi after it is turned off, and power on the Raspberry Pi to start the Raspberry Pi. 
-    If you power on both the Raspberry Pi and Pironman, after shutdown, the Pironman has no way to start the Raspberry Pi by powering on the Raspberry Pi because the Raspberry Pi is externally plugged in and always powered on.
+    Raspberry Pi自体にはオン/オフ制御がないため、Raspberry Piの電源を入れることでのみ起動します。
+    したがって、Pironmanは電源オフ後にRaspberry Piの電源を切り、Raspberry Piの電源を入れてRaspberry Piを起動します。
+    Raspberry PiとPironmanの両方の電源を入れると、シャットダウン後、Raspberry Piは外部からプラグを挿入されて常に電源が供給されているため、PironmanはRaspberry Piの電源を入れてRaspberry Piを起動する方法がありません。
 
-#. Is the Micro SD card already inserted into the Pironman slot?
-#. Are there any systems installed on Micro SD card?
-#. The most important point to note is that the FFC cable of the GPIO Bridge is connected correctly?
+#. Micro SDカードは既にPironmanのスロットに挿入されていますか？
+#. Micro SDカードにシステムはインストールされていますか？
+#. GPIOブリッジのFFCケーブルが正しく接続されているか、特に注意が必要ですか？
 
     .. image:: img/gpio_bridge1.gif
     .. image:: img/gpio_bridge2.gif
 
 .. _copy_lite:
 
-How to copy Raspberry Pi OS Lite from Micro SD to SSD？
+Micro SDからSSDにRaspberry Pi OS Liteをコピーする方法は？
 ----------------------------------------------------------
 
-#. Updating the Bootloader
+#. ブートローダを更新する
 
 
     .. code-block:: shell
@@ -36,28 +36,25 @@ How to copy Raspberry Pi OS Lite from Micro SD to SSD？
         sudo rpi-update
         sudo rpi-eeprom-update -d -a
 
-    After setting, reboot to take effect.
+    設定後、効果を適用するために再起動します。
 
-
-#. Use the following command to view the name of the storage device.
-
+#. 以下のコマンドを使用して、ストレージデバイスの名前を表示します。
 
     .. code-block:: shell
 
         sudo fdisk -l
 
-#. You will see a list of all the drives connected to your Raspberry Pi. In most cases, ``/dev/mmcxxx`` refers to your Micro SD card, and ``/dev/sda/`` refers to your SSD.
+#. Raspberry Piに接続されているすべてのドライブのリストが表示されます。ほとんどの場合、 ``/dev/mmcxxx`` はMicro SDカードを指し、 ``/dev/sda/`` はSSDを指します。
 
     .. image:: img/ssd16.png
 
-#. Now, use the following command to clone the system from the Micro SD card to the SATA M.2 SSD.
+#. 次に、以下のコマンドを使用して、Micro SDカードからSATA M.2 SSDにシステムをクローンします。
 
     .. note::
-        Replace ``/dev/mmcblk0`` with the name of your Micro SD card, and also modify ``/dev/sda`` to match the name of your SSD if it has a different name.
-
+        Micro SDカードの名前を ``/dev/mmcblk0`` に置き換え、SSDの名前が異なる場合は ``/dev/sda`` も変更してください。
 
     .. code-block:: shell
 
         sudo dd if=/dev/mmcblk0 of=/dev/sda bs=4M
 
-#. Pull out the Micro SD card, connect the M.2 SATA SSD and then power on the Pironman.
+#. Micro SDカードを取り外し、M.2 SATA SSDを接続して、Pironmanの電源を入れます。

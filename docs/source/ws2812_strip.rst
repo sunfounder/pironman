@@ -1,71 +1,69 @@
 .. _rgb_strip:
 
-WS2812 RGB Strip
+WS2812 RGBストリップ
 =======================
 
-**Pin Selection**
+**ピン選択**
 
-#. Raspberry Pi has three high-speed signal driving mode that can be used to drive WS2812 RGB LED strip. But these modes have other uses, and using them for WS2812 RGB LED strip will disable their original functions.
- 
+#. Raspberry Piは、WS2812 RGB LEDストリップの駆動に使用できる3つの高速信号駆動モードを持っています。ただし、これらのモードには他の用途があり、WS2812 RGB LEDストリップに使用すると、元々の機能が無効になります。
 
     .. image:: img/strip_select.png
 
+    * SPI (IO10) はSPIインターフェース用。
+    * PWM (IO12) はアナログオーディオ（3.5mmオーディオジャック）用。
+    * PCM (IO21) はデジタルオーディオ（HDMIオーディオ）用。
 
-    * SPI (IO10) is used for SPI interface. 
-    * PWM (IO12) for analog audio (3.5mm audio jack). 
-    * PCM (IO21) for digital audio (HDMI audio). 
-
-#. The SPI (IO10) drive mode is selected by default. If you switch to a different pin (let's say IO21) during the assembly process, you will also need to modify the corresponding configuration.
+#. デフォルトではSPI（IO10）ドライブモードが選択されています。組み立て過程で異なるピン（例: IO21）に切り替える場合は、対応する設定も変更する必要があります。
 
     .. code-block:: shell
 
         pironman -rp 21
 
-**Other Configurations**
+**その他の設定**
 
-The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to display Pironman's status. You can use commands to make it turn on or off, or to modify its color (default is blue), display mode and change rate.
+WS1812 RGBストリップは、Pironmanのステータスを表示するために使用できる8つのRGB LEDを備えたライトストリップです。コマンドを使用してオン/オフを切り替えたり、色（デフォルトは青）、表示モード、変更率を変更することができます。
 
-* Turn on the WS2812 RGB Strip.
+* WS2812 RGBストリップをオンにする。
 
 .. code-block:: shell
 
     pironman  -rw on
 
-* Turn it off.
+* オフにする。
 
 .. code-block:: shell
 
     pironman  -rw off
 
-* Change its color, using hexadecimal color values.
+* その色を変更し、16進色値を使用する。
 
 .. code-block:: shell
 
     pironman  -rc fe1a1a
 
-* Changing the display mode, there are four modes to choose from: ``breath``, ``leap``, ``flow``, ``raise_up``.
+* 表示モードを変更する。選択できる4つのモードがあります： ``breath``、 ``leap``、 ``flow``、 ``raise_up``。
 
 .. code-block:: shell
 
     pironman  -rs leap
 
-* Change the speed of change (0 ~ 100%).
+* 変更速度を変更する（0〜100%）。
 
 .. code-block:: shell
 
     pironman  -rb 80
 
-* Above are the effects we preset for WS2812 RGB Strip, if you want it to display other effects, you can open ``/opt/pironman/ws2812_RGB.py`` to modify and run it.
+* 上記はWS2812 RGBストリップのために事前に設定したエフェクトです。他のエフェクトを表示させたい場合は、 ``/opt/pironman/ws2812_RGB.py`` を開いて変更して実行できます。
 
-    Open this python script and modify its contents.
+    このpythonスクリプトを開いて内容を変更します。
 
     .. code-block:: shell
 
         sudo nano /opt/pironman/ws2812_RGB.py
 
-    Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
+    ``Ctrl+X`` -> ``Y`` -> ``Enter`` を押して、編集を保存して終了します。
 
-    Run it.
+    実行します。
 
     .. code-block:: shell
 

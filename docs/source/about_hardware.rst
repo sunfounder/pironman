@@ -1,10 +1,10 @@
 .. _about_hardware:
 
-6. About Hardware
+6. ハードウェアについて
 =========================
 
+この章では、Pironmanに含まれるすべてのコンポーネントの詳細な説明と、関連するソフトウェアの設定について説明します。
 
-This chapter is a detailed description of all the components in Pironman, as well as the associated software configuration.
 
 
 .. toctree::

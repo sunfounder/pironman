@@ -1,15 +1,14 @@
-Windows Users
+Windowsユーザー
 =======================
 
+Windowsを使用している場合、Windows PowerShellを使用してRaspberry Piにリモートでログインできます。
 
-If you're a Windows user, you can use Windows PowerShell to login Raspberry Pi remotely.
-
-#. Press the ``windows`` + ``R`` shortcut key in your keyboard to open the **Run** program. Then type **powershell** in the input box. 
+#. キーボードで ``windows`` + ``R`` ショートカットキーを押し、 **Run** プログラムを開きます。入力ボックスに **powershell** と入力してください。
 
     .. image:: img/sp221221_135900.png
         :align: center
 
-#. Check if your Raspberry Pi is on the same network by type in ``ping <hostname>.local``. 
+#. Raspberry Piが同じネットワークにあるかどうかを確認するために、 ``ping <hostname>.local``  を入力します。
 
     .. code-block:: shell
 
@@ -19,54 +18,49 @@ If you're a Windows user, you can use Windows PowerShell to login Raspberry Pi r
         :width: 550
         :align: center
 
-    * If terminal prompts ``Ping request could not find host <hostname>.local``, it is possible that the Raspberry Pi failed to connect to the network.lease check the network.
-    * If you really can't ping ``<hostname>.local``, try to :ref:`get_ip`  and ``ping <IP address>`` instead. (e.g., ``ping 192.168.6.116``)
-    * If multiple prompts like "Reply from <IP address>: bytes=32 time<1ms TTL=64" appear, it means your computer can access the Raspberry Pi.
+    * ターミナルが ``Ping request could not find host <hostname>.local`` と提示する場合、Raspberry Piがネットワークに接続できなかった可能性があります。ネットワークを確認してください。
+    * ``<hostname>.local`` にピングを送ることができない場合は、 :ref:`get_ip` を参照して ``ping <IPアドレス>`` を試してください。 (例: ``ping 192.168.6.116``)
+    * "Reply from <IPアドレス>: bytes=32 time<1ms TTL=64" のようなメッセージが複数回表示される場合、コンピュータはRaspberry Piにアクセスできることを意味します。
 
-
-#. Type in ``ssh <username>@<hostname>.local`` (or ``ssh <username>@<IP address>``).
+#. ``ssh <username>@<hostname>.local`` (または ``ssh <username>@<IPアドレス>``) を入力します。
 
     .. code-block:: shell
 
         ssh pi@raspberrypi.local
 
-
-#. The following message may appear.
+#. 以下のメッセージが表示される場合があります。
 
     .. code-block::
 
-        The authenticity of host 'raspberrypi.local (192.168.6.116)' can't be established.
-        ECDSA key fingerprint is SHA256:7ggckKZ2EEgS76a557cddfxFNDOBBuzcJsgaqA/igz4.
-        Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+        'raspberrypi.local (192.168.6.116)'の真正性を確認できません。
+        ECDSAキーの指紋はSHA256:7ggckKZ2EEgS76a557cddfxFNDOBBuzcJsgaqA/igz4です。
+        接続を続行しますか (yes/no/[fingerprint])？
 
-    Input \"yes\".
+    "yes" と入力します。
 
-#. Input the password you set before. (Mine is ``raspberry``.)
+#. 以前に設定したパスワードを入力します。（私の場合は ``raspberry`` です。）
 
     .. note::
-        When you input the password, the characters do not display on
-        window accordingly, which is normal. What you need is to input the
-        correct password.
+        パスワードを入力すると、文字はウィンドウに表示されません。これは正常です。正しいパスワードを入力するだけです。
 
-#. We now get the Raspberry Pi connected and are ready to go to the next step.
+#. Raspberry Piに接続が完了しました。次のステップに進みましょう。
 
     .. image:: img/sp221221_140628.png
         :width: 550
         :align: center
 
-Remote Desktop
-------------------
+リモートデスクトップ
+---------------------
 
-If you're not satisfied with using the command window to access your Raspberry Pi, you can also use the remote desktop feature to easily manage files on your Raspberry Pi using a GUI.
+コマンドウィンドウを使用してRaspberry Piにアクセスするのに満足していない場合、リモートデスクトップ機能を使用して、GUIを使用してRaspberry Pi上のファイルを簡単に管理することもできます。
 
-Here we use `VNC® Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_.
+ここでは `VNC® Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_ を使用します。
 
-**Enable VNC service**
+**VNCサービスを有効にする**
 
-The VNC service has been installed in the system. By default, VNC is
-disabled. You need to enable it in config.
+VNCサービスはシステムにインストールされています。デフォルトでは、VNCは無効になっています。それをconfigで有効にする必要があります。
 
-#. Input the following command:
+#. 以下のコマンドを入力します：
 
     .. raw:: html
 
@@ -76,37 +70,37 @@ disabled. You need to enable it in config.
 
         sudo raspi-config
 
-
-#. Choose **3** **Interfacing Options** by press the down arrow key on your keyboard, then press the **Enter** key.
+#. キーボードの下矢印キーを押して **3** **Interfacing Options** を選び、 **Enter** キーを押します。
 
     .. image:: img/image282.png
         :align: center
 
-#. Then **P3 VNC**. 
+#. 次に **P3 VNC** を選択します。 
 
     .. image:: img/image288.png
         :align: center
 
-#. Use the arrow keys on the keyboard to select **<Yes>** -> **<OK>** -> **<Finish>** to complete the setup.
+#. キーボードの矢印キーを使用して、 **<Yes>** -> **<OK>** -> **<Finish>** を選択し、設定を完了します。
 
     .. image:: img/mac_vnc8.png
         :align: center
 
-**Login to VNC**
+**VNCにログインする**
 
-#. You need to download and install the `VNC Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_ on personal computer.
+#. パーソナルコンピューター上で `VNC Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_ をダウンロードしてインストールする必要があります。
 
-#.  Open it once the installation is complete. Then, enter the host name or IP address and press Enter.
+#. インストールが完了したら、それを開きます。次に、ホスト名またはIPアドレスを入力し、Enterを押します。
 
     .. image:: img/vnc_viewer1.png
         :align: center
 
-#. After entering your Raspberry Pi name and password, click **OK**.
+#. Raspberry Piの名前とパスワードを入力した後、 **OK** をクリックします。
 
     .. image:: img/vnc_viewer2.png
         :align: center
 
-#. Now you can see the desktop of the Raspberry Pi.
+#. Raspberry Piのデスクトップが表示されます。
 
     .. image:: img/login1.png
         :align: center
+

@@ -1,50 +1,50 @@
-4. Set up Your Raspberry Pi
-============================
+4. Raspberry Piのセットアップ
+==============================
 
-If You Have a Screen
+画面がある場合
 -------------------------
 
-If you have a screen, it will be easy for you to operate on the
-Raspberry Pi.
+画面がある場合、Raspberry Piでの操作は簡単です。
 
-**Required Components**
+**必要な部品**
 
-* Any Raspberry Pi   
-* 1 * Power Adapter
-* 1 * Micro SD card
-* 1 * Screen Power Adapter
-* 1 * HDMI cable
-* 1 * Screen
-* 1 * Mouse
-* 1 * Keyboard
+* Raspberry Pi（任意のモデル）
+* 1 * 電源アダプター
+* 1 * マイクロSDカード
+* 1 * 画面用の電源アダプター
+* 1 * HDMIケーブル
+* 1 * 画面
+* 1 * マウス
+* 1 * キーボード
 
-#. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
+#. Raspberry Pi OSがセットアップされたSDカードを、Raspberry Piの下部にあるマイクロSDカードスロットに挿入します。
 
-#. Plug in the Mouse and Keyboard.
+#. マウスとキーボードを接続します。
 
-#. Connect the screen to Raspberry Pi’s HDMI port and make sure your screen is plugged into a wall socket and switched on.
+#. 画面をRaspberry PiのHDMIポートに接続し、画面が壁のコンセントに接続され、オンになっていることを確認します。
 
     .. note::
 
-        If you use a Raspberry Pi 4, you need to connect the screen to the HDMI0 (nearest the power in port).
+        Raspberry Pi 4を使用している場合、画面をHDMI0（電源ポートに最も近い）に接続する必要があります。
 
-#. Use the power adapter to power the Raspberry Pi. After a few seconds, the Raspberry Pi OS desktop will be displayed.
+#. 電源アダプターを使用してRaspberry Piに電源を供給します。数秒後に、Raspberry Pi OSのデスクトップが表示されます。
 
     .. image:: img/login1.png
         :align: center
 
 .. _no_screen:
 
-If You Have No Screen
+画面がない場合
 --------------------------
 
-If you don't have a monitor, you can remotely log into your Raspberry Pi.
+モニターがない場合でも、Raspberry Piにリモートでログインすることができます。
 
-You can apply the SSH command to open the Raspberry Pi's Bash shell. Bash is the standard default shell for Linux. The shell itself is a command (instruction) when the user uses Unix/Linux. Most of what you need to do can be done through the shell.
+SSHコマンドを使用して、Raspberry PiのBashシェルを開くことができます。Bashは、Linuxの標準のデフォルトシェルです。シェル自体は、ユーザーがUnix/Linuxを使用する際のコマンド（指示）です。必要な作業のほとんどは、このシェルを通じて行うことができます。
 
-If you're not satisfied with using the command window to access your Raspberry Pi, you can also use the remote desktop feature to easily manage files on your Raspberry Pi using a GUI.
+コマンドウィンドウでRaspberry Piにアクセスするだけで満足できない場合、リモートデスクトップの機能を使用して、GUIを使用してRaspberry Pi上のファイルを簡単に管理することもできます。
 
-See below for detailed tutorials for each system.
+各システムの詳しいチュートリアルについては、以下を参照してください。
+
 
 
 .. toctree::

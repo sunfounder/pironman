@@ -1,55 +1,46 @@
-1. What Else Should We Prepare?
+1. さらに準備すべきものは？
 ===================================
 
-**Required Components**
-
+**必要なコンポーネント**
 
 * Raspberry Pi 4 Model B
 
-    Pirionman is fully compatible with Raspberry Pi 4 Model B. If you have Raspberry Pi 1B+/2B/3B/3B+, you can use them as well, but the tower cooler inside the Pironman may not be as compatible.
+    PirionmanはRaspberry Pi 4 Model Bと完全に互換性があります。Raspberry Pi 1B+/2B/3B/3B+を持っている場合、それらも使用できますが、Pironman内部のタワークーラーとの互換性は完全でないかもしれません。
 
-* 5V/3A Power Adapter
+* 5V/3A 電源アダプター
 
-    This 5V/3A power adapter plugs into Pironman's Power connector and powers all components. You can power the Raspberry Pi 4 separately if you are also connecting other devices that consume a lot of power.
+    この5V/3A電源アダプターはPironmanの電源コネクターに接続され、全てのコンポーネントに電力を供給します。他の多くの電力を消費するデバイスも接続している場合、Raspberry Pi 4を別途電源供給することができます。
 
+* Micro SDカード
 
-* Micro SD Card
+    Raspberry PiはPironman内部に完全に収められているため、追加のmicro SDポートを予約しています。使用するmicro SDカードは、最低8GBの容量が必要です。
 
-    As the Raspberry Pi is completely enclosed in the Pironman, we have reserved an additional micro SD port for you. The micro SD card you use should have a capacity at least 8GB.
-
-**Optional Components**
+**オプションのコンポーネント**
 
 * M.2 SATA SSD
 
     .. note::
-        * The M.2 SSD interface only supports SATA protocol, not NVME/PCIe.
-        * For more information on how to mount SSD to Pironman and the related configuration, please refer to ::ref:`ssd`.
+        * M.2 SSDインターフェースはSATAプロトコルのみをサポートし、NVME/PCIeはサポートしていません。
+        * SSDをPironmanに取り付ける方法や関連する設定についての詳細は、::ref:`ssd` を参照してください。
 
-    In the Pironman's mainboard, there is an M.2 SSD connector for installing your M.2 SSD.
+    Pironmanのマザーボードには、M.2 SSDをインストールするためのコネクタがあります。
 
-    An M.2 SSD is a small form factor solid-state drive (SSD) that is used in internally mounted storage expansion cards. 
-    M.2 SSDs conform to a computer industry specification and are designed to enable high-performance storage in thin, 
-    power-constrained devices, such as ultrabook laptops and tablet computers.
+    M.2 SSDは、内部に取り付けるストレージ拡張カードとして使用される小型の固体ステートドライブ(SSD)です。 
+    M.2 SSDはコンピュータ業界の仕様に準拠しており、高性能なストレージを薄型で、 
+    電力制約のあるデバイス、例えばウルトラブックやタブレットPCなどに実装することを目的として設計されています。
 
+* スクリーン
 
+    Raspberry Piのデスクトップ環境を表示するためには、テレビスクリーンまたはコンピュータモニターを使用する必要があります。スクリーンに内蔵スピーカーがある場合、Piはそれを通じて音を出します。
 
-* Screen
+* Micro HDMIケーブル
 
-    To view the desktop environment of Raspberry Pi, you need to use the
-    screen that can be a TV screen or a computer monitor. If the screen has
-    built-in speakers, the Pi plays sounds via them.
+    Raspberry Pi 4 Model Bには2つのMicro HDMI出力ポートがあり、それをスクリーンに接続するための変換ケーブルが必要です。
 
-* Micro HDMI Cable
+* マウス & キーボード
 
-    There are two Micro HDMI output ports on the Raspberry Pi 4 Model B, and you will need a converter cable to connect it to your screen.
+    スクリーンを使用する場合、USBキーボードとUSBマウスも必要です。
 
-* Mouse & Keyboard
+* サウンドデバイスまたはイヤホン
 
-    When you use a screen, a USB keyboard and a USB mouse are also needed.
-
-
-* Sound or Earphone
-
-    The Raspberry Pi is equipped with an audio port about 3.5 mm that can be
-    used when your screen has no built-in speakers or when there is no
-    screen operation.
+    Raspberry Piには約3.5mmのオーディオポートが備えられており、スクリーンに内蔵スピーカーがない場合やスクリーンを操作していない場合に使用できます。

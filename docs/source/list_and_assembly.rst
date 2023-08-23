@@ -1,30 +1,28 @@
 .. _assembly_instructions:
 
-
-2. Component List and Assembly Instructions
+2. コンポーネント一覧と組み立て説明
 =============================================
 
-Before assembling the Pironman, please first verify that all parts and components have been included. If there are any missing or damaged components, please contact SunFounder immediately at cs@sunfounder.com to resolve the issue as soon as possible.
+Pironmanを組み立てる前に、すべての部品とコンポーネントが含まれていることを確認してください。もし欠けている部品や破損しているコンポーネントがある場合、できるだけ早く問題を解決するために、直ちに cs@sunfounder.com までご連絡ください。
 
-Please follow the steps on the following PDF for assembly instructions: 
+組み立ての手順については、以下のPDFを参照してください：
 
-* :download:`[PDF]Component List and Assembly of Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v20-a0000891-pironman.pdf>`
+* :download:`[PDF]Pironmanの部品一覧と組み立て <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v20-a0000891-pironman.pdf>`
 
-
-**Assemble Tutorial Video**
+**組み立てチュートリアルビデオ**
 
 .. note::
-    Based on customer feedback, we have made optimizations to the Pironman Board and added more headers to make it compatible with various situations. 
-    
-    The Pironman Board shown in the following video is the older version and differs from the one you received.
+    お客様のフィードバックを基に、Pironmanボードを最適化し、さまざまな状況に対応できるようにヘッダーを追加しました。
 
-    For differences in the assembly process, please refer to the assembly instructions provided in the package you receive.
+    下記のビデオに示されているPironmanボードは古いバージョンであり、あなたが受け取ったものとは異なります。
+
+    組み立て過程での違いについては、受け取ったパッケージに含まれる組み立て説明を参照してください。
 
 .. raw:: html
 
     <iframe width="700" height="400" src="https://www.youtube.com/embed/qRu5KqBio2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-**About GPIO Bridge Assembly**
+**GPIOブリッジの組み立てについて**
 
 .. image:: img/gpio_bridge1.gif
 .. image:: img/gpio_bridge2.gif

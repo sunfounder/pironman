@@ -1,51 +1,50 @@
 .. _set_up_homeass:
 
 
-Setup Your Home Assistant
+Home Assistantのセットアップ
 ==================================
 
-**Step1**
+**ステップ1**
 
-This step is about enabling the I2C interface to start the Pironman OLED.
+この手順は、Pironman OLEDを起動するためのI2Cインターフェースを有効にするものです。
 
-Open File Explorer and access the SD card named ``Hassio-boot``
+ファイルエクスプローラを開き、 ``Hassio-boot`` という名前のSDカードにアクセスします。
 
 .. image:: img/sp230628_095957.png
 
-Create a new folder named ``CONFIG`` in the root partition.
+ルートパーティションに ``CONFIG`` という新しいフォルダを作成します。
 
 .. image:: img/sp230628_100453.png
 
-Inside the ``CONFIG`` folder, create a folder named ``modules``.
+``CONFIG`` フォルダの中に ``modules`` というフォルダを作成します。
 
 .. image:: img/sp230628_101108.png
 
-Enable file extension display.
+ファイル拡張子の表示を有効にします。
 
 .. image:: img/sp230628_101216.png
 
-
-Create a text file inside the ``modules`` folder and rename it to ``rpi-i2c.conf`` . You will be prompted to confirm the extension change, select "Yes".
+``modules`` フォルダ内にテキストファイルを作成し、それを ``rpi-i2c.conf`` にリネームします。拡張子の変更を確認するプロンプトが表示されるので、「はい」を選択します。
 
 .. image:: img/sp230628_101545.png
 
-Open ``rpi-i2c.conf`` with Notepad and add the following content:
+Notepadで ``rpi-i2c.conf`` を開き、以下の内容を追加します：
 
 .. code-block::
 
     i2c-dev
 
-Save and close the file.
+ファイルを保存して閉じます。
 
-**Step2**
+**ステップ2**
 
-This step involves configuring the RGB LED.
+このステップでは、RGB LEDの設定を行います。
 
-#. Open the file named ``config.txt`` in the ``Hassio-boot`` directory.
+#. ``Hassio-boot`` ディレクトリの ``config.txt`` というファイルを開きます。
 
     .. image:: img/sp230628_102441.png
 
-#. Add the following content at the bottom:
+#. 下部に以下の内容を追加します：
 
     .. code-block::
 
@@ -54,55 +53,53 @@ This step involves configuring the RGB LED.
         dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
         dtoverlay=gpio-ir,gpio_pin=13
 
-#. It's crucial to identify which pin you're using to drive the WS2812 LED strip.
+#. WS2812 LEDストリップを駆動するために使用するピンを特定することが重要です。
 
     .. image:: img/strip_select.png
 
-    * If you're using the default SPI pin (GPIO10), you need to add the following commands to the ``config.txt`` file to enable SPI and set the frequency to 500bps.
+    * デフォルトのSPIピン（GPIO10）を使用している場合、SPIを有効にし、周波数を500bpsに設定するために、以下のコマンドを ``config.txt`` ファイルに追加する必要があります。
 
         .. code-block::
 
             dtparam=spi=on
             core_freq=500
             core_freq_min=500
-            # Enable audio if you need it.
+            # 必要に応じてオーディオを有効にします。
             dtparam=audio=on
     
-    * If you're using PWM (GPIO12), which is also used for audio output, you must disable the audio. Insert the following command into the ``config.txt`` file:
+    * オーディオ出力にも使用されるPWM（GPIO12）を使用している場合、オーディオを無効にする必要があります。 ``config.txt`` ファイルに以下のコマンドを挿入します：
 
         .. code-block::
 
             dtparam=audio=off
 
-    * For those using PCM (GPIO21), there's no extra setup. But remember, it might conflict with I2S devices like ``hifiberry-dac`` or ``i2s-mmap``. Ensure these are disabled and turn on audio if necessary.
+    * PCM（GPIO21）を使用している人は、追加のセットアップは不要です。ただし、 ``hifiberry-dac`` や ``i2s-mmap`` のようなI2Sデバイスと競合する可能性があります。これらを無効にし、必要に応じてオーディオをオンにします。
 
         .. code-block::
 
-            # Enable audio if you need it.
+            # 必要に応じてオーディオを有効にします。
             dtparam=audio=on
-            # Comment out the i2s device.
+            # i2sデバイスのコメントアウトをします。
             # dtoverlay=hifiberry-dac
             # dtoverlay=i2s-mmap
 
-#. Finally, save and close this file.
+#. 最後に、このファイルを保存して閉じます。
 
+**ステップ3**
 
-**Step3**
+次に、PironmanのWiFi設定を行います。
 
-Next, we will configure WiFi for Pironman.
+.. note:: ネットワークアクセスに有線接続を使用する予定の場合、この手順はスキップできます。
 
-.. note:: If you intend to use a wired connection for network access, you can skip this step.
-
-Create a folder named ``network`` inside the ``CONFIG`` folder.
+``CONFIG`` フォルダ内に ``network`` というフォルダを作成します。
 
 .. image:: img/sp230628_113426.png
 
-Inside the ``network`` folder, create a new text file named ``my-network`` (without extension).
+``network`` フォルダ内に、拡張子なしの新しいテキストファイル ``my-network`` を作成します。
 
 .. image:: img/sp230628_113506.png
 
-
-In the ``my-network`` file, write the following text, replacing ``MY_SSID`` and ``MY_WLAN_SECRET_KEY`` with your own network's SSID and password:
+``my-network`` ファイルに、以下のテキストを書き込み、 ``MY_SSID`` および ``MY_WLAN_SECRET_KEY`` を自分のネットワークのSSIDとパスワードに置き換えます：
 
 .. code-block::
 
@@ -114,7 +111,7 @@ In the ``my-network`` file, write the following text, replacing ``MY_SSID`` and 
     [802-11-wireless]
     mode=infrastructure
     ssid=MY_SSID
-    # Uncomment below if your SSID is not broadcasted
+    # SSIDがブロードキャストされていない場合は、以下のコメントを解除します
     #hidden=true
 
     [802-11-wireless-security]
@@ -129,85 +126,81 @@ In the ``my-network`` file, write the following text, replacing ``MY_SSID`` and 
     addr-gen-mode=stable-privacy
     method=auto
 
-Save and exit the file.
+ファイルを保存して終了します。
 
-**Step4**
+**ステップ4**
 
-Remove the microSD card from your computer and insert it into the Raspberry Pi. Then, connect the power (and Ethernet cable if needed).
+コンピュータからmicroSDカードを取り出し、Raspberry Piに挿入してください。その後、電源（必要であればイーサネットケーブルも）を接続します。
 
-Go back to your computer and navigate to ``homeassistant.local:8123`` , 
-or if that doesn't work, you can find the IP address by checking your router.
+PCに戻り、 ``homeassistant.local:8123`` にアクセスします。
+それが機能しない場合は、ルーターでIPアドレスを確認してください。
 
-During the first use of Home Assistant, you may need to wait for some time as it performs initial setup.
+Home Assistantを初めて使用する際、初期設定が行われるため、しばらく待つ必要があります。
 
 .. image:: img/sp230628_141749.png
 
-**Step5**
+**ステップ5**
 
-Next, you will be prompted to create the first account.
+次に、最初のアカウントを作成するように求められます。
 
 .. image:: img/sp230627_135949.png
 
-The system will prompt you to install some detected devices, but for now, you can skip this by clicking FINISH.
+システムは、検出されたデバイスのインストールを促しますが、今は「FINISH」をクリックしてスキップできます。
 
 .. image:: img/sp230627_141016.png
 
+**ステップ6**
 
-**Step6**
+次に、Home Assistant用のPironmanアドオンをインストールします。
 
-Now we will install the Pironman addon for Home Assistant.
-
-Please click the button below to quickly add it. Then proceed to **step7** .
+下のボタンをクリックしてすぐに追加してください。その後、 **ステップ7** に進んでください。
 
 .. raw:: html
 
     <a href="https://my.home-assistant.io/redirect/supervisor_addon/?addon=6fa7f6d2_pironman&repository_url=https%3A%2F%2Fgithub.com%2Fsunfounder%2Fhome-assistant-addon" target="_blank"><img src="https://my.home-assistant.io/badges/supervisor_addon.svg" alt="Open your Home Assistant instance and show the dashboard of a Supervisor add-on." /></a>
 
-Alternatively, follow the steps below to install manually:
+または、手動でインストールするには以下の手順に従ってください：
 
-1. In Home Assistant, navigate to Settings -> Addons.
+1. Home Assistantで「Settings」->「Addons」に移動します。
 
     .. image:: img/sp230628_150312.png
 
-2. Click the "Addon Store" button in the lower right corner.
+2. 右下の「Addon Store」ボタンをクリックします。
 
     .. image:: img/sp230628_150338.png
 
-3. Click the menu button in the top right corner and select "Repositories".
+3. 右上のメニューボタンをクリックし、「Repositories」を選択します。
 
     .. image:: img/sp230627_145728.png
 
-4. Type the repository URL: ``https://github.com/sunfounder/home-assistant-addon`` , and click Add. After adding the SunFounder repository, close the popup window.
+4. リポジトリのURLを入力: ``https://github.com/sunfounder/home-assistant-addon`` , 「Add」をクリックします。SunFounderのリポジトリを追加したら、ポップアップウィンドウを閉じます。
 
     .. image:: img/sp230627_150423.png
 
-5. Click the menu button again, and click "Check for updates".
+5. メニューボタンを再びクリックし、「Check for updates」をクリックします。
 
     .. image:: img/sp230627_150716.png
 
-6. After a few seconds, the Pironman addon will appear at the end of the addon store. If not, try refreshing the page.
+6. 数秒後、Pironmanアドオンがアドオンストアの最後に表示されます。表示されない場合は、ページをリフレッシュしてみてください。
 
     .. image:: img/sp230627_150717.png
 
+**ステップ7**
 
-**Step7**
-
-Enter the Pironman addon and click Install. This process may take a few minutes.
+Pironmanアドオンに入り、「インストール」をクリックします。このプロセスには数分かかる場合があります。
 
 .. image:: img/sp230627_150840.png
 
-Currently, you need to disable protection mode to allow the addon to access hardware information. Find "Protection Mode" and turn it off. Then, start (or restart) the addon.
+現在、アドオンがハードウェア情報にアクセスできるように保護モードを無効にする必要があります。 「Protection Mode」を見つけてオフにします。その後、アドオンを起動（または再起動）します。
 
 .. image:: img/sp230627_153858.png
 
-At this point, you should see the Pironman's lighting effect and the OLED display light up. This indicates that the configuration is complete.
+この時点で、Pironmanの照明効果とOLEDディスプレイが点灯するはずです。これは、設定が完了したことを示しています。
 
-
-
-Troubleshooting
+トラブルシューティング
 -------------------------
 
-If your OLED or RGB strip fails to start properly, please go to the "Log" page.
+OLEDやRGBストリップが正常に起動しない場合は、「Log」ページに移動してください。
 
 .. image:: img/sp230628_162143.png
 
@@ -222,43 +215,43 @@ If your OLED or RGB strip fails to start properly, please go to the "Log" page.
     [DEBUG] rgb_strip init failed:
     ws2811_init failed with code -13 (Unable to initialize SPI)
 
-If you see the above logs, it means the configuration was not successful. Please follow the steps below:
+上記のログが表示される場合、設定が成功していないことを意味します。以下の手順に従ってください：
 
-1. First, shut down Home Assistant.
+1. まず、Home Assistantをシャットダウンします。
 
     .. warning::
 
-        If you force power off, it may damage HassOS. Follow the shutdown steps below:
+        強制的に電源を切ると、HassOSにダメージを与える可能性があります。以下のシャットダウン手順に従ってください：
 
         .. image:: img/sp230628_162821.png
 
         .. image:: img/sp230628_162906.png
 
-        Then, wait for one minute before unplugging the power.
+        その後、電源プラグを抜く前に1分間待ってください。
 
+2. このセクションの **ステップ1** と **ステップ2** を繰り返します (:ref:`set_up_homeass`) 。
 
-2. Repeat **Step 1** and **Step 2** of this section (:ref:`set_up_homeass`) .
-
-3. Insert the SD card back into Pironman, connect the power, and wait for a minute or two. Then, in your browser, navigate to ``http://homeassistant.local:8123/`` . Click on START in the Pironman Addon.
+3. SDカードをPironmanに再度挿入し、電源を接続し、1～2分待ちます。その後、ブラウザで ``http://homeassistant.local:8123/`` に移動します。Pironmanアドオンで「START」をクリックします。
 
     .. raw:: html
 
         <a href="https://my.home-assistant.io/redirect/supervisor_addon/?addon=6fa7f6d2_pironman&repository_url=https%3A%2F%2Fgithub.com%2Fsunfounder%2Fhome-assistant-addon" target="_blank"><img src="https://my.home-assistant.io/badges/supervisor_addon.svg" alt="Open your Home Assistant instance and show the dashboard of a Supervisor add-on." /></a>
 
-4. Wait for a moment, and you should see the Pironman (RGB strip & OLED) light up.
+4. しばらく待つと、Pironman (RGBストリップ & OLED) が点灯するはずです。
 
-Addon Configuration
+アドオン設定
 -----------------------------
 
-You can customize the Pironman effects on the Configuration page.
+Pironmanの効果を「Settings」ページでカスタマイズできます。
 
 .. image:: img/sp230628_164931.png
 
-Here, you can modify:
+ここでは、以下を変更できます：
 
-* The temperature display unit on the OLED.
-* The duration of the OLED screen brightness.
-* The temperature at which the fan will start working.
-* The color and blinking mode of the RGB strip.
+* OLEDに表示される温度の単位。
+* OLED画面の明るさの持続時間。
+* ファンが動作を開始する温度。
+* RGBストリップの色と点滅モード。
 
-After making the desired changes, click "SAVE" to apply the settings.
+変更を行った後、「SAVE」をクリックして設定を適用します。
+

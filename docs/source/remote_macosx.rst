@@ -1,217 +1,193 @@
 
-Mac OS X user
+Mac OS Xユーザー
 ==========================
 
-For Mac users, accessing the Raspberry Pi desktop directly via VNC is more convenient than from the command line. You can access it via Finder by entering the set account password after enabling VNC on the Raspberry Pi side.
+Macユーザーにとって、Raspberry PiのデスクトップをVNC経由で直接アクセスする方が、コマンドラインからのアクセスより便利です。Raspberry PiでVNCを有効にした後、Finderを使用して設定済みのアカウントのパスワードを入力することでアクセス可能です。
 
-Note that this method does not encrypt communication between the Mac and Raspberry Pi. 
-The communication will take place within your home or business network, so even if it's unprotected, it won't be an issue. 
-However, if you are concerned about it, you can install a VNC application such as `VNC® Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_.
+この方法ではMacとRaspberry Pi間の通信が暗号化されません。通信は家庭やビジネスのネットワーク内で行われるので、保護されていなくても問題にはなりません。しかし、セキュリティを気にする場合は、 `VNC® Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_ のようなVNCアプリケーションをインストールすることを検討してください。
 
-Alternatively it would be handy if you could use a temporary monitor (TV), mouse and keyboard to open the Raspberry Pi desktop directly to set up VNC. 
-If not, it doesn't matter, you can also use the SSH command to open the Raspberry Pi's Bash shell and then using the command to set up the VNC.
-
+また、一時的なモニター（テレビ）、マウス、キーボードを使用して、Raspberry Piのデスクトップを直接開き、VNCを設定するのも便利です。それが不可能な場合でも、SSHコマンドを使ってRaspberry PiのBashシェルを開き、そこからVNCをセットアップすることができます。
 
 * :ref:`have_temp_monitor`
 * :ref:`no_temp_monitor`
 
-
 .. _have_temp_monitor:
 
-Have Temporarily Monitor (or TV)?
+一時的なモニター（またはテレビ）をお持ちですか？
 ---------------------------------------------------------------------
 
-#. Connect a monitor (or TV), mouse and keyboard to the Raspberry Pi and power it on. Select the menu according to the numbers in the figure.
-
+#. Raspberry Piにモニター（またはテレビ）、マウス、キーボードを接続し、電源を入れます。画像に示される数字に従ってメニューを選択してください。
 
     .. image:: img/mac_vnc1.png
         :align: center
 
-#. The following screen will be displayed. Set **VNC** to **Enabled** on the **Interfaces** tab, and click **OK**.
+#. 次の画面が表示されます。 **Interfaces** タブで **VNC** を **Enabled** に設定し、 **OK** をクリックしてください。
 
     .. image:: img/mac_vnc2.png
         :align: center
 
-
-#. A VNC icon appears on the upper right of the screen and the VNC server starts.
+#. 画面の右上にVNCのアイコンが表示され、VNCサーバーが起動します。
 
     .. image:: img/login1.png
         :align: center
 
-
-#. Open the VNC server window by clicking on the **VNC** icon, then click on the **Menu** button in the top right corner and select **Options**.
+#.  **VNC** アイコンをクリックしてVNCサーバーウィンドウを開き、右上の **Menu** ボタンをクリックし、 **Options** を選択します。
 
     .. image:: img/mac_vnc4.png
         :align: center
 
-#. You will be presented with the following screen where you can change the options.
+#. 以下の画面が表示され、ここでオプションを変更することができます。
 
     .. image:: img/mac_vnc5.png
         :align: center
 
-    Set **Encryption** to **Prefer off** and **Authentication** to **VNC password**. 
-    
-#. When you click the **OK** button, the password input screen is displayed. You can use the same password as the Raspberry pi password or a different password, so enter it and click **OK**. 
+    **Encryption** を **Prefer off** 、 **Authentication** を **VNC password** に設定してください。
+
+#.  **OK** をクリックすると、パスワード入力の画面が表示されます。Raspberry piのパスワードと同じ、または異なるパスワードを使用できますので、入力し **OK** をクリックしてください。
 
     .. image:: img/mac_vnc16.png
         :align: center
 
-    You are now ready to connect from your Mac. It's okay to disconnect the monitor.
+    これでMacから接続する準備が整いました。モニターを切断しても問題ありません。
 
-**From here, it will be the operation on the Mac side.**
+**ここからはMac側の操作となります。**
 
-#. Now, select **Connect to Server** from the Finder's menu, which you can open by right-clicking.
+#. Finderのメニューから **Connect to Server** を選択します。右クリックからも開くことができます。
 
     .. image:: img/mac_vnc10.png
         :align: center
 
-#. Type in ``vnc://<username>@<hostname>.local`` (or ``vnc://<username>@<IP address>``). After entering, click **Connect**.
+#.  ``vnc://<username>@<hostname>.local`` または ``vnc://<username>@<IP address>`` と入力し、 **Connect** をクリックします。
 
-        .. image:: img/mac_vnc11.png
-            :align: center
+    .. image:: img/mac_vnc11.png
+        :align: center
 
+#. パスワードの入力を求められるので、正確に入力してください。
 
-#. You will be asked for a password, so please enter it.
+    .. image:: img/mac_vnc12.png
+        :align: center
 
-        .. image:: img/mac_vnc12.png
-            :align: center
+#. Raspberry piのデスクトップが表示され、そのままMacから操作できるようになります。
 
-#. The desktop of the Raspberry pi will be displayed, and you will be able to operate it from the Mac as it is.
-
-        .. image:: img/mac_vnc13.png
-            :align: center
+    .. image:: img/mac_vnc13.png
+        :align: center
 
 .. _no_temp_monitor:
 
-Don't Have Temporarily Monitor (or TV)?
+一時的なモニタ（またはTV）を持っていない場合
 ---------------------------------------------------------------------------
 
-* You can apply the SSH command to open the Raspberry Pi's Bash shell.
-* Bash is the standard default shell for Linux.
-* The shell itself is a command (instruction) when the user uses Unix/Linux.
-* Most of what you need to do can be done through the shell.
-* After setting up the Raspberry pi side, you can access the desktop of the Raspberry Pi using the **Finder** from the Mac.
+* Raspberry PiのBashシェルを開くには、SSHコマンドを使用できます。
+* BashはLinuxの標準デフォルトシェルです。
+* シェル自体は、ユーザーがUnix/Linuxを使用する際のコマンド（指示）です。
+* 必要な操作のほとんどはシェルを通じて行うことができます。
+* Raspberry Pi側の設定が完了したら、Macの **Finder** を使用してRaspberry Piのデスクトップにアクセスできます。
 
-
-#. Type ``ssh <username>@<hostname>.local`` to connect to the Raspberry Pi.
-
+#.  ``ssh <username>@<hostname>.local`` と入力してRaspberry Piに接続します。
 
     .. code-block:: shell
 
         ssh pi@raspberrypi.local
 
-
     .. image:: img/mac_vnc14.png
 
-
-#. The following message will be displayed only when you log in for the first time, so enter **yes**.
-
-    .. code-block::
-
-        The authenticity of host 'raspberrypi.local (2400:2410:2101:5800:635b:f0b6:2662:8cba)' can't be established.
-        ED25519 key fingerprint is SHA256:oo7x3ZSgAo032wD1tE8eW0fFM/kmewIvRwkBys6XRwg.
-        This key is not known by any other names
-        Are you sure you want to continue connecting (yes/no/[fingerprint])?
-
-
-#. Enter the password for the Raspberry pi. The password you enter will not be displayed, so be careful not to make a mistake.
+#. 以下のメッセージは初回ログイン時のみ表示されるので、 **yes** と入力します。
 
     .. code-block::
 
-        pi@raspberrypi.local's password: 
+        raspberrypi.local (2400:2410:2101:5800:635b:f0b6:2662:8cba)の真正性は確立できません。
+        ED25519キーのフィンガープリントはSHA256:oo7x3ZSgAo032wD1tE8eW0fFM/kmewIvRwkBys6XRwgです。
+        このキーは他の名前で知られていません。
+        続行して接続してもよろしいですか（yes/no/[フィンガープリント]）？
+
+#. Raspberry Piのパスワードを入力します。入力したパスワードは表示されませんので、間違いのないように注意してください。
+
+    .. code-block::
+
+        pi@raspberrypi.localのパスワード: 
         Linux raspberrypi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64
 
-        The programs included with the Debian GNU/Linux system are free software;
-        the exact distribution terms for each program are described in the
-        individual files in /usr/share/doc/*/copyright.
+        Debian GNU/Linuxとともに提供されるプログラムは無料ソフトウェアです。
+        各プログラムの具体的な配布条件は、/usr/share/doc/*/copyrightにある
+        個別のファイルで説明されています。
 
-        Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-        permitted by applicable law.
-        Last login: Thu Sep 22 12:18:22 2022
+        Debian GNU/Linuxは、適用可能な法律の範囲で、絶対に保証されません。
+        最終ログイン: Thu Sep 22 12:18:22 2022
         pi@raspberrypi:~ $ 
 
-
-    
-
-#. Set up your Raspberry Pi so that you can log in via VNC from your Mac once you have successfully logged into it. The first step is to update your operating system by running the following commands.
+#. MacからVNCでログインできるようにRaspberry Piを設定します。まず、以下のコマンドを実行して、OSを更新します。
 
     .. code-block:: shell
 
         sudo apt update
         sudo apt upgrade
 
+    ``続行しますか？ [Y/n]`` と表示されたら、 ``Y`` を入力します。
 
-    ``Do you want to continue? [Y/n]``, Enter ``Y`` when prompted.
+    アップデートには時間がかかる場合があります。（その時のアップデート量によります）
 
-    It may take some time for the update to finish. (It depends on the amount of updates at that time.)
-
-
-#. Enter the following command to enable the **VNC Server**.
+#. **VNC Server** を有効にするには、以下のコマンドを入力します。
 
     .. code-block:: shell
 
         sudo raspi-config
 
-#. The following screen will be displayed. Select **3 Interface Options** with the arrow keys on the keyboard and press the **Enter** key.
+#. 次の画面が表示されます。キーボードの矢印キーで **3 Interface Options** を選択し、 **Enter** キーを押します。
 
     .. image:: img/image282.png
         :align: center
 
-#. Then select **P3 VNC**.
+#. 次に、 **P3 VNC** を選択します。
 
     .. image:: img/image288.png
         :align: center
 
-#. Use the arrow keys on the keyboard to select **<Yes>** -> **<OK>** -> **<Finish>** to complete the setup.
+#. キーボードの矢印キーを使用して **<Yes>**  ->  **<OK>**  ->  **<Finish>** を選択して、設定を完了します。
 
     .. image:: img/mac_vnc8.png
         :align: center
 
+#. VNCサーバが起動したので、Macからの接続設定を変更しましょう。
 
-#. Now that the VNC server has started, let's change the settings for connecting from a Mac.
-
-    To specify parameters for all programs for all user accounts on the computer, create ``/etc/vnc/config.d/common.custom``.
+    すべてのユーザーアカウントのすべてのプログラムのパラメータを指定するには、 ``/etc/vnc/config.d/common.custom`` を作成します。
 
     .. code-block:: shell
 
         sudo nano /etc/vnc/config.d/common.custom
 
-    After entering ``Authentication=VncAuthenter``, press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit.
+    ``Authentication=VncAuthenter`` を入力した後、 ``Ctrl+X`` -> ``Y`` -> ``Enter`` で保存して終了します。
 
     .. image:: img/mac_vnc15.png
         :align: center
 
-#. In addition, set a password for logging in via VNC from a Mac. You can use the same password as the Raspberry pi password or a different password. 
-
+#. さらに、MacからVNC経由でログインする際のパスワードを設定します。Raspberry Piのパスワードと同じものや異なるものを使用することができます。
 
     .. code-block:: shell
 
         sudo vncpasswd -service
 
-
-#. Once the setup is complete, restart the Raspberry Pi to apply the changes.
+#. 設定が完了したら、変更を適用するためにRaspberry Piを再起動します。
 
     .. code-block:: shell
 
         sudo sudo reboot
 
-#. Now, select **Connect to Server** from the **Finder**'s menu, which you can open by right-clicking.
+#. 次に、 **Finder** のメニューから **Connect to Server** を選択します。右クリックで開くことができます。
 
     .. image:: img/mac_vnc10.png
         :align: center
 
-#. Type in ``vnc://<username>@<hostname>.local`` (or ``vnc://<username>@<IP address>``). After entering, click **Connect**.
+#. ``vnc://<username>@<hostname>.local`` （または ``vnc://<username>@<IPアドレス>`` ）と入力します。入力後、 **Connect** をクリックします。
 
         .. image:: img/mac_vnc11.png
             :align: center
 
-
-#. You will be asked for a password, so please enter it.
+#. パスワードが要求されるので、入力してください。
 
         .. image:: img/mac_vnc12.png
             :align: center
 
-#. The desktop of the Raspberry pi will be displayed, and you will be able to operate it from the Mac as it is.
+#. Raspberry piのデスクトップが表示され、そのままMacから操作することができます。
 
         .. image:: img/mac_vnc13.png
             :align: center

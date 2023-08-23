@@ -3,171 +3,156 @@
 SATA M.2 SSD
 =====================================
 
-Why not compitable with NVME M.2 SSD?
+NVME M.2 SSDとの非互換性の理由
 --------------------------------------
 
 .. note::
-    The M.2 SSD hard drive interface only supports SATA protocol, not NVME/PCIe.
+    M.2 SSDのハードドライブインターフェースはSATAプロトコルのみをサポートし、NVME/PCIeはサポートしていません。
 
-Our current interface is designed to support SATA M.2 SSDs, and we want to clarify our decision to not offer compatibility with NVMe M.2 SSDs:
+現在のインターフェースはSATA M.2 SSDに適応する設計となっています。ここで、NVMe M.2 SSDとの互換性を持たせない決定の背景を説明いたします：
 
-The primary factor is that while NVMe SSDs excel in high-performance computing environments, the Raspberry Pi 4's processing capacity and bus bandwidth are limited. This means that even if an NVMe SSD is connected, hardware constraints could prevent it from fully utilizing the SSD's performance advantages, resulting in suboptimal resource utilization.
+NVMe SSDは高性能コンピューティング環境での性能が非常に高い一方、Raspberry Pi 4の処理能力やバス帯域幅は限定されています。したがって、NVMe SSDを接続しても、ハードウェアの制約から、SSDのパフォーマンスを最大限に活用できない場合があり、リソースの最適な利用が難しいと考えられます。
 
-Furthermore, the USB power supply on the Raspberry Pi 4 has limitations. Connecting an NVMe SSD might lead to insufficient power supply, especially under heavy workloads. NVMe SSDs often require higher currents for stable performance, but the Raspberry Pi 4's USB ports might not meet these power demands, leading to unstable SSD operation or even failure to function properly.
+さらに、Raspberry Pi 4のUSB電源供給には制約があります。NVMe SSDを接続すると、特に高負荷時には電源が不足する可能性があります。NVMe SSDは安定した動作のために高い電流を要求することが多いですが、Raspberry Pi 4のUSBポートがこれらの要求を満たせない場合、SSDの動作が不安定になったり、適切に機能しない恐れがあります。
 
-Due to these reasons, connecting an NVMe SSD wouldn't yield significant performance improvements. This is why we have chosen not to support the NVMe SSD interface.
+以上の理由から、NVMe SSDを接続することで、大きな性能向上は期待できないと判断しました。このため、NVMe SSDインターフェースのサポートを見送っています。
 
-We appreciate your understanding of our design considerations. Our commitment is to provide you with a product that effectively meets your needs while delivering a seamless experience.
+設計に対するご理解をお願い申し上げます。お客様に最適な製品を提供し、スムーズな体験を実現することが私たちの目標です。
 
-About the Model
+モデルに関して
 ---------------------------
 
-M.2 SSD (M.2 solid-state drive) comes in various models, depending on their specifications and performance characteristics. Here are some common M.2 SSD models:
+M.2 SSDは、その仕様や性能特性によりさまざまなモデルが存在します。以下は、一般的なM.2 SSDのモデルを示しています：
 
-* **SATA M.2 SSD**: This is the most common type of M.2 SSD, using the SATA interface. They typically offer lower read/write speeds and lower prices, suitable for general computing tasks.
-* **NVMe M.2 SSD**: This is a higher-performance type of M.2 SSD, utilizing the NVMe (Non-Volatile Memory Express) interface. NVMe SSDs provide faster transfer speeds and lower latency, suitable for tasks that require high-speed data transfer, such as gaming and large file processing.
-* **PCIe M.2 SSD**: This type of M.2 SSD uses the PCI Express (PCIe) interface, offering higher bandwidth and faster speeds. They are typically more expensive than SATA and NVMe SSDs and are suitable for professional users who require the highest performance, such as video editing and scientific computing.
+* **SATA M.2 SSD**：SATAインターフェースを使用する最も一般的なM.2 SSD。低価格でありながら、一般的な計算タスクに十分な読み取り/書き込み速度を提供します。
+* **NVMe M.2 SSD**：NVMeインターフェースを採用した高性能M.2 SSD。ゲームや大規模なファイル処理など、高速なデータ転送を要するタスクに適しています。
+* **PCIe M.2 SSD**：PCI Express (PCIe)インターフェースを使用するM.2 SSD。ビデオ編集や科学的計算など、高い性能が求められるプロフェッショナルな用途に最適です。
 
-M.2 SSDs come in three key types: B key, M key, and B+M key. However, later on, the B+M key was introduced, combining the functionalities of the B key and M key. As a result, it replaced the standalone B key. Please refer to the image below.
+M.2 SSDはBキー、Mキー、B+Mキーの3つの主要なタイプがあります。しかし、B+Mキーが後に導入され、BキーとMキーの機能を統合。結果として独立したBキーは廃止されました。下の画像を参照してください。
 
 .. image:: img/ssd_key.png
 
-
-In general, M.2 SATA SSDs are B+M-keyed (can fit in sockets for B-keyed and M-keyed modules), while M.2 NVMe SSDs for PCIe 3.0 x4 lane are M-keyed.
+一般的に、M.2 SATA SSDはB+Mキーであり、PCIe 3.0 x4レーンのM.2 NVMe SSDはMキーです。
 
 .. image:: img/ssd_model2.png
 
-About the Length
+長さについて
 -----------------------
 
-M.2 modules come in different sizes and can also be utilized for Wi-Fi, WWAN, Bluetooth, GPS, and NFC.
+M.2モジュールはさまざまなサイズがあり、Wi-Fi、WWAN、Bluetooth、GPS、NFCなどにも使用されます。
 
-Pironman supports four M.2 SATA SSD sizes based on their names: 2230, 2242, 2260, and 2280. The "22" is the width in millimeters (mm), and the two following numbers are the length. The longer the drive, the more NAND flash chips can be mounted; therefore, the more capacity.
-
+Pironmanは、その名称から以下の4つのM.2 SATA SSDサイズをサポートしています：2230、2242、2260、および2280。「22」はミリメートル単位の幅を示し、次の2つの数字は長さを示します。ドライブの長さが長いほど、多くのNANDフラッシュチップを取り付けることができ、それにより容量が増えます。
 
 .. image:: img/m2_ssd_size.png
     :width: 600
 
-
-Assemble the SSD
+SSDの組み立て方法
 ------------------------------
 
-#. Take off the base plate of the Pironman.
+#. Pironmanのベースプレートを取り外します。
 
     .. image:: img/ssd1.jpg
         :width: 600
 
-#.  Remove the screw for the M.2 SATA SSD.
+#. M.2 SATA SSDのためのネジを外します。
 
     .. image:: img/ssd2.jpg
 
-
-#. Insert your M.2 SATA SSD.
+#. お持ちのM.2 SATA SSDを挿入します。
 
     .. image:: img/ssd3.jpg
 
-#. Screwed in place.
+#. 適切な位置にネジを固定します。
 
     .. image:: img/ssd4.jpg
 
-#. Put the base plate back on.
+#. ベースプレートを元に戻します。
 
     .. image:: img/ssd5.jpg
 
-#. Plug in SSD Bridge and 5V/3V power supply.
+#. SSDブリッジと5V/3Vの電源供給を接続します。
 
     .. image:: img/ssd18.jpg
-        
-**Booting from SSD**
+
+
+**SSDからの起動**
 ---------------------------
-Now that you've installed the SSD on your Raspberry Pi, let's explore how to install the Raspberry Pi OS on it and configure the Raspberry Pi to boot from the SSD.
+Raspberry PiにSSDをインストールしたので、Raspberry Pi OSをその上にインストールし、SSDからRaspberry Piを起動する方法を学びましょう。
 
-**1. Install Raspberry Pi OS to SSD**
+**1. Raspberry Pi OSをSSDにインストール**
 
-There are two methods to install Raspberry Pi OS on your SSD:
+SSDにRaspberry Pi OSをインストールする方法は2つあります：
 
-* The first method is to directly install it via the **Raspberry Pi Imager**. This method is similar to installing the OS on a Micro SD card. Just select your SSD when you're prompted to choose a storage device. If you're unfamiliar with this process, you can refer to the tutorial :ref:`install_os`.
+* 最初の方法は、 **Raspberry Pi Imager** を使用して直接インストールする方法です。これはMicro SDカードにOSをインストールするのと似ています。ストレージデバイスを選ぶよう求められたら、SSDを選択してください。この手順に不慣れな場合は、チュートリアル  :ref:`install_os`  を参照してください。
 
-* The alternative method is copying from your existing SD card. If you want to retain the files and system on your SD card, this method is for you.
+* 代替の方法は、既存のSDカードからコピーする方法です。SDカード上のファイルやシステムを保持したい場合は、この方法が適しています。
 
-Let's walk through how you can copy the contents of your Micro SD to the SSD:
+Micro SDの内容をSSDにコピーする方法を以下に説明します：
 
-#. Insert the micro SD card into the Pironman, plug in the USB Bridge to connect the SSD to the Raspberry Pi, and power the pironman up.
+#. Pironmanにmicro SDカードを挿入し、USB Bridgeを使ってSSDをRaspberry Piに接続し、Pironmanの電源を入れます。
 
     .. image:: img/ssd18.jpg
 
-#. Access the Raspberry Pi desktop. You can do this by connecting a monitor directly or through remote desktop, see the tutorial for guidance: :ref:`no_screen`.
+#. Raspberry Piのデスクトップにアクセスします。これは、モニターを直接接続するか、リモートデスクトップを使用して行うことができます。詳細はチュートリアル :ref:`no_screen` を参照してください。
 
-#. Launch the **SD Card Copier** from the **Accessories** section of the **start** menu.  
+#. **start** メニューの **Accessoriesー** セクションから **SD Card Copier** を起動します。
 
     .. image:: img/sd_card_copy.png
 
-#. Choose the Copy from device (Micro SD card) and the copy to device (SSD, ``/dev/sda/``). Double-check to ensure you've selected the correct drives, then click **"Start"** to initiate the copying process. This can take around several minutes.
+#. コピー元デバイス（Micro SDカード）とコピー先デバイス（SSD、``/dev/sda/``）を選択します。正しいドライブを選択したことを確認し、 **"Start"** をクリックしてコピープロセスを開始します。これには数分かかることがあります。
 
     .. image:: img/sd_card_copy_select.png
 
-#. Once you see **"Copy Complete"**, shut down the Raspberry Pi and remove the micro SD card.
+#. **"Copy Complete"** と表示されたら、Raspberry Piをシャットダウンし、micro SDカードを取り外します。
 
 .. note::
 
-    If your Micro SD card is the the **Raspberry Pi Lite**, you'll need to use commands to complete the copying process. For detailed instructions, please refer to: :ref:`copy_lite`.
+    Micro SDカードが **Raspberry Pi Lite** の場合、コピーを完了するためにコマンドを使用する必要があります。詳しい手順については、 :ref:`copy_lite` を参照してください。
 
-**2. Install Bootloader**
+**2. ブートローダーのインストール**
 
-With the Raspberry Pi OS now on the SSD, it's time to reset the Pi's Bootloader to prioritize booting from USB.
+Raspberry Pi OSがSSDにインストールされたので、次はPiのブートローダーをリセットしてUSBからの起動を優先する必要があります。
 
-#. Download and install the |link_raspberry_pi_imager| from the Raspberry Pi website.
+#. Raspberry Piのウェブサイトから |link_raspberry_pi_imager| をダウンロードしてインストールします。
 
-#. Insert a spare micro SD card into your computer. Please be aware that the contents of this card will be erased, so back up any important data first.
+#. 余分なmicro SDカードをコンピュータに挿入します。このカードの内容は削除されるため、重要なデータのバックアップを忘れずに。
 
-#. Launch the **Raspberry Pi Imager** and scroll down under **“Operating System”** to **“Misc Utility Images”**. Left-click to access the subsequent menu.
+#. **Raspberry Pi Imager** を起動し、 **“Operating System”** の下にスクロールして **“Misc Utility Images”** をクリックします。
 
     .. image:: img/ssd6.png
-        :width: 600
-        :align: center
 
-#. Select **Bootloader**.
+#. **Bootloader** を選択します。
 
     .. image:: img/ssd7.png
-        :width: 600
-        :align: center
 
-#. Next, choose **USB Boot**. This will bring us back to the main menu.
+#. 次に、 **USB Boot** を選択します。これでメインメニューに戻ります。
 
     .. image:: img/ssd8.png
-        :width: 600
-        :align: center
 
-#. Under **"Storage"**, select the micro SD card. Double-check to ensure you've chosen the correct drive before proceeding. 
+#. **"Storage"** の下で、micro SDカードを選択します。進む前に、正しいドライブを選択したことを再確認してください。
 
     .. image:: img/ssd88.png
-        :width: 600
-        :align: center
 
-#. Click **“WRITE”** to download the configuration image and write it to the micro SD card.
+#. **“WRITE”** をクリックして、設定イメージをダウンロードし、それをmicro SDカードに書き込みます。
 
     .. image:: img/ssd9.png
-        :width: 600
-        :align: center
 
-#. Wait for a successful write confirmation before removing the micro SD card from your computer.
+#. 書き込みが成功したことを確認してから、micro SDカードをコンピュータから取り外します。
 
-#. Insert the micro SD card into the Pironman and power it up.
+#. Pironmanにmicro SDカードを挿入し、電源を入れます。
 
     .. image:: img/connect_power.jpg
 
-#. Once the update is complete, the green activity LED will flash steadily. If you have an HDMI monitor connected, the screen will turn green upon completion. The update might take 10 seconds or even longer, so ensure you don't remove the micro SD card during this process.
+#. アップデートが完了すると、緑色のアクティビティLEDが定期的に点滅します。HDMIモニターが接続されている場合、完了時に画面が緑色になります。アップデートには10秒以上かかることがあるため、このプロセス中にmicro SDカードを取り外さないようにしてください。
 
     .. image:: img/ssd10.jpg
 
-#. Turn off the Raspberry Pi's power and remove the micro SD card.
+#. Raspberry Piの電源を切り、micro SDカードを取り外します。
 
-**3. Boot from SSD**
+**3. SSDからの起動**
 
-#. At this point, ensure the micro SD card is removed. Connect the USB Bridge to connect the SSD to the Raspberry Pi. Now, power up the Pironman.
+#. この時点で、micro SDカードが取り外されていることを確認してください。USB Bridgeを使用してSSDをRaspberry Piに接続します。次に、Pironmanの電源を入れます。
 
     .. image:: img/login1.png
-        :align: center
-
 
 

@@ -1,47 +1,39 @@
-OLED Screen
+OLEDスクリーン
 ===================
 
-After installation, the script will start automatically and the OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
+インストール後、スクリプトは自動的に起動し、OLEDスクリーンにRaspberry PiのCPU、RAM、ROMの使用状況、CPU温度、IPアドレスが表示されます。
 
+OLEDスクリーンの寿命を延ばすために、デフォルトで60秒後にOLEDがオフになり、電源ボタンを短く押すことで再び点灯します。以下のコマンドでこの機能を有効/無効にすることができます。
 
-In order to extend the life of OLED screen, OLED will turn off after 60 seconds by default, and will light up by pressing the power button shortly. You can enable/disable this feature with the following command.
-
-* set to sleep mode:  "al" means to "always on". In sleep mode, short press the power button to wake up.
-
-
+* スリープモードに設定: "al"は"常時点灯"を意味します。スリープモードでは、電源ボタンを短く押して起動します。
 
 .. code-block:: shell
 
     pironman  -al off
 
-* set to always on mode:
-
-
+* 常時点灯モードに設定:
 
 .. code-block:: shell
 
     pironman  -al on
 
-* Set the duration in seconds, 
-
-
+* 秒単位での期間を設定:
 
 .. code-block:: shell
 
     pironman  -s 60
 
-* The above are what we set for OLED screen, if you want to make OLED screen display other information and effects, you can open ``/opt/pironman/main.py`` to modify and run it.
+* 上記はOLEDスクリーンの設定内容です。OLEDスクリーンに他の情報や効果を表示させたい場合、 ``/opt/pironman/main.py`` を開いて変更し、実行することができます。
 
-    Open this python script and modify its contents.
+    このPythonスクリプトを開いて内容を変更します。
 
     .. code-block:: shell
 
         sudo nano /opt/pironman/main.py
 
+    ``Ctrl+X`` -> ``Y`` -> ``Enter`` を押して、編集を保存して終了します。
 
-    Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
-
-    Run it.
+    それを実行します。
 
     .. code-block:: shell
 

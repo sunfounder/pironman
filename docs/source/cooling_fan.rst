@@ -1,19 +1,18 @@
-Cooling Fan
+冷却ファン
 =====================
 
 .. note::
-    The Cooling Fan  is connected to GPIO6 (BCM).
+    冷却ファンはGPIO6（BCM）に接続されています。
 
-The working status of the Cooling Fan is decided by the CPU temperature. When the CPU temperature reaches the set threshold, the fan spins, and if it is 2 degrees Celsius below the threshold, the fan is stopped.
+冷却ファンの動作状態は、CPUの温度によって決定されます。CPUの温度が設定した閾値に達するとファンが回転し、閾値より2度摂氏以下の場合、ファンは停止します。
 
-* Set the temperature unit, ``C``: Celsius, ``F``: Fahrenheit.
+* 温度単位を設定する, ``C`` : 摂氏, ``F`` : 華氏。
 
 .. code-block:: shell
 
     pironman  -u C
 
-
-* Set the temperature at which the fan starts, for example, 40 degrees Celsius (the unit is set by you).
+* ファンが起動する温度を設定します。例えば、40度摂氏（単位はあなたが設定したもの）。
 
 .. code-block:: shell
 

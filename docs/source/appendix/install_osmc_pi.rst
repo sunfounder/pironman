@@ -1,340 +1,334 @@
 .. _kodi_osmc:
 
-Install Kodi on Raspberry Pi Use OSMC
-======================================
+Raspberry PiにOSMCを使用してKodiをインストール
+================================================
 
-|link_kodi| is one of the most popular ways to play media on your Raspberry Pi. It supports a large number of different media formats, and you can use this media center software to play music, videos, and even show your images. 
+|link_kodi| は、Raspberry Piでメディアを再生するためのもっとも人気のある方法の一つです。多くの異なるメディアフォーマットをサポートしており、このメディアセンターソフトウェアを使用して音楽、動画、画像を再生できます。
 
-With Kodi, you can scan and sort all your media files. It will download information about your files and present it to you in an attractive manner.
+Kodiを使用すると、すべてのメディアファイルをスキャンしてソートできます。ファイルの情報をダウンロードし、魅力的な方法で表示します。
 
-You can install Kodi directly on your Raspberry Pi system, or you can just use a distribution with Kodi pre-installed, such as |link_osmc| and |link_libreelec|.
+Raspberry PiのシステムにKodiを直接インストールすることも、 |link_osmc| や |link_libreelec| のようなKodiがプリインストールされているディストリビューションを使用することもできます。
 
-In this tutorial, we will show you how to install and set up OSMC Media Center.
-
+このチュートリアルでは、OSMCメディアセンターのインストールとセットアップ方法を紹介します。
 
 .. image:: img/kodi/kodi0.png
 
-OSMC is an operating system distribution that uses Kodi media center software.
+OSMCは、Kodiメディアセンターソフトウェアを使用するオペレーティングシステムのディストリビューションです。
 
-One of the advantages of OSMC is that it is actively maintained and built on top of a full operating system, allowing it to be easily extended beyond its built-in Kodi functionality. 
-For example, we can easily set up Netflix on it because we can easily access the backend.
+OSMCの利点の一つは、完全なオペレーティングシステムの上に構築されており、組み込みのKodi機能を超えて簡単に拡張できることです。
+例えば、バックエンドに簡単にアクセスできるので、Netflixを簡単にセットアップすることができます。
 
+Kodiを最高の状態で使用するためには、Raspberry Pi 4以降のモデルの使用をおすすめします。高性能なプロセッサと増加したRAMが、Kodiの最適な動作をサポートします。
 
-For the best experience with Kodi, we recommend that you use the Raspberry Pi 4 or newer. The stronger processor and increased RAM will help Kodi run at its best.
+部品リスト
+------------------
 
-Components List
------------------------
-
-**Required**
+**必須**
 
 * Pironman
-* Micro SD card (8GB+)
-* Ethernet cable or Wi-Fi
-* HDMI cable
-* Monitor
-* Keyboard and mouse
+* Micro SDカード（8GB以上）
+* イーサネットケーブルまたはWi-Fi
+* HDMIケーブル
+* モニター
+* キーボードとマウス
 
-**Optional**
+**オプション**
 
 * M.2 SATA SSD
 
-Install the OSMC Image
+OSMCイメージのインストール
 ---------------------------------
 
-You will learn how to install OSMC image on a Micro SD card in this section. Traditionally, burning tools used to be Etcher and Win32 disk imager, but Raspberry Pi has now developed Raspberry Pi Imager, which is an all-in-one image and tool that makes image installation easy.
+このセクションでは、Micro SDカードにOSMCイメージをインストールする方法を学びます。従来はEtcherやWin32ディスクイメージャーなどの書き込みツールが使用されていましたが、Raspberry PiはRaspberry Pi Imagerを開発し、イメージとツールが一体となったもので、イメージのインストールが簡単になりました。
 
-#. If you don't have |link_imager|, please download it.
+#. |link_imager| がない場合はダウンロードしてください。
 
-#. Open Raspberry Pi Imager, and click **CHOOSE OS**.
+#. Raspberry Pi Imagerを開き、 **CHOOSE OS** をクリックします。
 
     .. image:: img/kodi/kodi1.png
 
-#. Click the **Media player OS** button. This button will bring up 2 images for Kodi.
+#. **Media player OS** ボタンをクリックします。このボタンをクリックすると、Kodi用の2つのイメージが表示されます。
 
     .. image:: img/kodi/kodi2.png
 
-#. Here we choose **OSMC**.
+#. ここでは **OSMC** を選択します。
 
     .. image:: img/kodi/kodi6.png
 
-#. Raspberry Pi 0/1, 2/3, 4/400 versions are provided; please select the appropriate version.
+#. Raspberry Pi 0/1、2/3、4/400のバージョンが提供されていますので、適切なバージョンを選択してください。
 
     .. image:: img/kodi/kodi7.png
 
-#. After selecting the appropriate drive, then click Write.
+#. 適切なドライブを選択した後、書き込みをクリックします。
 
     .. image:: img/kodi/kodi8.png
 
-#. Once the installation success message appears, you can pull out the Micro SD.
+#. インストール完了のメッセージが表示されたら、Micro SDカードを取り出してください。
 
     .. image:: img/kodi/kodi9.png
 
-
-Initial Setup of OSMC on the Raspberry Pi
+Raspberry PiでのOSMCの初期セットアップ
 -------------------------------------------------
 
-Now that we have installed OSMC to an SD card, we will walk you through the process of its initial set up process.
+OSMCをSDカードにインストールしたので、初期セットアップの手順を説明します。
 
-#. Now pull out the Micro SD card and insert it into the card slot of the Piron.
+#. Micro SDカードを取り出し、Pironのカードスロットに挿入します。
 
     .. image:: img/kodi/connect_power.jpg
 
-#. Connect your display to the Pironman with the HDMI cable, then turn it on with the power switch.
+#. HDMIケーブルでディスプレイをPironmanに接続し、電源スイッチで電源を入れます。
 
-#. You will be greeted with the following screen when you launch OSMC for the first time. Please wait until the setup process is complete before continuing with our OSMC setup guide.
+#. OSMCを初めて起動すると、次の画面が表示されます。OSMCのセットアップガイドを続ける前に、セットアッププロセスが完了するのを待ってください。
 
     .. image:: img/kodi/kodi10.png
 
-#. Once the installation is complete, you will need to reboot Pironman. You can reboot by long pressing the power switch or by re-plugging the power cable.
+#. インストールが完了したら、Pironmanを再起動する必要があります。電源スイッチを長押しするか、電源ケーブルを再接続して再起動できます。
 
-#. The configuration page will appear once you have rebooted, and it will ask you to select the language. Select **Yes** to continue the setup after selecting a language for OSMC.
+#. 再起動すると、言語を選択するように求められる設定ページが表示されます。OSMCの言語を選択した後、 **Yes** を選択してセットアップを続けてください。
 
     .. image:: img/kodi/kodi11.png
 
-#. Next, you will be asked to select the time zone. Make sure to select the relevant time zone where you live, as this will help ensure that the time is correct.
+#. 次に、タイムゾーンを選択するように求められます。正しい時間を確保するために、住んでいる場所の関連するタイムゾーンを選択してください。
 
     .. image:: img/kodi/kodi12.png
 
-#. You will be asked if you would like to rename your device here. Default device name is **osmc** and it is recommended to change to another name.
+#. ここで、デバイスの名前を変更するかどうかを尋ねられます。デフォルトのデバイス名は **osmc** ですが、別の名前に変更することをおすすめします。
 
     .. image:: img/kodi/kodi13.png
 
-#. You can disable or enable the SSH service in this section. OSMC's setup tool will enable SSH by default. Click **Accept** to continue the installation.
+#. このセクションでは、SSHサービスを無効または有効にすることができます。OSMCのセットアップツールはデフォルトでSSHを有効にします。インストールを続けるには、 **Accept** をクリックしてください。
 
     .. image:: img/kodi/kodi14.png
 
-#. In this step, you will be asked to agree to OSMC's and Kodi's terms of service. Please select the **Continue** option after reading the license and agreeing to it.
+#. このステップでは、OSMCおよびKodiの利用規約に同意するように求められます。ライセンスを読んで同意した後、 **Continue** オプションを選択してください。
 
     .. image:: img/kodi/kodi15.png
 
-#. Select a theme of your choice. For this guide, we will use the default **OSMC** theme.
+#. 好みのテーマを選択します。このガイドでは、デフォルトの **OSMC** テーマを使用します。
 
     .. image:: img/kodi/kodi19.png
 
-#. Now you will be asked if you want to sign up for OSMC's newsletter. For this guide, we will continue using the **No thanks** option.
+#. ここで、OSMCのニュースレターにサインアップするかどうかを尋ねられます。このガイドでは、 **No thanks** オプションを使用して続けます。
 
     .. image:: img/kodi/kodi20.png
 
-#. At this point, you have now finally completed the initial configuration process of OSMC on your Raspberry Pi. You can take yourself to the Kodi main screen by selecting the **Exit** option.
+#. この時点で、Raspberry Pi上のOSMCの初期設定プロセスを完了しました。 **Exit** オプションを選択することで、Kodiのメイン画面に移動できます。
 
     .. image:: img/kodi/kodi21.png
 
-Configuring Network in OSMC
+OSMCでのネットワーク設定
 --------------------------------------------
 
-In this section, we will show you how to configure the network for your device using the OSMC interface.
+このセクションでは、OSMCインターフェースを使用してデバイスのネットワークを設定する方法を示します。
 
-#. Go to the **Settings** option.
+#. **Settings** オプションに移動します。
 
     .. image:: img/kodi/kodi22.png
 
-#. Then go to the **My OSMC** menu.
+#. 次に、 **My OSMC** メニューに進みます。
 
     .. image:: img/kodi/kodi16.png
 
-#. Select **Network**. This menu also contains several other options that can help you configure OSMC on your Raspberry Pi.
+#. **Network** を選択します。このメニューには、Raspberry PiのOSMCを設定するのに役立つ他のオプションも含まれています。
 
     .. image:: img/kodi/kodi17.png
 
-#. You can configure WIFI in this option, or just plug in a network cable, after which you will see information about the connection and remember this IP address, which you will need to access OSMC remotely later in the guide.
+#. このオプションでWIFIを設定することができます。また、ネットワークケーブルを接続するだけで、接続に関する情報が表示され、後でOSMCにリモートでアクセスするためにこのIPアドレスを覚えておく必要があります。
 
     .. image:: img/kodi/kodi24.png
 
 
-
-Files Transfer
+ファイル転送
 -----------------
 
-Sometimes you may need to transfer files between your OSMC device and your computer in order to edit, add, or change files that already exist.
-Depending on your previous experience, there are many ways to transfer files. Some of these methods work right out of the box (if SSH is enabled). Some methods require additional OSMC features, such as a Samba (SMB) server or an FTP server.
-
+OSMCデバイスとコンピューターの間でファイルを編集、追加、または変更するためにファイルを転送する必要があることがあります。
+経験に応じて、ファイルを転送する方法は多岐にわたります。これらの方法の中には、SSHが有効になっている場合にすぐに動作するものもあります。Samba (SMB) サーバーやFTPサーバーなどの追加のOSMC機能が必要な方法もあります。
 
 **SFTP**
 
-For the sake of simplicity, we will focus only on SFTP using FileZilla, since it works out of the box on all three platforms (Windows, macOS, and Linux) with no additional changes to OSMC (required the SSH has been enabled).
+簡単さを重視して、FileZillaを使用したSFTPのみに焦点を当てます。これは、OSMCに追加の変更を加えずに（SSHが有効になっている必要があります）すべての三つのプラットフォーム（Windows、macOS、Linux）ですぐに動作します。
 
-When you open FileZilla for the first time, you will not connect to anything, you will need to provide the host, username and password.
+FileZillaを初めて開くと、ホスト、ユーザー名、パスワードを提供する必要があります。
 
-* Host: sftp://ip-address-of-your-osmc
-* User name: osmc
-* Password: osmc (or the password specified by your user)
-* Port: can be left blank to use the default SSH port 22
+* ホスト: sftp://あなたのosmcのipアドレス
+* ユーザー名: osmc
+* パスワード: osmc (または指定されたパスワード)
+* ポート: デフォルトのSSHポート22を使用する場合は空白のままにできます。
 
-Once you have entered these, simply click the Quick Connect button to establish a connection.
+これらを入力したら、接続を確立するためにクイック接続ボタンをクリックします。
 
     .. image:: img/kodi/kodi37.png
 
 
-**Samba Server**
+**Sambaサーバー**
 
-You can also transfer files using SMB server, which is a more intuitive and useful way. But you need to go to OSMC and install this server first, as follows.
+SMBサーバーを使用してもファイルを転送することができます。これはより直感的で役立つ方法ですが、以下のようにしてOSMCにこのサーバーを最初にインストールする必要があります。
 
-#. Go to the **My OSMC** menu page and select the **App Store** icon.
+#. **My OSMC** メニューページに移動し、 **App Store** アイコンを選択します。
 
     .. image:: img/kodi/kodi28.png
 
-#. Select **Samba (SMB) Server**.
+#. **Samba (SMB) Server** を選択します。
 
     .. image:: img/kodi/kodi29.png
 
-#. Select **Install**.
+#. **Install** を選択します。
 
     .. image:: img/kodi/kodi30.png
 
-#. Select **Apply** to start the SMB server installation.
+#. SMBサーバーのインストールを開始するために **Apply** を選択します。
 
     .. image:: img/kodi/kodi31.png
 
-#. A popup will appear in the upper right corner  to prompt you to install. Once the installation is complete, you will be able to access your Raspberry Pi files from your own computer.
+#. 右上隅にポップアップが表示され、インストールを促します。インストールが完了すると、自分のコンピューターからRaspberry Piのファイルにアクセスできるようになります。
 
     .. image:: img/kodi/kodi32.png
 
-#. On Windows, use ``Win+R`` to open Run Box.
+#. Windowsで ``Win+R`` を使用してRun Boxを開きます。
 
     .. image:: img/kodi/kodi33.png
 
-#. Type ``\\ip address`` in the input box.
+#. 入力ボックスに ``\\ipアドレス`` を入力します。
 
     .. image:: img/kodi/kodi34.png
 
-#. Now you will see a shared drive called ``osmc``.
+#. すると、 ``osmc`` という名前の共有ドライブが表示されます。
 
     .. image:: img/kodi/kodi35.png
 
-#. Once you click in, you will see different folders and now you can transfer your music, videos or movies to them.
+#. クリックすると、さまざまなフォルダが表示され、音楽、ビデオ、映画などをこれらのフォルダに転送することができます。
 
     .. image:: img/kodi/kodi36.png
 
-Adding OSMC's videos to Scrape
+
+OSMCのビデオをScrapeに追加する
 -----------------------------------
 
-In this section, we will show you how to add a video folder for OSMC to scrape.
+このセクションでは、OSMCがスクレイプするためのビデオフォルダを追加する方法を説明します。
 
-Scrapping video is a fairly simple process and is one of the main features of Kodi.
+ビデオのスクレイピングはかなり簡単なプロセスであり、Kodiの主要な機能の一つです。
 
-#. First, we need to go to the **Video** menu.
+#. まず、 **Video** メニューに移動します。
 
     .. image:: img/kodi/kodi45.png
 
-#. Next, we need to select the **Files** submenu. This submenu will allow you to browse through the imported folders or add additional folders.
+#. 次に、 **Files** サブメニューを選択します。このサブメニューでは、インポート済みのフォルダを閲覧するか、追加のフォルダを追加することができます。
 
     .. image:: img/kodi/kodi38.png
 
-
-#. Next, select the **Add video..** option. In this option, we will add folders for OSMC’s Kodi to scan into its library.
+#. 次に、 **Add video..** オプションを選択します。このオプションでは、OSMCのKodiがライブラリにスキャンするためのフォルダを追加します。
 
     .. image:: img/kodi/kodi39.png
 
-
-#. In this menu, you need to select the **Browse** or **Add** option.
+#. このメニューでは、 **Browse** または **Add** オプションを選択する必要があります。
 
     .. image:: img/kodi/kodi40.png
 
-    * The **Browse** option will allow you to find folders via OSMC's file browser.
-    * **Add** option will allow you to manually input the path to the directory.
-    * Whichever route you take, choose the folder where your TV shows and movies are stored, then click **OK**.
-    * Make sure you separate movies and TV shows in separate folders.
-    * This is because if they are contained in the same folder, Kodi's scrapers will not be able to distinguish between them.
+    * **Browse** オプションは、OSMCのファイルブラウザを使用してフォルダを検索することができます。
+    * **Add** オプションを使用すると、ディレクトリへのパスを手動で入力できます。
+    * どちらの方法を選択しても、テレビ番組や映画が格納されているフォルダを選択して、 **OK** をクリックします。
+    * 映画とテレビ番組は別々のフォルダに分けて保存してください。
+    * 同じフォルダに含まれている場合、Kodiのスクレイパはそれらを区別することができません。
 
         .. image:: img/kodi/kodi41.png
 
-#. OSMC divides videos into three separate categories, **Movies**, **Music Videos** and **TV Shows**. Select the option that is most relevant to your video. The options you select will affect how OSMC obtains information from the video.
+#. OSMCはビデオを3つのカテゴリー、 **Movies** 、 **Music Videos** 、 **TV Shows** に分けます。あなたのビデオに最も関連するオプションを選択します。選択するオプションによって、OSMCがビデオから情報を取得する方法が変わります。
 
     .. image:: img/kodi/kodi43.png
 
-#. After selecting the type of media the catalog contains, you can now select OK. OSMC will automatically select a known good **information provider** that will be used to scrape your library.
+#. メディアの種類を選択した後、 **OK** を選択できます。OSMCはライブラリをスクレイプするために使用される信頼できる **情報提供者** を自動的に選択します。
 
     .. image:: img/kodi/kodi44.png
 
-    OSMC will scan your video and search for its name in a database on the Internet. This scan allows it to retrieve posters, actors, messages and other interesting information about your video.
+    OSMCはあなたのビデオをスキャンし、インターネット上のデータベースでその名前を検索します。このスキャンにより、ポスターや俳優、メッセージ、ビデオに関するその他の興味深い情報を取得することができます。
 
-    After selecting Ok, the scrape process should start automatically. You should begin to see that your movie or TV show has been added to the OSMC interface
+    OKを選択した後、スクレイピングプロセスが自動的に開始されるはずです。OSMCのインターフェースに映画やテレビ番組が追加されたことが確認できるでしょう。
 
-Configure a remote
+リモートを設定する
 ----------------------------
 
-A 38KHz IR receiver is built into the Pironman and is connected to the GPIO13 pin, so you can use the remote control to control your Kodi.
+Pironmanには38KHzのIRレシーバが組み込まれており、GPIO13ピンに接続されているため、リモートコントロールを使用してKodiを制御できます。
 
-**1. Configure IR receiver**
+**1. IRレシーバを設定する**
 
-#. Go to the **Settings** -> **My OSMC** menu and select the **Raspberry Pi** icon.
+#. **Settings** -> **My OSMC** メニューに移動し、 **Raspberry Pi** アイコンを選択します。
 
     .. image:: img/kodi/kodi23.png
 
-#. Select **Hardware Support**, and add the pin number to 13 in ``gpio_pin``.
+#. **Hardware Support** を選択し、 ``gpio_pin`` に13と入力します。
 
     .. image:: img/kodi/kodi25.png
 
-    Once set, you will be prompted to reboot to make this configuration effective.
+    設定が完了すると、この設定を有効にするために再起動するように求められます。
 
-**2. Select a remote control**
+**2. リモートコントロールを選択する**
 
-#. Kodi supports many different remotes and you can follow the instructions to configure them. Now go back to the **My OSMC** menu and select the **Remotes** icon to go to the configuration page.
+#. Kodiは多種多様なリモートをサポートしているため、それらを設定するための指示に従うことができます。 **My OSMC** メニューに戻り、 **Remotes** アイコンを選択して設定ページに進みます。
 
     .. image:: img/kodi/kodi26.png
 
-#. Choose the brand of remote you are using from the list.
+#. リストから使用しているリモートのブランドを選択します。
 
     .. image:: img/kodi/kodi27.png
 
-Kodi can now be controlled with your remote.
+Kodiはあなたのリモートで制御することができます。
 
-For more information, please refer to: https://osmc.tv/wiki/.
+詳細については、次のURLを参照してください：https://osmc.tv/wiki/。
 
-**3. Manually add a remote**
+**3. リモートを手動で追加する**
 
-Manually configuring a remote is a way to get your .conf file that fits your remote, add it to the **Remotes** list, and select it as the one to use at this time.
+リモートを手動で設定することは、あなたのリモートに適した.confファイルを取得し、 **リモート** リストに追加し、現在使用するものとして選択する方法です。
 
-**i. Logging in via SSH**
+**i. SSH経由でのログイン**
 
-Now log in to the OSMC system remotely from your PC, the default name and password are ``osmc``.
+PCからOSMCシステムにリモートでログインします。デフォルトの名前とパスワードは ``osmc`` です。
 
-Windows users can download an SSH client called PuTTY here.
+Windowsユーザーは、ここでPuTTYというSSHクライアントをダウンロードできます。
 
-As an alternative, some Windows 10 installations provide access to a command line SSH client via “PowerShell” from the Windows Start Menu. If your Windows 10 system supports this, you can use the Linux instructions.
+代わりに、一部のWindows 10のインストールでは、Windowsのスタートメニューから“PowerShell”を使用してコマンドラインのSSHクライアントにアクセスできます。Windows 10システムがこれをサポートしている場合、Linuxの手順を使用できます。
 
-Linux and OS X users should have an SSH client already
+LinuxおよびOS Xのユーザーは既にSSHクライアントを持っているはずです。
 
-You can find your device’s IP address in **Settings** -> **Systems** -> **Network**.
+デバイスのIPアドレスは、 **Settings** -> **Systems** -> **Network** で見ることができます。
 
 * Windows
 
-Run PuTTY and enter the IP address of your device and click **OK**. When prompted, enter ``osmc`` for both username and password.
+PuTTYを実行し、デバイスのIPアドレスを入力して、 **OK** をクリックします。求められた場合、ユーザー名とパスワードの両方として ``osmc`` を入力します。
 
 .. image:: img/kodi/kodi_remote1.png
 
 * Linux / OS X
 
-Open a Terminal interface and run the following command:
+ターミナルインターフェースを開き、以下のコマンドを実行します：
 
 .. code-block:: shell
 
-    ssh osmc@<ip address of your device>
+    ssh osmc@<あなたのデバイスのIPアドレス>
 
-You will be prompted to accept the SSH key if this is the first time you have connected to the device. Type **yes**.
+このデバイスに初めて接続する場合、SSHキーを受け入れるように求められます。 **yes** と入力します。
 
 
-**ii. Create an LIRC configuration file**
+**ii. LIRC設定ファイルの作成**
 
-#. Make sure you have set ``gpio_pin`` to 13 in OSMC via **Settings** -> **My OSMC** -> **Raspberry Pi** -> **Hardware Support**.
+#. ``gpio_pin`` がOSMCの **Settings** -> **My OSMC** -> **Raspberry Pi** -> **Hardware Support** で13に設定されていることを確認してください。
 
     .. image:: img/kodi/kodi25.png
 
-#. In the terminal, check if the Raspberry Pi detects your IR receiver with the following command.
+#. ターミナルで、Raspberry PiがIRレシーバを検出しているかどうかを次のコマンドで確認します。
 
     .. code-block:: shell
 
         ls /dev/lirc*
 
-    A port message like ``/dev/lirc0`` should appear.
+    ``/dev/lirc0`` のようなポートメッセージが表示されるはずです。
 
-#. Now to see if you can receive data from the remote.
+#. 次に、リモートからデータを受信できるかどうかを確認します。
 
     .. code-block:: shell
 
         sudo mode2 --driver default --device /dev/lirc0
 
-#. Then press the button on the remote and see if a string of pulse data appears.
+#. リモートのボタンを押し、パルスデータの文字列が表示されるかどうかを確認します。
 
     .. code-block:: shell
 
@@ -355,45 +349,46 @@ You will be prompted to accept the SSH key if this is the first time you have co
         pulse 593
         space 538
 
-#. Now stop lircd.
+#. lircdを停止します。
 
     .. code-block:: shell
 
         sudo killall lircd
 
-#. Get all available ``KEY_codes`` to match them later.
+#. すべての利用可能な ``KEY_codes`` を後でマッチングするために取得します。
 
     .. code-block:: shell
 
         irrecord --list-namespace
 
-#. Now create a ``.conf`` configuration file that fits your remote.
+#. これで、リモートに適した ``.conf`` 設定ファイルを作成します。
 
     .. code-block:: shell
         
         irrecord -d /dev/lirc0
 
-    * All you need to do is to run the above command.
-    * Press the Enter key twice.
-    * Name the remote control
-    * Press and hold a key to sample until **Please enter the name ..** appears. .
-    * Refer to the previous command to define all the keys.
+    * 上記のコマンドを実行するだけです。
+    * Enterキーを2回押します。
+    * リモートコントロールに名前を付けます。
+    * **Please enter the name ..** が表示されるまで、キーを押し続けてサンプルを取ります。
+    * すべてのキーを定義するために前のコマンドを参照してください。
 
     .. image:: img/kodi/kodi_remote.png
 
-    * After configuring all the keys on the remote, press Enter to exit. You can use the ``ls`` command to see if the ``.conf`` file you configured exists.
+    * リモートのすべてのキーを設定した後、Enterを押して終了します。 ``ls`` コマンドを使用して、設定した ``.conf`` ファイルが存在しているかどうかを確認できます。
 
-#. Now go back to OSMC and click **Settings** -> **My OSMC** -> **Remotes**.
+#. これで、OSMCに戻って、 **Settings** -> **My OSMC** -> **Remotes** をクリックします。
 
     .. image:: img/kodi/kodi_remote2.png
 
-#. Select the .conf file under your Home folder by Browse.
+#. Browseを使用してHomeフォルダの下にある.confファイルを選択します。
 
     .. image:: img/kodi/kodi_remote4.png
 
-#. Once selected, press OK to select and then confirm your change.
+#. 一度選択すると、OKを押して選択し、変更を確認します。
 
     .. image:: img/kodi/kodi_remote3.png
 
-At this point you can use your remote to control OSMC.
+この時点で、リモートを使用してOSMCを制御できるようになります。
+
 

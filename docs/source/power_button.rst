@@ -1,19 +1,20 @@
-Power Button
+電源ボタン
 ==================================
 
 .. note::
-    The power button is connected to GPIO26, if you want to change it to another pin, please refer to :ref:`change_config`.
+    電源ボタンはGPIO26に接続されています。別のピンに変更したい場合は、 :ref:`change_config` を参照してください。
 
-The power button can be used to wake up the OLED screen or to turn the Pironman off.
+電源ボタンは、OLEDスクリーンを起動するためやPironmanをオフにするために使用できます。
 
-* Upon power-up, the OLED screen displays for 60 seconds before going into sleep mode. Using the power button, you can wake up the OLED screen again later.
+* 電源が入った後、OLEDスクリーンは60秒間表示され、その後スリープモードに入ります。電源ボタンを使用して、後でOLEDスクリーンを再度起動することができます。
 
-* You have 2 ways to get the Pironman to shut down.
+* Pironmanをシャットダウンする方法は2つあります。
 
-    #. Force Shutdown
+    #. 強制シャットダウン
 
-        Pressing and holding the power button for 10 seconds will let the Pironman power cut, but this method may damage the Raspberry Pi's files or leave some changes unsaved.
+        電源ボタンを10秒間押し続けると、Pironmanの電源が切れますが、この方法ではRaspberry Piのファイルが破損する可能性があるか、一部の変更が保存されない場合があります。
 
-    #. Safe Shutdown
+    #. 安全なシャットダウン
 
-        There is also a way to safely turn off the Pironman by pressing and holding the power button for 2 seconds after configuring it.
+        設定後、電源ボタンを2秒間押し続けることで、Pironmanを安全にオフにする方法もあります。
+

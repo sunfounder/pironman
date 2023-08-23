@@ -1,18 +1,19 @@
 .. _get_ip:
 
-Get the IP address
+IPアドレスの取得
 =========================
 
-There are many ways to know the IP address, and two of them are listed as follows.
+IPアドレスを知る方法は多数ありますが、以下にそのうちの2つを紹介します。
 
-**Checking via the router**
+**ルーターを通じての確認**
 
-If you have permission to log in the router(such as a home network), you can check the addresses assigned to Raspberry Pi on the admin interface of router.
+ルーターにログインする権限がある場合（家庭用ネットワークなど）、ルーターの管理画面からRaspberry Piに割り当てられたアドレスを確認できます。
 
-The default hostname of the Raspberry Pi OS is raspberrypi, and you need to find it. (If you are using ArchLinuxARM system, please find alarmpi.)
+Raspberry Pi OSのデフォルトのホスト名はraspberrypiですので、それを探してください。（ArchLinuxARMシステムを使用している場合は、alarmpiを探してください。）
 
-**Network Segment Scanning**
+**ネットワークセグメントのスキャン**
 
-You can also use network scanning to look up the IP address of Raspberry Pi. You can apply the software, **Advanced IP scanner** and so on.
+ネットワークのスキャニングも使用して、Raspberry PiのIPアドレスを検索することができます。**Advanced IP scanner** などのソフトウェアを利用できます。
 
-Scan the IP range set, and the name of all connected devices will be displayed. Similarly, the default hostname of the Raspberry Pi OS is raspberrypi, if you haven’t modified it.
+IP範囲をスキャンすると、接続されているすべてのデバイスの名前が表示されます。同様に、Raspberry Pi OSのデフォルトのホスト名はraspberrypiですので、変更していなければそれを探してください。
+
