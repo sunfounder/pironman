@@ -1,46 +1,42 @@
-Main Board
+Hauptplatine
 ================
 
-**About the Ports**
+**Über die Anschlüsse**
 
 .. image:: img/main_board_1.png
 
-
-**About the Pins**
+**Über die Pins**
 
 .. note::
-   Two channels of fan pins are provided, allowing you to assemble a fan in both the front and back of the Pironman at the same time.
+   Es werden zwei Kanäle für Lüfterpins bereitgestellt, sodass Sie gleichzeitig einen Lüfter sowohl vorne als auch hinten am Pironman anbringen können.
 
 .. image:: img/main_board_2.png
     :width: 800
 
-There are 5 jumper caps on the Main Board, each jumper cap corresponds to a function, if you do not need the function and want to use the pin elsewhere, you can unplug the jumper cap. The following is a detailed explanation of the functions of the five jumper caps.
+Auf der Hauptplatine befinden sich 5 Jumper-Kappen. Jede Jumper-Kappe entspricht einer Funktion. Wenn Sie die Funktion nicht benötigen und den Pin anderweitig verwenden möchten, können Sie die Jumper-Kappe abziehen. Im Folgenden wird die Funktion der fünf Jumper-Kappen detailliert erläutert.
 
+* **Einschaltknopf aktivieren**: Wenn Sie diese Jumper-Kappe herausziehen, funktioniert der Einschaltknopf nicht. Außerdem wird der Einschaltknopf verwendet, um den OLED-Bildschirm im Schlafmodus zu wecken.
 
-* **Enable Power Button**: If you pull out this jumper cap, the power button will not work. Besides, the power button is also used to wake up the OLED screen in Sleep Mode.
+* **Herunterfahren Signal (IO26)**: Die Hauptplatine schaltet je nach Pegel des ``State``-Pins ein/aus; wenn ``State`` niedrig ist, schaltet sie ein, und wenn ``State`` hoch ist, schaltet sie aus.
 
-* **Shutdown Signal (IO26)**: The Main board powers on/off depending on the level of the ``State`` pin; when ``State`` is low, it powers on, and when ``State`` is high, it powers off.
+    * Sie können die Hauptplatine nur ausschalten, indem Sie den Einschaltknopf 10 Sekunden lang gedrückt halten, wenn Sie GND und State mit einer Jumper-Kappe verbinden.
+    * Wenn Sie ``State`` und IO26 mit einer Jumper-Kappe verbinden, kann der Raspberry Pi nach der Konfiguration den ``State``-Pin über IO26 steuern. Wenn der Raspberry Pi eingeschaltet ist, wird ``State`` auf niedrigem Pegel gesetzt, wenn der Raspberry Pi ausgeschaltet ist, wird ``State`` auf hohem Pegel gesetzt, sodass Hauptplatine und Raspberry Pi synchron ein-/ausschalten können.
 
-    * You can only turn off the main board by pressing and holding the power button for 10 seconds if you connect GND and state with a jumper cap. 
-    * If you connect ``State`` and IO26 with a jumper cap, after configuration, the Raspberry Pi can control the ``State`` pin through IO26. When Raspberry Pi is on, ``State`` will be set to low level, when Raspberry Pi is off, ``State`` will be set to high level, so the motherboard and Raspberry Pi can power on/off synchronously.
+* **WS2812 Pin Auswahl**: Der Raspberry Pi verfügt über drei Hochgeschwindigkeitssignalantriebsmodi, die zum Ansteuern des WS2812 RGB LED-Streifens verwendet werden können. Diese Modi haben jedoch andere Verwendungszwecke, und ihre Verwendung für den WS2812 RGB LED-Streifen deaktiviert ihre ursprünglichen Funktionen.
 
-* **WS2812 Pin Select**: Raspberry Pi has three high-speed signal driving mode that can be used to drive WS2812 RGB LED strip. But these modes have other uses, and using them for WS2812 RGB LED strip will disable their original functions.
+        * PCM (IO21) für digitalen Ton (HDMI-Audio).
+        * SPI (IO10) wird für die SPI-Schnittstelle verwendet.
+        * PWM (IO12) für analogen Ton (3,5mm Audiobuchse).
 
-        * PCM (IO21) for digital audio (HDMI audio). 
-        * SPI (IO10) is used for SPI interface. 
-        * PWM (IO12) for analog audio (3.5mm audio jack). 
-
-    The SPI (IO10) drive mode is selected by default. If you switch to a different pin (let's say IO21) during the assembly process, you will also need to modify the corresponding configuration.
+    Der SPI (IO10)-Antriebsmodus ist standardmäßig ausgewählt. Wenn Sie während des Montageprozesses zu einem anderen Pin wechseln (zum Beispiel IO21), müssen Sie auch die entsprechende Konfiguration ändern.
 
         .. code-block:: shell
 
             pironman -rp 21
 
+* **Lüfter aktivieren**: Der Lüfter dreht sich immer, wenn diese Jumper-Kappe abgezogen ist. Wenn Sie ihn nicht benötigen, können Sie die Lüfterkabel abziehen oder den Lüfter entfernen.
+* **IR-Empfänger aktivieren**: Wenn Sie diese Jumper-Kappe herausziehen, funktioniert der IR-Empfänger nicht.
 
-* **Enable Fan**: The fan is always spinning when this jumper cap is unplugged. You can unplug the fan wires or remove the fan if you don't need it.
-* **Enable IR Receiver**: If you pull out this jumper cap, the IR Receiver will not work.
+**Speicherung des Stromausfalls**
 
-
-**Power Cut Memory**
-
-When the Pironman suddenly loses power, the chip of the Main Board will record this state and will automatically power on the next time.
+Wenn der Pironman plötzlich den Strom verliert, wird der Chip der Hauptplatine diesen Zustand speichern und beim nächsten Mal automatisch einschalten.

@@ -1,55 +1,44 @@
-1. What Else Should We Prepare?
-===================================
+1. Was sollten wir noch vorbereiten?
+=======================================
 
-**Required Components**
-
+**Benötigte Komponenten**
 
 * Raspberry Pi 4 Model B
 
-    Pirionman is fully compatible with Raspberry Pi 4 Model B. If you have Raspberry Pi 1B+/2B/3B/3B+, you can use them as well, but the tower cooler inside the Pironman may not be as compatible.
+    Pirionman ist vollständig kompatibel mit dem Raspberry Pi 4 Model B. Falls Sie ein Raspberry Pi 1B+/2B/3B/3B+ besitzen, können Sie dieses ebenfalls verwenden. Beachten Sie jedoch, dass der Turmkühler im Pironman möglicherweise nicht vollständig kompatibel ist.
 
-* 5V/3A Power Adapter
+* 5V/3A Netzadapter
 
-    This 5V/3A power adapter plugs into Pironman's Power connector and powers all components. You can power the Raspberry Pi 4 separately if you are also connecting other devices that consume a lot of power.
+    Dieser 5V/3A Netzadapter wird an den Stromanschluss des Pironmans angeschlossen und versorgt alle Komponenten mit Strom. Sie können den Raspberry Pi 4 auch separat versorgen, wenn Sie andere stromintensive Geräte anschließen.
 
+* Micro-SD-Karte
 
-* Micro SD Card
+    Da der Raspberry Pi vollständig im Pironman eingebettet ist, haben wir einen zusätzlichen Micro-SD-Port für Sie vorgesehen. Die verwendete Micro-SD-Karte sollte mindestens eine Kapazität von 8 GB haben.
 
-    As the Raspberry Pi is completely enclosed in the Pironman, we have reserved an additional micro SD port for you. The micro SD card you use should have a capacity at least 8GB.
-
-**Optional Components**
+**Optionale Komponenten**
 
 * M.2 SATA SSD
 
     .. note::
-        * The M.2 SSD interface only supports SATA protocol, not NVME/PCIe.
-        * For more information on how to mount SSD to Pironman and the related configuration, please refer to ::ref:`ssd`.
+        * Die M.2 SSD-Schnittstelle unterstützt nur das SATA-Protokoll, nicht NVME/PCIe.
+        * Weitere Informationen zur Montage der SSD im Pironman und der dazugehörigen Konfiguration finden Sie unter ::ref:`ssd`.
 
-    In the Pironman's mainboard, there is an M.2 SSD connector for installing your M.2 SSD.
+    Auf dem Hauptboard des Pironmans befindet sich ein M.2 SSD-Anschluss zur Installation Ihrer M.2 SSD.
 
-    An M.2 SSD is a small form factor solid-state drive (SSD) that is used in internally mounted storage expansion cards. 
-    M.2 SSDs conform to a computer industry specification and are designed to enable high-performance storage in thin, 
-    power-constrained devices, such as ultrabook laptops and tablet computers.
+    Eine M.2 SSD ist eine Festplatte im Kleinformat (SSD), die für intern montierte Speichererweiterungskarten verwendet wird. M.2 SSDs entsprechen einer Industrienorm und sind so konzipiert, dass sie Hochleistungsspeicher in dünnen, strombeschränkten Geräten, wie Ultrabooks und Tablets, ermöglichen.
 
+* Bildschirm
 
+    Um die Desktop-Umgebung des Raspberry Pi zu sehen, benötigen Sie einen Bildschirm, der entweder ein Fernsehbildschirm oder ein Computermonitor sein kann. Wenn der Bildschirm eingebaute Lautsprecher hat, gibt der Pi den Ton darüber aus.
 
-* Screen
+* Micro-HDMI-Kabel
 
-    To view the desktop environment of Raspberry Pi, you need to use the
-    screen that can be a TV screen or a computer monitor. If the screen has
-    built-in speakers, the Pi plays sounds via them.
+    Auf dem Raspberry Pi 4 Model B befinden sich zwei Micro-HDMI-Ausgangsanschlüsse, und Sie benötigen ein Konverterkabel, um es an Ihren Bildschirm anzuschließen.
 
-* Micro HDMI Cable
+* Maus & Tastatur
 
-    There are two Micro HDMI output ports on the Raspberry Pi 4 Model B, and you will need a converter cable to connect it to your screen.
+    Wenn Sie einen Bildschirm verwenden, werden auch eine USB-Tastatur und eine USB-Maus benötigt.
 
-* Mouse & Keyboard
+* Lautsprecher oder Kopfhörer
 
-    When you use a screen, a USB keyboard and a USB mouse are also needed.
-
-
-* Sound or Earphone
-
-    The Raspberry Pi is equipped with an audio port about 3.5 mm that can be
-    used when your screen has no built-in speakers or when there is no
-    screen operation.
+    Der Raspberry Pi ist mit einem 3,5 mm Audioanschluss ausgestattet, der verwendet werden kann, wenn Ihr Bildschirm keine eingebauten Lautsprecher hat oder wenn kein Bildschirm in Betrieb ist.

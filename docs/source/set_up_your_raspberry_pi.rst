@@ -1,50 +1,49 @@
-4. Set up Your Raspberry Pi
+4. Raspberry Pi einrichten
 ============================
 
-If You Have a Screen
--------------------------
+Wenn Sie einen Bildschirm haben
+---------------------------------
 
-If you have a screen, it will be easy for you to operate on the
-Raspberry Pi.
+Wenn Sie über einen Bildschirm verfügen, wird es Ihnen leichtfallen, den Raspberry Pi zu bedienen.
 
-**Required Components**
+**Benötigte Komponenten**
 
-* Any Raspberry Pi   
-* 1 * Power Adapter
-* 1 * Micro SD card
-* 1 * Screen Power Adapter
-* 1 * HDMI cable
-* 1 * Screen
-* 1 * Mouse
-* 1 * Keyboard
+* Ein Raspberry Pi   
+* 1 * Netzteil
+* 1 * Micro-SD-Karte
+* 1 * Bildschirm-Netzteil
+* 1 * HDMI-Kabel
+* 1 * Bildschirm
+* 1 * Maus
+* 1 * Tastatur
 
-#. Insert the SD card you’ve set up with Raspberry Pi OS into the micro SD card slot on the underside of your Raspberry Pi.
+#. Legen Sie die mit dem Raspberry Pi OS vorbereitete SD-Karte in den Micro-SD-Kartensteckplatz auf der Unterseite Ihres Raspberry Pi ein.
 
-#. Plug in the Mouse and Keyboard.
+#. Schließen Sie die Maus und die Tastatur an.
 
-#. Connect the screen to Raspberry Pi’s HDMI port and make sure your screen is plugged into a wall socket and switched on.
+#. Verbinden Sie den Bildschirm über den HDMI-Anschluss des Raspberry Pi und stellen Sie sicher, dass Ihr Bildschirm an eine Steckdose angeschlossen und eingeschaltet ist.
 
     .. note::
 
-        If you use a Raspberry Pi 4, you need to connect the screen to the HDMI0 (nearest the power in port).
+        Wenn Sie einen Raspberry Pi 4 verwenden, müssen Sie den Bildschirm an den HDMI0-Anschluss anschließen (am nächsten zum Stromanschluss).
 
-#. Use the power adapter to power the Raspberry Pi. After a few seconds, the Raspberry Pi OS desktop will be displayed.
+#. Verwenden Sie das Netzteil, um den Raspberry Pi mit Strom zu versorgen. Nach einigen Sekunden wird der Raspberry Pi OS-Desktop angezeigt.
 
     .. image:: img/login1.png
         :align: center
 
 .. _no_screen:
 
-If You Have No Screen
---------------------------
+Wenn Sie keinen Bildschirm haben
+-----------------------------------
 
-If you don't have a monitor, you can remotely log into your Raspberry Pi.
+Wenn Sie keinen Monitor haben, können Sie sich aus der Ferne in Ihren Raspberry Pi einloggen.
 
-You can apply the SSH command to open the Raspberry Pi's Bash shell. Bash is the standard default shell for Linux. The shell itself is a command (instruction) when the user uses Unix/Linux. Most of what you need to do can be done through the shell.
+Sie können den SSH-Befehl verwenden, um die Bash-Shell des Raspberry Pi zu öffnen. Bash ist die standardmäßige Shell für Linux. Die Shell selbst ist ein Befehl (Anweisung), wenn der Benutzer Unix/Linux verwendet. Die meisten Aufgaben können über die Shell erledigt werden.
 
-If you're not satisfied with using the command window to access your Raspberry Pi, you can also use the remote desktop feature to easily manage files on your Raspberry Pi using a GUI.
+Wenn Sie nicht nur über das Befehlsfenster auf Ihren Raspberry Pi zugreifen möchten, können Sie auch die Funktion des Remote-Desktops verwenden, um Dateien auf Ihrem Raspberry Pi über eine grafische Benutzeroberfläche zu verwalten.
 
-See below for detailed tutorials for each system.
+Unten finden Sie ausführliche Anleitungen für jedes System.
 
 
 .. toctree::

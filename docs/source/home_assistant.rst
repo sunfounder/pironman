@@ -3,10 +3,8 @@
 Home Assistant
 =======================
 
+Dieser Abschnitt führt Sie durch die Installation des Home Assistant-Betriebssystems auf Ihrem Raspberry Pi. Beachten Sie, dass durch diesen Prozess alle vorhandenen Daten auf Ihrem Raspberry Pi gelöscht werden. Es ist daher wichtig, vorab eine Datensicherung durchzuführen.
 
-This section will guide you in installing the Home Assistant operating system on your Raspberry Pi. 
-Please note that this process will result in the loss of all existing content on your Raspberry Pi system. 
-It is important to backup your data before proceeding.
 
 .. toctree::
     :maxdepth: 2

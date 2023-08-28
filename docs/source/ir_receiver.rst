@@ -1,28 +1,28 @@
-IR Receiver
+IR-Empfänger
 ================
 
 .. note::
-    The IR receiver is connected to GPIO13, if you want to change it to another pin, please refer to :ref:`change_config`.
+    Der IR-Empfänger ist an GPIO13 angeschlossen. Wenn Sie ihn an einen anderen Pin anschließen möchten, beziehen Sie sich bitte auf :ref:`change_config`.
 
-Before you can use IR receiver, you need to test its connection and install the relevant module.
+Bevor Sie den IR-Empfänger verwenden können, müssen Sie seine Verbindung testen und das relevante Modul installieren.
 
-#. Use the following command to test, if there is a display device then the configuration is successful.
+#. Verwenden Sie den folgenden Befehl zum Testen. Wenn ein Anzeigegerät vorhanden ist, war die Konfiguration erfolgreich.
 
     .. code-block:: shell
 
         sudo ls /dev |grep lirc
 
-#. Install the ``lirc`` module.
+#. Installieren Sie das ``lirc`` Modul.
 
     .. code-block:: shell
 
         sudo apt-get install lirc -y
 
-#. Run the following command, and if you press a key on the remote controller, the code of the corresponding key will be printed.
+#. Führen Sie den folgenden Befehl aus, und wenn Sie eine Taste auf der Fernbedienung drücken, wird der Code der entsprechenden Taste angezeigt.
 
     .. code-block:: shell
 
         mode2 -d /dev/lirc0
 
 .. note::
-    If you want to play Kodi on Raspberry Pi, please refer to: :ref:`kodi_osmc`.
+    Wenn Sie Kodi auf dem Raspberry Pi verwenden möchten, beziehen Sie sich bitte auf: :ref:`kodi_osmc`.

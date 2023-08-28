@@ -1,82 +1,64 @@
 .. _install_hassos:
 
-Install the HassOS
+HassOS installieren
 ============================
 
-**Step 1**
+**Schritt 1**
 
-Raspberry Pi have developed a graphical SD card writing tool that works
-on Mac OS, Ubuntu 18.04 and Windows, and is the easiest option for most
-users as it will download the image and install it automatically to the
-SD card.
+Die Raspberry Pi Foundation bietet ein grafisches SD-Karten-Schreibtool an, das unter Mac OS, Ubuntu 18.04 und Windows funktioniert. Dies ist für die meisten Nutzer die einfachste Möglichkeit, da das Tool das Image automatisch herunterlädt und auf die SD-Karte schreibt.
 
-Visit the download page: https://www.raspberrypi.org/software/. Click on
-the link for the **Raspberry Pi Imager** that matches your operating system,
-when the download finishes, click it to launch the installer.
+Besuchen Sie die Download-Seite: https://www.raspberrypi.org/software/. Klicken Sie auf den Link für den **Raspberry Pi Imager**, der zu Ihrem Betriebssystem passt. Sobald der Download abgeschlossen ist, starten Sie das Installationsprogramm.
 
 .. image:: img/image11.png
     :align: center
 
-**Step 2**
+**Schritt 2**
 
-When you launch the installer, your operating system may try to block
-you from running it. For example, on Windows I receive the following
-message:
+Beim Start des Installationsprogramms könnte Ihr Betriebssystem versuchen, die Ausführung zu blockieren. Unter Windows könnte beispielsweise folgende Meldung erscheinen:
 
-If this pops up, click on **More info** and then **Run anyway**, then
-follow the instructions to install the Raspberry Pi Imager.
+Klicken Sie in diesem Fall auf **More info** und dann auf **Run anyway**. Befolgen Sie dann die Anweisungen zur Installation des Raspberry Pi Imagers.
 
 .. image:: img/image12.png
     :align: center
 
-**Step 3**
+**Schritt 3**
 
-Insert your SD card into the computer or laptop SD card slot.
+Stecken Sie Ihre SD-Karte in den SD-Kartensteckplatz Ihres Computers oder Laptops.
 
-**Step 4**
+**Schritt 4**
 
-In the Raspberry Pi Imager, select the OS that you want to install and
-the SD card you would like to install it on.
+Im Raspberry Pi Imager wählen Sie das Betriebssystem aus, das Sie installieren möchten, und die SD-Karte, auf der es installiert werden soll.
 
 .. image:: img/sp230627_181014.png
-
 .. image:: img/sp230627_181052.png
-
 .. image:: img/sp230627_181112.png
-
 .. image:: img/sp230627_181306.png
 
-**Step 5**
+**Schritt 5**
 
-Select the SD card you are using.
+Wählen Sie die zu verwendende SD-Karte aus.
 
 .. image:: img/image14.png
     :align: center
 
+**Schritt 6**
 
-**Step 7**
-
-Click the **WRITE** button.
-
+Klicken Sie auf den Button **WRITE**.
 
 .. image:: img/sp230627_181444.png
 
+**Schritt 7**
 
-**Step 8**
-
-If your SD card currently has any files on it, you may wish to back up
-these files first to prevent you from permanently losing them. If there
-is no file to be backed up, click **Yes**.
+Falls sich aktuell Dateien auf Ihrer SD-Karte befinden, sollten Sie diese vorab sichern, um einen dauerhaften Datenverlust zu vermeiden. Falls keine Dateien gesichert werden müssen, klicken Sie auf **Yes**.
 
 .. image:: img/image18.png
     :align: center
 
+**Schritt 8**
 
-**Step 9**
-
-After waiting for a period of time, the following window will appear to
-represent the completion of writing.
+Nach einer gewissen Wartezeit erscheint ein Fenster, das den Abschluss des Schreibvorgangs anzeigt.
 
 .. image:: img/sp230628_161104.png
     :align: center
+
 

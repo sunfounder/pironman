@@ -1,124 +1,112 @@
 .. _install_os:
 
-3. Installing the OS (Common)
-========================================
+3. Betriebssystem installieren (Allgemein)
+============================================
 
 .. note::
 
-    If you want to use Home Assistance, please :ref:`install_hassos` .
+    Wenn Sie Home Assistance nutzen möchten, folgen Sie bitte :ref:`install_hassos`.
 
 .. note::
 
-    * If your Raspberry Pi has the following Pironman-compatible systems installed, you can skip this chapter.
+    * Wenn Ihr Raspberry Pi bereits eines der folgenden Pironman-kompatiblen Systeme installiert hat, können Sie dieses Kapitel überspringen.
 
         .. image:: img/compitable_system.png
-    
-**Step 1**
 
-Raspberry Pi have developed a graphical SD card writing tool that works
-on Mac OS, Ubuntu 18.04 and Windows, and is the easiest option for most
-users as it will download the image and install it automatically to the
-SD card.
+**Schritt 1**
 
-Visit the download page: https://www.raspberrypi.org/software/. Click on
-the link for the **Raspberry Pi Imager** that matches your operating system,
-when the download finishes, click it to launch the installer.
+Raspberry Pi hat ein grafisches SD-Kartenschreibtool entwickelt, das
+auf Mac OS, Ubuntu 18.04 und Windows funktioniert. Es ist für die meisten
+Benutzer die einfachste Option, da es das Image herunterlädt und automatisch auf die
+SD-Karte installiert.
+
+Besuchen Sie die Download-Seite: https://www.raspberrypi.org/software/. Klicken Sie
+auf den Link für den **Raspberry Pi Imager**, der zu Ihrem Betriebssystem passt.
+Nachdem der Download abgeschlossen ist, starten Sie den Installer.
 
 .. image:: img/image11.png
     :align: center
 
 
-**Step 2**
+**Schritt 2**
 
-When you launch the installer, your operating system may try to block
-you from running it. For example, on Windows I receive the following
-message:
+Wenn Sie den Installer starten, versucht Ihr Betriebssystem möglicherweise, 
+dessen Ausführung zu blockieren. Auf Windows erhalten Sie beispielsweise folgende 
+Nachricht:
 
-If this pops up, click on **More info** and then **Run anyway**, then
-follow the instructions to install the Raspberry Pi Imager.
+Sollte diese Meldung erscheinen, klicken Sie auf **More info** und dann auf **Run anyway**. 
+Folgen Sie dann den Anweisungen zur Installation des Raspberry Pi Imagers.
 
 .. image:: img/image12.png
     :align: center
 
-**Step 3**
+**Schritt 3**
 
-Insert your SD card into the computer or laptop SD card slot.
+Stecken Sie Ihre SD-Karte in den SD-Kartensteckplatz Ihres Computers oder Laptops.
 
-**Step 4**
+**Schritt 4**
 
-In the Raspberry Pi Imager, select the OS that you want to install and
-the SD card you would like to install it on.
+Im Raspberry Pi Imager wählen Sie das Betriebssystem aus, das Sie installieren möchten, 
+sowie die SD-Karte, auf die Sie es installieren möchten.
 
 .. image:: img/image13.png
     :align: center
 
 .. note:: 
 
-    * You will need to be connected to the internet the first time.
-    * That OS will then be stored for future offline use(``lastdownload.cache``, ``C:/Users/yourname/AppData/Local/Raspberry Pi/Imager/cache``). So the next time you open the software, it will have the display "Released: date, cached on your computer".
+    * Sie müssen beim ersten Mal mit dem Internet verbunden sein.
+    * Das Betriebssystem wird dann für die zukünftige Offline-Nutzung gespeichert (``lastdownload.cache``, ``C:/Users/yourname/AppData/Local/Raspberry Pi/Imager/cache``). Wenn Sie die Software das nächste Mal öffnen, wird angezeigt: "Veröffentlicht: Datum, auf Ihrem Computer gespeichert".
 
-.. Download the `raspios_armhf-2020-05-28 <https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-05-28/2021-05-07-raspios-buster-armhf.zip>`_ image and select it in Raspberry Pi Imager.
+.. Laden Sie das `raspios_armhf-2020-05-28 <https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-05-28/2021-05-07-raspios-buster-armhf.zip>`_ Image herunter und wählen Sie es im Raspberry Pi Imager aus.
 
-.. .. image:: img/otherOS.png
-..     :align: center
+**Schritt 5**
 
-.. .. warning::
-..     Raspberry Pi OS has major changes after the 2021-05-28 version, which may cause some functions to be unavailable. Please do not use the latest version for now.
-
-
-.. .. mark
-
-
-**Step 5**
-
-Select the SD card you are using.
+Wählen Sie die von Ihnen verwendete SD-Karte aus.
 
 .. image:: img/image14.png
     :align: center
 
-**Step 6**
+**Schritt 6**
 
-Press **Ctrl+Shift+X** or click the **setting** icon to open the **Advanced options** page to enable SSH and set username and password. 
+Drücken Sie **Ctrl+Shift+X** oder klicken Sie auf das **setting**-Symbol, um die Seite **Advanced options** zu öffnen, SSH zu aktivieren und Benutzernamen sowie Passwort festzulegen.
 
     .. note::
-        * Now that the Raspberry Pi doesn't have a default password, you will need to set it yourself. Also, the username can be changed.
-        * For remote access, you will also need to enable SSH manually.
-
+        * Da der Raspberry Pi kein Standardpasswort mehr hat, müssen Sie es selbst festlegen. Auch der Benutzername kann geändert werden.
+        * Für den Fernzugriff müssen Sie SSH auch manuell aktivieren.
 
 .. image:: img/image15.png
     :align: center
 
-Then scroll down to complete the wifi configuration and click **SAVE**.
+Scrollen Sie dann nach unten, um die WLAN-Konfiguration abzuschließen, und klicken Sie auf **SAVE**.
 
 .. note::
 
-    ``wifi country`` should be set the two-letter `ISO/IEC alpha2 code <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements>`_ for the country in which you are using your Raspberry Pi.
+    ``WLAN-Land`` sollte auf den zweibuchstabigen `ISO/IEC alpha2-Code <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements>`_ des Landes eingestellt werden, in dem Sie Ihren Raspberry Pi verwenden.
 
 .. image:: img/image16.png
     :align: center
 
-**Step 7**
+**Schritt 7**
 
-Click the **WRITE** button.
+Klicken Sie auf den Button **WRITE**.
 
 .. image:: img/image17.png
     :align: center
 
-**Step 8**
+**Schritt 8**
 
-If your SD card currently has any files on it, you may wish to back up
-these files first to prevent you from permanently losing them. If there
-is no file to be backed up, click **Yes**.
+Wenn auf Ihrer SD-Karte derzeit Dateien gespeichert sind, möchten Sie diese Dateien möglicherweise zuerst sichern, um ein dauerhaftes Verlieren zu vermeiden. Wenn es keine Datei zum Sichern gibt, klicken Sie auf **Yes**.
 
 .. image:: img/image18.png
     :align: center
 
-**Step 9**
+**Schritt 9**
 
-After waiting for a period of time, the following window will appear to
-represent the completion of writing.
+Nach einer Wartezeit wird das folgende Fenster angezeigt, das das erfolgreiche Schreiben signalisiert.
 
 .. image:: img/image19.png
     :align: center
+
+
 
 

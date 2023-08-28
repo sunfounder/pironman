@@ -1,71 +1,71 @@
 .. _rgb_strip:
 
-WS2812 RGB Strip
+WS2812 RGB-Strip
 =======================
 
-**Pin Selection**
+**Pin-Auswahl**
 
-#. Raspberry Pi has three high-speed signal driving mode that can be used to drive WS2812 RGB LED strip. But these modes have other uses, and using them for WS2812 RGB LED strip will disable their original functions.
+#. Der Raspberry Pi verfügt über drei Hochgeschwindigkeitssignal-Treibmodi, mit denen der WS2812 RGB LED-Strip angetrieben werden kann. Diese Modi haben jedoch andere Funktionen und ihre Verwendung für den WS2812 RGB LED-Strip deaktiviert ihre ursprünglichen Funktionen.
  
 
     .. image:: img/strip_select.png
 
 
-    * SPI (IO10) is used for SPI interface. 
-    * PWM (IO12) for analog audio (3.5mm audio jack). 
-    * PCM (IO21) for digital audio (HDMI audio). 
+    * SPI (IO10) dient als SPI-Schnittstelle.
+    * PWM (IO12) für analogen Audioausgang (3.5-mm-Audiobuchse).
+    * PCM (IO21) für digitalen Audioausgang (HDMI-Audio).
 
-#. The SPI (IO10) drive mode is selected by default. If you switch to a different pin (let's say IO21) during the assembly process, you will also need to modify the corresponding configuration.
+#. Standardmäßig ist der SPI (IO10)-Treibermodus ausgewählt. Wenn Sie während des Montageprozesses auf einen anderen Pin (z.B. IO21) wechseln, müssen Sie auch die entsprechende Konfiguration ändern.
 
     .. code-block:: shell
 
         pironman -rp 21
 
-**Other Configurations**
+**Weitere Konfigurationen**
 
-The WS1812 RGB Strip is a light strip with 8 RGB LEDs that can be used to display Pironman's status. You can use commands to make it turn on or off, or to modify its color (default is blue), display mode and change rate.
+Der WS1812 RGB-Strip ist ein Lichtstreifen mit 8 RGB-LEDs, der den Status des Pironman anzeigen kann. Sie können Befehle verwenden, um ihn ein- oder auszuschalten oder um seine Farbe (Standard ist blau), Anzeigemodus und Änderungsrate zu modifizieren.
 
-* Turn on the WS2812 RGB Strip.
+* Den WS2812 RGB-Strip einschalten.
 
 .. code-block:: shell
 
     pironman  -rw on
 
-* Turn it off.
+* Ausschalten.
 
 .. code-block:: shell
 
     pironman  -rw off
 
-* Change its color, using hexadecimal color values.
+* Farbänderung mit hexadezimalen Farbwerten.
 
 .. code-block:: shell
 
     pironman  -rc fe1a1a
 
-* Changing the display mode, there are four modes to choose from: ``breath``, ``leap``, ``flow``, ``raise_up``.
+* Anzeigemodus ändern. Es gibt vier Modi zur Auswahl: ``breath``, ``leap``, ``flow``, ``raise_up``.
 
 .. code-block:: shell
 
     pironman  -rs leap
 
-* Change the speed of change (0 ~ 100%).
+* Änderungsgeschwindigkeit einstellen (0 ~ 100%).
 
 .. code-block:: shell
 
     pironman  -rb 80
 
-* Above are the effects we preset for WS2812 RGB Strip, if you want it to display other effects, you can open ``/opt/pironman/ws2812_RGB.py`` to modify and run it.
+* Oben sind die von uns voreingestellten Effekte für den WS2812 RGB-Strip. Wenn Sie andere Effekte anzeigen möchten, können Sie ``/opt/pironman/ws2812_RGB.py`` öffnen, modifizieren und ausführen.
 
-    Open this python script and modify its contents.
+    Öffnen Sie dieses Python-Skript und ändern Sie den Inhalt.
 
     .. code-block:: shell
 
         sudo nano /opt/pironman/ws2812_RGB.py
 
-    Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
+    Drücken Sie ``Ctrl+X`` -> ``Y`` -> ``Enter``, um zu speichern und die Bearbeitung zu beenden.
 
-    Run it.
+    Führen Sie es aus.
 
     .. code-block:: shell
 

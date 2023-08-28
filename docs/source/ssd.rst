@@ -3,171 +3,169 @@
 SATA M.2 SSD
 =====================================
 
-Why not compitable with NVME M.2 SSD?
---------------------------------------
+Warum nicht kompatibel mit NVME M.2 SSD?
+------------------------------------------
 
 .. note::
-    The M.2 SSD hard drive interface only supports SATA protocol, not NVME/PCIe.
+    Die M.2 SSD-Festplattenschnittstelle unterstützt nur das SATA-Protokoll, nicht NVME/PCIe.
 
-Our current interface is designed to support SATA M.2 SSDs, and we want to clarify our decision to not offer compatibility with NVMe M.2 SSDs:
+Unsere aktuelle Schnittstelle wurde für SATA M.2 SSDs entwickelt, und wir möchten erklären, warum wir uns gegen eine Kompatibilität mit NVMe M.2 SSDs entschieden haben:
 
-The primary factor is that while NVMe SSDs excel in high-performance computing environments, the Raspberry Pi 4's processing capacity and bus bandwidth are limited. This means that even if an NVMe SSD is connected, hardware constraints could prevent it from fully utilizing the SSD's performance advantages, resulting in suboptimal resource utilization.
+Der Hauptgrund ist, dass NVMe SSDs in Hochleistungs-Computing-Umgebungen glänzen, die Verarbeitungskapazität und Busbandbreite des Raspberry Pi 4 jedoch begrenzt sind. Das bedeutet, dass selbst wenn eine NVMe SSD angeschlossen wäre, Hardware-Beschränkungen deren Performancevorteile nicht voll ausnutzen könnten, was zu einer suboptimalen Ressourcennutzung führen würde.
 
-Furthermore, the USB power supply on the Raspberry Pi 4 has limitations. Connecting an NVMe SSD might lead to insufficient power supply, especially under heavy workloads. NVMe SSDs often require higher currents for stable performance, but the Raspberry Pi 4's USB ports might not meet these power demands, leading to unstable SSD operation or even failure to function properly.
+Darüber hinaus hat die USB-Stromversorgung des Raspberry Pi 4 ihre Grenzen. Das Anschließen einer NVMe SSD könnte zu einer unzureichenden Stromversorgung führen, insbesondere bei hohen Arbeitslasten. NVMe SSDs benötigen oft höhere Ströme für eine stabile Leistung, aber die USB-Ports des Raspberry Pi 4 könnten diesen Anforderungen nicht gerecht werden, was zu einem instabilen Betrieb der SSD oder sogar zu Funktionsstörungen führen könnte.
 
-Due to these reasons, connecting an NVMe SSD wouldn't yield significant performance improvements. This is why we have chosen not to support the NVMe SSD interface.
+Aus diesen Gründen würde das Anschließen einer NVMe SSD keine signifikanten Leistungsverbesserungen bringen. Daher haben wir uns entschieden, die NVMe SSD-Schnittstelle nicht zu unterstützen.
 
-We appreciate your understanding of our design considerations. Our commitment is to provide you with a product that effectively meets your needs while delivering a seamless experience.
+Wir danken Ihnen für Ihr Verständnis unserer Designüberlegungen. Unser Ziel ist es, Ihnen ein Produkt zu bieten, das Ihren Anforderungen gerecht wird und eine reibungslose Erfahrung bietet.
 
-About the Model
+Über das Modell
 ---------------------------
 
-M.2 SSD (M.2 solid-state drive) comes in various models, depending on their specifications and performance characteristics. Here are some common M.2 SSD models:
+M.2 SSD (M.2 Solid-State-Drive) gibt es in verschiedenen Modellen, abhängig von ihren Spezifikationen und Leistungsmerkmalen. Hier sind einige gängige M.2 SSD Modelle:
 
-* **SATA M.2 SSD**: This is the most common type of M.2 SSD, using the SATA interface. They typically offer lower read/write speeds and lower prices, suitable for general computing tasks.
-* **NVMe M.2 SSD**: This is a higher-performance type of M.2 SSD, utilizing the NVMe (Non-Volatile Memory Express) interface. NVMe SSDs provide faster transfer speeds and lower latency, suitable for tasks that require high-speed data transfer, such as gaming and large file processing.
-* **PCIe M.2 SSD**: This type of M.2 SSD uses the PCI Express (PCIe) interface, offering higher bandwidth and faster speeds. They are typically more expensive than SATA and NVMe SSDs and are suitable for professional users who require the highest performance, such as video editing and scientific computing.
+* **SATA M.2 SSD**: Dies ist die gängigste Art von M.2 SSD, die die SATA-Schnittstelle verwendet. Sie bieten in der Regel niedrigere Lese-/Schreibgeschwindigkeiten und niedrigere Preise, geeignet für allgemeine Computing-Aufgaben.
+* **NVMe M.2 SSD**: Dies ist eine leistungsfähigere Art von M.2 SSD, die die NVMe (Non-Volatile Memory Express) Schnittstelle nutzt. NVMe SSDs bieten schnellere Übertragungsgeschwindigkeiten und geringere Latenzzeiten, geeignet für Aufgaben, die eine schnelle Datenübertragung erfordern, wie Gaming und die Verarbeitung großer Dateien.
+* **PCIe M.2 SSD**: Diese Art von M.2 SSD verwendet die PCI Express (PCIe) Schnittstelle und bietet eine höhere Bandbreite und schnellere Geschwindigkeiten. Sie sind in der Regel teurer als SATA und NVMe SSDs und eignen sich für professionelle Nutzer, die höchste Leistung benötigen, wie Video-Bearbeitung und wissenschaftliches Rechnen.
 
-M.2 SSDs come in three key types: B key, M key, and B+M key. However, later on, the B+M key was introduced, combining the functionalities of the B key and M key. As a result, it replaced the standalone B key. Please refer to the image below.
+M.2 SSDs gibt es in drei Haupttypen: B-Key, M-Key und B+M-Key. Später wurde jedoch der B+M-Key eingeführt, der die Funktionen des B-Key und M-Key kombiniert. Als Ergebnis ersetzte er den eigenständigen B-Key. Bitte beachten Sie das untenstehende Bild.
 
 .. image:: img/ssd_key.png
 
-
-In general, M.2 SATA SSDs are B+M-keyed (can fit in sockets for B-keyed and M-keyed modules), while M.2 NVMe SSDs for PCIe 3.0 x4 lane are M-keyed.
+Allgemein gesagt sind M.2 SATA SSDs B+M-Key (passen in Sockel für B- und M-Key Module), während M.2 NVMe SSDs für PCIe 3.0 x4 Lane M-Key sind.
 
 .. image:: img/ssd_model2.png
 
-About the Length
+Über die Länge
 -----------------------
 
-M.2 modules come in different sizes and can also be utilized for Wi-Fi, WWAN, Bluetooth, GPS, and NFC.
+M.2 Module gibt es in verschiedenen Größen und sie können auch für Wi-Fi, WWAN, Bluetooth, GPS und NFC verwendet werden.
 
-Pironman supports four M.2 SATA SSD sizes based on their names: 2230, 2242, 2260, and 2280. The "22" is the width in millimeters (mm), and the two following numbers are the length. The longer the drive, the more NAND flash chips can be mounted; therefore, the more capacity.
-
+Pironman unterstützt vier M.2 SATA SSD-Größen basierend auf ihren Bezeichnungen: 2230, 2242, 2260 und 2280. Die "22" steht für die Breite in Millimetern (mm), und die beiden folgenden Zahlen sind die Länge. Je länger das Laufwerk, desto mehr NAND-Flash-Chips können montiert werden; daher die größere Kapazität.
 
 .. image:: img/m2_ssd_size.png
     :width: 600
 
-
-Assemble the SSD
+Einbau der SSD
 ------------------------------
 
-#. Take off the base plate of the Pironman.
+#. Nehmen Sie die Basisplatte des Pironman ab.
 
     .. image:: img/ssd1.jpg
         :width: 600
 
-#.  Remove the screw for the M.2 SATA SSD.
+#. Entfernen Sie die Schraube für die M.2 SATA SSD.
 
     .. image:: img/ssd2.jpg
 
-
-#. Insert your M.2 SATA SSD.
+#. Stecken Sie Ihre M.2 SATA SSD ein.
 
     .. image:: img/ssd3.jpg
 
-#. Screwed in place.
+#. Schrauben Sie sie fest.
 
     .. image:: img/ssd4.jpg
 
-#. Put the base plate back on.
+#. Setzen Sie die Basisplatte wieder auf.
 
     .. image:: img/ssd5.jpg
 
-#. Plug in SSD Bridge and 5V/3V power supply.
+#. Stecken Sie die SSD Bridge und die 5V/3V Stromversorgung ein.
 
     .. image:: img/ssd18.jpg
-        
-**Booting from SSD**
+
+
+**Booten von SSD**
 ---------------------------
-Now that you've installed the SSD on your Raspberry Pi, let's explore how to install the Raspberry Pi OS on it and configure the Raspberry Pi to boot from the SSD.
+Nachdem Sie die SSD in Ihren Raspberry Pi eingebaut haben, wollen wir uns anschauen, wie Sie das Raspberry Pi Betriebssystem darauf installieren und den Raspberry Pi so konfigurieren, dass er von der SSD startet.
 
-**1. Install Raspberry Pi OS to SSD**
+**1. Raspberry Pi OS auf SSD installieren**
 
-There are two methods to install Raspberry Pi OS on your SSD:
+Es gibt zwei Möglichkeiten, Raspberry Pi OS auf Ihrer SSD zu installieren:
 
-* The first method is to directly install it via the **Raspberry Pi Imager**. This method is similar to installing the OS on a Micro SD card. Just select your SSD when you're prompted to choose a storage device. If you're unfamiliar with this process, you can refer to the tutorial :ref:`install_os`.
+* Die erste Methode besteht darin, es direkt über den **Raspberry Pi Imager** zu installieren. Dieser Vorgang ähnelt der Installation des OS auf einer Micro-SD-Karte. Wählen Sie einfach Ihre SSD aus, wenn Sie aufgefordert werden, ein Speichergerät zu wählen. Wenn Sie mit diesem Vorgang nicht vertraut sind, können Sie sich das Tutorial :ref:`install_os` ansehen.
 
-* The alternative method is copying from your existing SD card. If you want to retain the files and system on your SD card, this method is for you.
+* Die alternative Methode besteht darin, von Ihrer vorhandenen SD-Karte zu kopieren. Wenn Sie die Dateien und das System auf Ihrer SD-Karte beibehalten möchten, ist diese Methode ideal für Sie.
 
-Let's walk through how you can copy the contents of your Micro SD to the SSD:
+Gehen wir Schritt für Schritt durch, wie Sie den Inhalt Ihrer Micro-SD auf die SSD kopieren können:
 
-#. Insert the micro SD card into the Pironman, plug in the USB Bridge to connect the SSD to the Raspberry Pi, and power the pironman up.
+#. Legen Sie die Micro-SD-Karte in den Pironman ein, schließen Sie die USB-Brücke an, um die SSD mit dem Raspberry Pi zu verbinden, und schalten Sie den Pironman ein.
 
     .. image:: img/ssd18.jpg
 
-#. Access the Raspberry Pi desktop. You can do this by connecting a monitor directly or through remote desktop, see the tutorial for guidance: :ref:`no_screen`.
+#. Greifen Sie auf den Raspberry Pi Desktop zu. Dies können Sie entweder direkt über einen Monitor tun oder über den Remote-Desktop. Siehe hierzu das Tutorial: :ref:`no_screen`.
 
-#. Launch the **SD Card Copier** from the **Accessories** section of the **start** menu.  
+#. Starten Sie den **SD Card Copier** aus dem **Accessories**-Bereich des **Start**-Menüs.
 
     .. image:: img/sd_card_copy.png
 
-#. Choose the Copy from device (Micro SD card) and the copy to device (SSD, ``/dev/sda/``). Double-check to ensure you've selected the correct drives, then click **"Start"** to initiate the copying process. This can take around several minutes.
+#. Wählen Sie das Quellgerät (Micro-SD-Karte) und das Zielgerät (SSD, ``/dev/sda/``) aus. Überprüfen Sie nochmals genau, ob Sie die richtigen Laufwerke ausgewählt haben, und klicken Sie dann auf **"Start"**, um den Kopiervorgang zu beginnen. Dies kann mehrere Minuten dauern.
 
     .. image:: img/sd_card_copy_select.png
 
-#. Once you see **"Copy Complete"**, shut down the Raspberry Pi and remove the micro SD card.
+#. Sobald **"Copy Complete"** angezeigt wird, fahren Sie den Raspberry Pi herunter und entfernen Sie die Micro-SD-Karte.
 
 .. note::
 
-    If your Micro SD card is the the **Raspberry Pi Lite**, you'll need to use commands to complete the copying process. For detailed instructions, please refer to: :ref:`copy_lite`.
+    Wenn Ihre Micro-SD-Karte das **Raspberry Pi Lite** ist, müssen Sie Befehle verwenden, um den Kopiervorgang abzuschließen. Für detaillierte Anweisungen verweisen wir auf: :ref:`copy_lite`.
 
-**2. Install Bootloader**
+**2. Bootloader installieren**
 
-With the Raspberry Pi OS now on the SSD, it's time to reset the Pi's Bootloader to prioritize booting from USB.
+Da das Raspberry Pi Betriebssystem nun auf der SSD ist, ist es an der Zeit, den Bootloader des Pi zurückzusetzen, um das Booten von USB zu priorisieren.
 
-#. Download and install the |link_raspberry_pi_imager| from the Raspberry Pi website.
+#. Laden Sie den |link_raspberry_pi_imager| von der Raspberry Pi Webseite herunter und installieren Sie ihn.
 
-#. Insert a spare micro SD card into your computer. Please be aware that the contents of this card will be erased, so back up any important data first.
+#. Legen Sie eine freie Micro-SD-Karte in Ihren Computer ein. Beachten Sie, dass der Inhalt dieser Karte gelöscht wird. Sichern Sie daher zuerst wichtige Daten.
 
-#. Launch the **Raspberry Pi Imager** and scroll down under **“Operating System”** to **“Misc Utility Images”**. Left-click to access the subsequent menu.
+#. Starten Sie den **Raspberry Pi Imager** und scrollen Sie im Bereich **“Operating System”** nach unten zu **“Misc Utility Images”**. Klicken Sie mit der linken Maustaste, um das folgende Menü zu öffnen.
 
     .. image:: img/ssd6.png
         :width: 600
         :align: center
 
-#. Select **Bootloader**.
+#. Wählen Sie **Bootloader**.
 
     .. image:: img/ssd7.png
         :width: 600
         :align: center
 
-#. Next, choose **USB Boot**. This will bring us back to the main menu.
+#. Wählen Sie anschließend **USB Boot**. Dies bringt uns zurück zum Hauptmenü.
 
     .. image:: img/ssd8.png
         :width: 600
         :align: center
 
-#. Under **"Storage"**, select the micro SD card. Double-check to ensure you've chosen the correct drive before proceeding. 
+#. Unter **"Storage"** wählen Sie die Micro-SD-Karte aus. Überprüfen Sie nochmals genau, ob Sie das richtige Laufwerk gewählt haben, bevor Sie fortfahren.
 
     .. image:: img/ssd88.png
         :width: 600
         :align: center
 
-#. Click **“WRITE”** to download the configuration image and write it to the micro SD card.
+#. Klicken Sie auf **“WRITE”**, um das Konfigurationsimage herunterzuladen und auf die Micro-SD-Karte zu schreiben.
 
     .. image:: img/ssd9.png
         :width: 600
         :align: center
 
-#. Wait for a successful write confirmation before removing the micro SD card from your computer.
+#. Warten Sie auf eine erfolgreiche Schreibbestätigung, bevor Sie die Micro-SD-Karte aus Ihrem Computer entfernen.
 
-#. Insert the micro SD card into the Pironman and power it up.
+#. Legen Sie die Micro-SD-Karte in den Pironman ein und schalten Sie ihn ein.
 
     .. image:: img/connect_power.jpg
 
-#. Once the update is complete, the green activity LED will flash steadily. If you have an HDMI monitor connected, the screen will turn green upon completion. The update might take 10 seconds or even longer, so ensure you don't remove the micro SD card during this process.
+#. Sobald das Update abgeschlossen ist, blinkt die grüne Aktivitäts-LED gleichmäßig. Wenn ein HDMI-Monitor angeschlossen ist, wird der Bildschirm nach Abschluss grün. Das Update kann 10 Sekunden oder sogar länger dauern. Stellen Sie daher sicher, dass Sie die Micro-SD-Karte während dieses Prozesses nicht entfernen.
 
     .. image:: img/ssd10.jpg
 
-#. Turn off the Raspberry Pi's power and remove the micro SD card.
+#. Schalten Sie den Strom des Raspberry Pi aus und entfernen Sie die Micro-SD-Karte.
 
-**3. Boot from SSD**
+**3. Vom SSD booten**
 
-#. At this point, ensure the micro SD card is removed. Connect the USB Bridge to connect the SSD to the Raspberry Pi. Now, power up the Pironman.
+#. Stellen Sie zu diesem Zeitpunkt sicher, dass die Micro-SD-Karte entfernt ist. Verbinden Sie die USB-Brücke, um die SSD mit dem Raspberry Pi zu verbinden. Schalten Sie nun den Pironman ein.
 
     .. image:: img/login1.png
         :align: center
+
 
 
 

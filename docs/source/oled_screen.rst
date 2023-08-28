@@ -1,47 +1,39 @@
-OLED Screen
+OLED-Bildschirm
 ===================
 
-After installation, the script will start automatically and the OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
+Nach der Installation wird das Skript automatisch gestartet und der OLED-Bildschirm zeigt die CPU-, RAM- und ROM-Auslastung, die CPU-Temperatur und die IP-Adresse des Raspberry Pi an.
 
+Um die Lebensdauer des OLED-Bildschirms zu verlängern, schaltet sich der OLED-Bildschirm standardmäßig nach 60 Sekunden aus und wird durch kurzes Drücken des Einschaltknopfes wieder aktiviert. Sie können diese Funktion mit dem folgenden Befehl aktivieren/deaktivieren.
 
-In order to extend the life of OLED screen, OLED will turn off after 60 seconds by default, and will light up by pressing the power button shortly. You can enable/disable this feature with the following command.
-
-* set to sleep mode:  "al" means to "always on". In sleep mode, short press the power button to wake up.
-
-
+* Schlafmodus einstellen: „al“ bedeutet „immer an“. Im Schlafmodus den Einschaltknopf kurz drücken, um aufzuwachen.
 
 .. code-block:: shell
 
     pironman  -al off
 
-* set to always on mode:
-
-
+* Immer-an-Modus einstellen:
 
 .. code-block:: shell
 
     pironman  -al on
 
-* Set the duration in seconds, 
-
-
+* Dauer in Sekunden festlegen:
 
 .. code-block:: shell
 
     pironman  -s 60
 
-* The above are what we set for OLED screen, if you want to make OLED screen display other information and effects, you can open ``/opt/pironman/main.py`` to modify and run it.
+* Das oben Genannte sind unsere Einstellungen für den OLED-Bildschirm. Wenn Sie möchten, dass der OLED-Bildschirm andere Informationen und Effekte anzeigt, können Sie ``/opt/pironman/main.py`` öffnen, ändern und ausführen.
 
-    Open this python script and modify its contents.
+    Öffnen Sie dieses Python-Skript und ändern Sie den Inhalt.
 
     .. code-block:: shell
 
         sudo nano /opt/pironman/main.py
 
+    Drücken Sie ``Ctrl+X`` -> ``Y`` -> ``Enter``, um zu speichern und die Bearbeitung zu beenden.
 
-    Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
-
-    Run it.
+    Führen Sie es aus.
 
     .. code-block:: shell
 

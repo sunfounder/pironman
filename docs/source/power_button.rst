@@ -1,19 +1,20 @@
-Power Button
+Ein/Aus-Taste
 ==================================
 
 .. note::
-    The power button is connected to GPIO26, if you want to change it to another pin, please refer to :ref:`change_config`.
+    Die Ein/Aus-Taste ist an GPIO26 angeschlossen. Wenn Sie sie an einen anderen Pin anschließen möchten, beziehen Sie sich bitte auf :ref:`change_config`.
 
-The power button can be used to wake up the OLED screen or to turn the Pironman off.
+Die Ein/Aus-Taste kann verwendet werden, um den OLED-Bildschirm zu wecken oder den Pironman auszuschalten.
 
-* Upon power-up, the OLED screen displays for 60 seconds before going into sleep mode. Using the power button, you can wake up the OLED screen again later.
+* Nach dem Einschalten wird der OLED-Bildschirm für 60 Sekunden angezeigt, bevor er in den Schlafmodus wechselt. Mit der Ein/Aus-Taste können Sie den OLED-Bildschirm später wieder aufwecken.
 
-* You have 2 ways to get the Pironman to shut down.
+* Es gibt 2 Möglichkeiten, den Pironman herunterzufahren.
 
-    #. Force Shutdown
+    #. Erzwungener Shutdown
 
-        Pressing and holding the power button for 10 seconds will let the Pironman power cut, but this method may damage the Raspberry Pi's files or leave some changes unsaved.
+        Wenn Sie die Ein/Aus-Taste 10 Sekunden lang gedrückt halten, wird die Stromversorgung des Pironman unterbrochen. Diese Methode kann jedoch Dateien des Raspberry Pi beschädigen oder einige Änderungen nicht speichern.
 
-    #. Safe Shutdown
+    #. Sicherer Shutdown
 
-        There is also a way to safely turn off the Pironman by pressing and holding the power button for 2 seconds after configuring it.
+        Es gibt auch eine Möglichkeit, den Pironman sicher auszuschalten, indem Sie die Ein/Aus-Taste nach der Konfiguration 2 Sekunden lang gedrückt halten.
+

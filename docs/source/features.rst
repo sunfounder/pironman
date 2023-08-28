@@ -1,54 +1,53 @@
-Features
+Eigenschaften
 ======================
 
-**Functions**
+**Funktionen**
 
-* Raspberry Pi mini PC
-* Tower cooler can cool a 100% CPU load Pi to 39°C at 25°C room temperature
-* Onboard USB to M.2 SATA SSD, TRIM supported
-* IR Receiver for multi-media center like Kodi or Volumio
-* RGB Fan, with GPIO control
-* 16 WS2812 Addressable RGB LED light up the whole case with cool light effect
-* Retro metal power button with indicator light for safe shut down
-* 0.96" OLED Display showing Raspberry Pi's CPU usage, temperature, disk usage, IP address, RAM usage etc.
-* External GPIO extender with pin name label, for easy access
-* Power status memory, remembers the power status incase accident power cut off
-* Re-wiring the microSD card for easy access
-* Aluminum main body with clear Acrylic side panel
+* Raspberry Pi Mini-PC
+* Tower-Kühler kann einen Raspberry Pi bei 100% CPU-Auslastung auf 39°C bei einer Raumtemperatur von 25°C kühlen
+* Integrierter USB zu M.2 SATA SSD, TRIM wird unterstützt
+* IR-Empfänger für Multimedia-Center wie Kodi oder Volumio
+* RGB-Lüfter, steuerbar über GPIO
+* 16 WS2812 adressierbare RGB LEDs erleuchten das gesamte Gehäuse mit coolen Lichteffekten
+* Retro-Metall-Anschaltknopf mit Kontrollleuchte für sicheres Herunterfahren
+* 0.96" OLED-Display zeigt CPU-Auslastung, Temperatur, Festplattennutzung, IP-Adresse, RAM-Nutzung des Raspberry Pi usw.
+* Externer GPIO-Erweiterungsanschluss mit Pin-Beschriftung für einfachen Zugang
+* Speicherung des Power-Status zur Wiederherstellung nach einem versehentlichen Stromausfall
+* Neuanordnung der microSD-Karte für einfachen Zugang
+* Aluminium-Hauptkörper mit klarem Acryl-Seitenpanel
 
-**Parameters**
+**Parameter**
 
-1. Dimension: 112.45x68.2x118.92mm
+1. Abmessungen: 112.45x68.2x118.92mm
 2. Material
-    a. Main body: aluminum alloy
-    b. Both sides and front panel: acrylic
-3. Support platform: Raspberry Pi 4B
-4. Power input: USB Type C 5V/3A
-5. Rated power: 5V/800mA
-6. interface (d ~ i is the original Raspberry Pi interface exposed)
+    a. Hauptkörper: Aluminiumlegierung
+    b. Beidseitige und vordere Panel: Acryl
+3. Unterstützte Plattform: Raspberry Pi 4B
+4. Stromversorgung: USB Typ C 5V/3A
+5. Nennleistung: 5V/800mA
+6. Schnittstellen (d ~ i sind die original freigelegten Schnittstellen des Raspberry Pi)
     a. Raspberry Pi standard 40-Pin GPIO
     b. micro SD
-    c. USB Type C power input
+    c. USB Typ C Stromanschluss
     d. USB 2.0 x 2
     e. USB 3.0
-    f. Gigabit LAN port
-    g. USB Type C Raspberry Pi power supply (direct power to Raspberry Pi, not recommended)
+    f. Gigabit LAN-Port
+    g. USB Typ C Raspberry Pi Stromversorgung (direkte Stromversorgung des Raspberry Pi, nicht empfohlen)
     h. micro HDMI x 2
-    i. 3.5mm headphone jack
-7. Power button
-8. OLED screen: 0.96'' 128x64 resolution
-9. Infrared receiver: 38KHz
-10. Cooling fan: size 40x40x10mm
+    i. 3.5mm Kopfhöreranschluss
+7. Anschaltknopf
+8. OLED-Bildschirm: 0.96'' 128x64 Auflösung
+9. Infrarotempfänger: 38KHz
+10. Kühlventilator: Größe 40x40x10mm
 11. WS2812 RGB LED: 16xWS2812B-5050
 
-**Pin Functions**
+**Pin-Funktionen**
 
 .. image:: img/pin_define.png
 
-* **Shutdown Signal Pin**: By pressing the power button, the Raspberry Pi will power off, while setting GPIO26 to a high level, and if the Main Board detects this high level, it will power cut.
+* **Shutdown Signal Pin**: Durch Drücken des Power-Buttons wird der Raspberry Pi ausgeschaltet und dabei GPIO26 auf ein hohes Level gesetzt. Wenn das Hauptboard dieses hohe Level erkennt, wird der Strom abgeschaltet.
 
-**Dimensional Drawing**
+**Abmessungszeichnung**
 
 .. image:: img/pironman_dimension.png
     :width: 800
-

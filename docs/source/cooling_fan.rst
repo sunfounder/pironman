@@ -1,19 +1,19 @@
-Cooling Fan
+Kühlventilator
 =====================
 
 .. note::
-    The Cooling Fan  is connected to GPIO6 (BCM).
+    Der Kühlventilator ist an GPIO6 (BCM) angeschlossen.
 
-The working status of the Cooling Fan is decided by the CPU temperature. When the CPU temperature reaches the set threshold, the fan spins, and if it is 2 degrees Celsius below the threshold, the fan is stopped.
+Der Betriebsstatus des Kühlventilators wird durch die CPU-Temperatur bestimmt. Wenn die CPU-Temperatur den eingestellten Schwellenwert erreicht, beginnt der Ventilator zu laufen. Liegt sie 2 Grad Celsius unter dem Schwellenwert, wird der Ventilator gestoppt.
 
-* Set the temperature unit, ``C``: Celsius, ``F``: Fahrenheit.
+* Temperatureinheit festlegen, ``C``: Celsius, ``F``: Fahrenheit.
 
 .. code-block:: shell
 
     pironman  -u C
 
 
-* Set the temperature at which the fan starts, for example, 40 degrees Celsius (the unit is set by you).
+* Die Temperatur festlegen, bei der der Ventilator startet, z.B. 40 Grad Celsius (die Einheit wird von Ihnen bestimmt).
 
 .. code-block:: shell
 

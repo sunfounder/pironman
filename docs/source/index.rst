@@ -1,50 +1,48 @@
 
-Pironman V2.0- SunFounder Mini PC Kit for Raspberry Pi
+Pironman V2.0 - SunFounder Mini PC Kit für Raspberry Pi
 =================================================================
 
 .. note::
 
-    We offer two versions of Pironman. It's crucial to note that the scripts in each version's online tutorial are not interchangeable. 
+    Wir bieten zwei Versionen von Pironman an. Es ist wichtig zu beachten, dass die Skripte in den Online-Tutorials jeder Version nicht austauschbar sind.
     
-    To ensure the proper setup, you'll need to identify your version using the short link provided in your instruction sheet:
+    Um eine korrekte Einrichtung zu gewährleisten, müssen Sie Ihre Version anhand des Kurzlinks identifizieren, der in Ihrem Anweisungsblatt angegeben ist:
 
-    * If the link is "pironman-v2.rtfd.io", continue with this tutorial.
-    * If the link displays "pironman.rtfd.io", kindly follow the tutorial at |link_pironman_v1|.
+    * Wenn der Link "pironman-v2.rtfd.io" lautet, fahren Sie mit diesem Tutorial fort.
+    * Wenn der Link "pironman.rtfd.io" anzeigt, folgen Sie bitte dem Tutorial unter |link_pironman_v1|.
 
     .. image:: img/about_version.jpg
         :width: 500
         :align: center
 
-
 .. image:: img/pironman.png
     :width: 400
     :align: center
 
-Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the screen, mouse and keyboard, and you can use it for projects, entertainment and office.
+Pironman ist SunFounders maßgeschneidertes Mini-PC-Kit für Raspberry Pi. Schließen Sie einfach den Bildschirm, die Maus und die Tastatur an und nutzen Sie es für Projekte, Unterhaltung und Büroarbeit.
 
-
-* Small size of 4.43'' x 2.69'' x 4.68''
-* Raspberry Pi mini PC
-* Tower cooler can cool a 100% CPU load Pi to 39°C at 25°C room temperature
-* 0.96" OLED Display showing Raspberry Pi's CPU usage, temperature, disk usage, IP address, RAM usage etc
-* Onboard USB to M.2 SATA SSD, TRIM supported
-* RGB Fan, with GPIO control
-* 16 WS2812 Addressable RGB LEDs
-* IR Receiver for multi-media center like Kodi or Volumio
-* External GPIO extender with pin name label
-* Power status memory, remembers the power status, automatically boot after accident power cut off
-* Aluminum main body with clear Acrylic side panel
-
+* Kompakte Größe von 4,43'' x 2,69'' x 4,68''
+* Raspberry Pi Mini-PC
+* Turmkühler kann einen Raspberry Pi mit 100% CPU-Auslastung auf 39°C bei einem Raumklima von 25°C kühlen
+* 0,96" OLED-Display zeigt CPU-Auslastung, Temperatur, Festplattennutzung, IP-Adresse, RAM-Nutzung usw. des Raspberry Pi an
+* Integrierter USB zu M.2 SATA SSD, TRIM unterstützt
+* RGB-Lüfter mit GPIO-Steuerung
+* 16 WS2812 adressierbare RGB-LEDs
+* IR-Empfänger für Multimedia-Center wie Kodi oder Volumio
+* Externer GPIO-Erweiterungsanschluss mit Pin-Namensschild
+* Speicherung des Stromstatus, merkt sich den aktuellen Status, startet automatisch nach einem unbeabsichtigten Stromausfall
+* Hauptgehäuse aus Aluminium mit durchsichtiger Acryl-Seitenwand
 
 .. note::
-    Please find links below to configurations for the WS2812 RGB Strip and M.2 SATA SSD.
+
+    Unten finden Sie Links zu Konfigurationen für den WS2812 RGB-Streifen und die M.2 SATA SSD:
 
     * :ref:`rgb_strip`
     * :ref:`ssd`
 
 .. note::
 
-    Pironman compatible systems are shown below. If you have other systems installed, some of the Pironman components may not be available.
+    Unten aufgeführte Systeme sind mit Pironman kompatibel. Bei installierten anderen Systemen können einige Pironman-Komponenten nicht verfügbar sein.
 
     .. image:: img/compitable_system_hm.png
 

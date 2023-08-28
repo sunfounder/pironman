@@ -1,19 +1,19 @@
-5. Set up the Pironman
+5. Pironman einrichten
 ===================================
 
 .. note::
-    * This Pironman is used in the same way as PC and requires the power button to power on/off.
+    * Dieser Pironman funktioniert wie ein PC und benötigt den Power-Button zum Ein-/Ausschalten.
 
 .. _change_config:
 
-Compatible Systems
+Kompatible Systeme
 -----------------------------------
 
-Pironman compatible systems are shown below.
+Die kompatiblen Systeme für Pironman sind unten dargestellt.
 
 .. image:: img/compitable_system.png
 
-If your systems that don't have ``git``, ``python3`` and ``pip`` pre-installed you need to install them first.
+Sollten Ihre Systeme ``git``, ``python3`` und ``pip`` noch nicht vorinstalliert haben, müssen Sie diese zuerst installieren.
 
 .. code-block:: shell
 
@@ -22,11 +22,10 @@ If your systems that don't have ``git``, ``python3`` and ``pip`` pre-installed y
     sudo apt-get install python3 python3-pip python3-setuptools -y
 
 
+``pironman`` Modul installieren
+----------------------------------
 
-Install ``pironman`` module
-----------------------------
-
-Use the following commands to download and install the ``pironman`` module.
+Verwenden Sie die folgenden Befehle, um das ``pironman`` Modul herunterzuladen und zu installieren.
 
 .. code-block:: shell
 
@@ -35,109 +34,102 @@ Use the following commands to download and install the ``pironman`` module.
     cd ~/pironman
     sudo python3 install.py
 
+.. warning::  Die Angabe ``-b v2.0`` im Befehl ist notwendig.
 
-.. warning::  The ``-b v2.0`` in the directive is necessary
+Ein Neustart ist nach der Installation erforderlich. Eine Aufforderung zum Neustart wird irgendwann erscheinen, und Sie können ``y`` auswählen, um sofort oder später neu zu starten.
 
-Rebooting is required after installation to take effect. A reboot reminder will pop up at some point, and you can select ``y`` to reboot now or at a later time.
+Hier sind die Grundkonfigurationen für Pironman.
 
-Here are the basic configurations for Pironman.
-
-   * The OLED screen will display the CPU, RAM and ROM Usage, CPU Temperature and IP Address of the Raspberry Pi.
-   * After 60 seconds, the OLED display goes into sleep mode, and you can wake it up by a short press on the power button.
-   * The fan is turned on at 50 degrees Celsius.
-   * Turn on the WS2812 RGB strip(default connection in IO10) so that it displays in color #0a1aff(blue) and in breath mode (change rate is 50%).
-   * At this point, you can press and hold for 2 seconds to safely shut down or 10 seconds to forcibly shut down.
-
+   * Das OLED-Display zeigt die CPU-, RAM- und ROM-Auslastung, die CPU-Temperatur und die IP-Adresse des Raspberry Pi an.
+   * Nach 60 Sekunden geht das OLED-Display in den Schlafmodus. Sie können es durch einen kurzen Druck auf den Power-Button wieder aufwecken.
+   * Der Lüfter wird bei 50 Grad Celsius eingeschaltet.
+   * Schalten Sie den WS2812 RGB-Streifen (standardmäßige Verbindung in IO10) ein, sodass er in der Farbe #0a1aff (blau) und im Atemmodus (Änderungsrate beträgt 50%) leuchtet.
+   * Zu diesem Zeitpunkt können Sie 2 Sekunden lang drücken, um sicher herunterzufahren oder 10 Sekunden lang, um erzwungen herunterzufahren.
 
 
-Modify the Configuration
+Konfiguration ändern
 -----------------------------
 
-In the ``pironman`` module, we have some basic configurations for Pironman, and you can check them with the following command.
-
+Im ``pironman`` Modul haben wir einige Grundkonfigurationen für Pironman. Sie können diese mit dem folgenden Befehl überprüfen.
 
 .. code-block:: shell
 
     pironman -c
 
-The current configurations are shown below.
+Die aktuellen Konfigurationen sind unten aufgeführt.
 
-   * The fan is turned on at 50 degrees Celsius.
-   * The duration of the OLED display is 60s, after 60s it will start to sleep.
-   * Turn on the WS2812 RGB strip(default 10) so that it displays in color #0a1aff and in breath mode (change rate is 50%).
+   * Der Lüfter wird bei 50 Grad Celsius eingeschaltet.
+   * Die Anzeigedauer des OLED-Displays beträgt 60s, danach wird es in den Schlafmodus versetzt.
+   * Schalten Sie den WS2812 RGB-Streifen (Standardwert 10) ein, sodass er in der Farbe #0a1aff leuchtet und im Atemmodus (Änderungsrate beträgt 50%) angezeigt wird.
 
 .. image:: img/pironman_c.jpg
     :align: center
 
-You can also modify these configurations to suit your needs.
+Sie können diese Konfigurationen auch nach Ihren Bedürfnissen anpassen.
 
-Use ``pironman`` or ``pironman -h`` or ``pironman --help`` to view the instructions, as follows.
-
-.. code-block:: shell
-
-    Usage:
-        pironman <OPTION> <input>
-
-    Options:
-        start            start pironman service
-
-        stop             stop pironman service
-
-        restart          restart pironman service
-
-        -h,--help        help, show this help
-
-        -c,--check       show all configurations
-
-        -a,--auto        [ on ],enable auto-start at boot
-                         [ off ], disable auto-start at boot
-
-        -u,--unit        [ C/F ], set the unit of temperature,
-                             C or F (Celsius/Fahrenheit)
-
-        -f,--fan         [ temp ], Temperature at which the fan switches on,
-                         in celsius (default 50),in range (30 ~ 80)
-
-        -al,--always_on  [on/off], whether the screen is always on,
-                         default False
-
-        -s,--staty_time  [time], screen display duration in second,
-                         in second, default 30
-
-        -rw,--rgb_sw     [on/off], rgb strip switch
-
-        -rs,--rgb_style  rgb strip display style, default: breath,
-                         in [breath / leap / flow / raise_up / colorful]
-
-        -rc,--rgb_color  [(HEX)color], set the color of rgb strip,
-                         default: 0a1aff
-
-        -rb,--rgb_speed  [speed], rgb blink speed (0 ~ 100, default 50)
-
-        -pwm,--rgb_pwm   [frequency], rgb signal frequency (400 ~ 1600, default 1000 kHz)
-
-        -rp,--rgb_pin    [pin], rgb signal pin, could be [10 / spi/ SPI / 12 / pwm/ PWM] or
-                         [21 / pcm / PCM], default 10
-
-
-
-For example, to turn off the automatic execution of programs at boot.
-
+Verwenden Sie ``pironman``, ``pironman -h`` oder ``pironman --help``, um die Anweisungen anzuzeigen, wie folgt.
 
 .. code-block:: shell
 
-    pironman -a off
+    Nutzung:
+        pironman <OPTION> <Eingabe>
 
-Or reset the color of WS2812 RGB strip.
+    Optionen:
+        start            starte den pironman Service
 
+        stop             stoppe den pironman Service
+
+        restart          starte den pironman Service neu
+
+        -h,--help        Hilfe, zeigt diese Hilfe an
+
+        -c,--check       zeigt alle Konfigurationen an
+
+        -a,--auto        [ an ], aktiviere das automatische Starten beim Booten
+                         [ aus ], deaktiviere das automatische Starten beim Booten
+
+        -u,--unit        [ C/F ], setzt die Temperatureinheit,
+                             C oder F (Celsius/Fahrenheit)
+
+        -f,--fan         [ Temperatur ], Temperatur, bei der der Lüfter eingeschaltet wird,
+                         in Celsius (Standardwert 50), im Bereich (30 ~ 80)
+
+        -al,--always_on  [an/aus], ob der Bildschirm immer eingeschaltet ist,
+                         Standardwert ist False
+
+        -s,--staty_time  [Zeit], Anzeigedauer des Bildschirms in Sekunden,
+                         in Sekunden, Standardwert 30
+
+        -rw,--rgb_sw     [an/aus], RGB-Streifenschalter
+
+        -rs,--rgb_style  RGB-Streifenanzeigestil, Standard: Atem,
+                         in [Atem / Sprung / Fluss / Erheben / Bunt]
+
+        -rc,--rgb_color  [(HEX)Farbe], setze die Farbe des RGB-Streifens,
+                         Standard: 0a1aff
+
+        -rb,--rgb_speed  [Geschwindigkeit], RGB-Blinkgeschwindigkeit (0 ~ 100, Standard 50)
+
+        -pwm,--rgb_pwm   [Frequenz], RGB-Signalfrequenz (400 ~ 1600, Standard 1000 kHz)
+
+        -rp,--rgb_pin    [Pin], RGB-Signalkabel, könnte [10 / spi/ SPI / 12 / pwm/ PWM] oder
+                         [21 / pcm / PCM], Standard 10 sein
+
+
+Zum Beispiel, um die automatische Programmausführung beim Start zu deaktivieren.
+
+.. code-block:: shell
+
+    pironman -a aus
+
+Oder setzen Sie die Farbe des WS2812 RGB-Streifens zurück.
 
 .. code-block:: shell
 
     pironman -rc ff8a40
 
 
-Those configurations are stored in ``/opt/pironman/config.txt``, and you can also make changes directly in this file.
-
+Diese Konfigurationen werden in ``/opt/pironman/config.txt`` gespeichert, und Sie können auch direkt in dieser Datei Änderungen vornehmen.
 
 .. code-block:: shell
 
@@ -147,7 +139,8 @@ Those configurations are stored in ``/opt/pironman/config.txt``, and you can als
 .. image:: img/pironman_config.jpg
     :align: center
 
-Press ``Ctrl+X`` -> ``Y`` -> ``Enter`` to save and exit editing.
+Drücken Sie ``Ctrl+X`` -> ``Y`` -> ``Enter``, um das Bearbeiten zu speichern und zu beenden.
 
 .. note::
-    The introduction and configuration of the Pironman components can be found in: :ref:`about_hardware`.
+    Die Einführung und Konfiguration der Pironman-Komponenten finden Sie unter: :ref:`about_hardware`.
+

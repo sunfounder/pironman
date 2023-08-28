@@ -1,30 +1,30 @@
 .. _assembly_instructions:
 
 
-2. Component List and Assembly Instructions
+2. Komponentenliste und Montageanleitung
 =============================================
 
-Before assembling the Pironman, please first verify that all parts and components have been included. If there are any missing or damaged components, please contact SunFounder immediately at cs@sunfounder.com to resolve the issue as soon as possible.
+Bevor Sie den Pironman zusammenbauen, stellen Sie bitte sicher, dass alle Teile und Komponenten enthalten sind. Sollten Teile fehlen oder beschädigt sein, kontaktieren Sie bitte umgehend SunFounder unter cs@sunfounder.com, um das Problem schnellstmöglich zu klären.
 
-Please follow the steps on the following PDF for assembly instructions: 
+Bitte folgen Sie den Schritten in der folgenden PDF für die Montageanweisungen:
 
-* :download:`[PDF]Component List and Assembly of Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v20-a0000891-pironman.pdf>`
+* :download:`[PDF]Komponentenliste und Montage des Pironman <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/z0303v20-a0000891-pironman.pdf>`
 
-
-**Assemble Tutorial Video**
+**Montageanleitung Video**
 
 .. note::
-    Based on customer feedback, we have made optimizations to the Pironman Board and added more headers to make it compatible with various situations. 
-    
-    The Pironman Board shown in the following video is the older version and differs from the one you received.
+    Basierend auf Kundenfeedback haben wir Optimierungen am Pironman Board vorgenommen und zusätzliche Header hinzugefügt, um es mit verschiedenen Szenarien kompatibel zu machen.
 
-    For differences in the assembly process, please refer to the assembly instructions provided in the package you receive.
+    Das im folgenden Video gezeigte Pironman Board ist die ältere Version und unterscheidet sich von dem, das Sie erhalten haben.
+
+    Für Unterschiede im Montageprozess beziehen Sie sich bitte auf die Montageanweisungen, die im von Ihnen erhaltenen Paket enthalten sind.
 
 .. raw:: html
 
     <iframe width="700" height="400" src="https://www.youtube.com/embed/qRu5KqBio2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-**About GPIO Bridge Assembly**
+**Über die Montage der GPIO-Brücke**
+
 
 .. image:: img/gpio_bridge1.gif
 .. image:: img/gpio_bridge2.gif

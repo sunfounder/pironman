@@ -1,33 +1,32 @@
 FAQ
 ============
 
-Pironman's LED lights up but Raspberry Pi won't boot when power button is pressed?
--------------------------------------------------------------------------------------------
+Pironmans LED leuchtet, aber der Raspberry Pi bootet nicht, wenn der Anschaltknopf gedrückt wird?
+---------------------------------------------------------------------------------------------------
 
-Please check the following conditions.
+Bitte überprüfen Sie die folgenden Bedingungen.
 
-#. Is there a separate power supply for the Raspberry Pi?
+#. Verfügt der Raspberry Pi über eine separate Stromversorgung?
 
-    Please do not do this, for the following reasons.
+    Dies sollten Sie vermeiden, aus folgenden Gründen:
 
-    Since the Raspberry Pi itself has no on/off control, it can only be powered on by powering up the Raspberry Pi. 
-    So Pironman will power off the Raspberry Pi after it is turned off, and power on the Raspberry Pi to start the Raspberry Pi. 
-    If you power on both the Raspberry Pi and Pironman, after shutdown, the Pironman has no way to start the Raspberry Pi by powering on the Raspberry Pi because the Raspberry Pi is externally plugged in and always powered on.
+    Da der Raspberry Pi selbst keine Ein/Aus-Steuerung besitzt, kann er nur durch das Einschalten der Stromversorgung aktiviert werden. 
+    Pironman schaltet den Raspberry Pi also nach dem Ausschalten ab und startet ihn durch Einschalten der Stromversorgung wieder.
+    Wenn sowohl der Raspberry Pi als auch der Pironman eingeschaltet sind, kann Pironman nach dem Herunterfahren den Raspberry Pi nicht durch Einschalten der Stromversorgung starten, da der Raspberry Pi extern angeschlossen und ständig eingeschaltet ist.
 
-#. Is the Micro SD card already inserted into the Pironman slot?
-#. Are there any systems installed on Micro SD card?
-#. The most important point to note is that the FFC cable of the GPIO Bridge is connected correctly?
+#. Ist die Micro-SD-Karte bereits im Pironman-Slot eingelegt?
+#. Sind auf der Micro-SD-Karte bereits Systeme installiert?
+#. Ist besonders darauf zu achten, dass das FFC-Kabel der GPIO-Brücke korrekt angeschlossen ist?
 
     .. image:: img/gpio_bridge1.gif
     .. image:: img/gpio_bridge2.gif
 
 .. _copy_lite:
 
-How to copy Raspberry Pi OS Lite from Micro SD to SSD？
-----------------------------------------------------------
+Wie kopiert man Raspberry Pi OS Lite von der Micro-SD-Karte auf die SSD?
+----------------------------------------------------------------------------
 
-#. Updating the Bootloader
-
+#. Aktualisierung des Bootloaders
 
     .. code-block:: shell
 
@@ -36,28 +35,25 @@ How to copy Raspberry Pi OS Lite from Micro SD to SSD？
         sudo rpi-update
         sudo rpi-eeprom-update -d -a
 
-    After setting, reboot to take effect.
+    Nach der Einstellung ist ein Neustart erforderlich.
 
-
-#. Use the following command to view the name of the storage device.
-
+#. Verwenden Sie den folgenden Befehl, um den Namen des Speichergeräts anzuzeigen.
 
     .. code-block:: shell
 
         sudo fdisk -l
 
-#. You will see a list of all the drives connected to your Raspberry Pi. In most cases, ``/dev/mmcxxx`` refers to your Micro SD card, and ``/dev/sda/`` refers to your SSD.
+#. Sie werden eine Liste aller Laufwerke sehen, die an Ihren Raspberry Pi angeschlossen sind. In den meisten Fällen bezieht sich ``/dev/mmcxxx`` auf Ihre Micro-SD-Karte und ``/dev/sda/`` auf Ihre SSD.
 
     .. image:: img/ssd16.png
 
-#. Now, use the following command to clone the system from the Micro SD card to the SATA M.2 SSD.
+#. Nutzen Sie nun den folgenden Befehl, um das System von der Micro-SD-Karte auf die SATA M.2 SSD zu klonen.
 
     .. note::
-        Replace ``/dev/mmcblk0`` with the name of your Micro SD card, and also modify ``/dev/sda`` to match the name of your SSD if it has a different name.
-
+        Ersetzen Sie ``/dev/mmcblk0`` durch den Namen Ihrer Micro-SD-Karte und ändern Sie auch ``/dev/sda``, wenn Ihre SSD einen anderen Namen hat.
 
     .. code-block:: shell
 
         sudo dd if=/dev/mmcblk0 of=/dev/sda bs=4M
 
-#. Pull out the Micro SD card, connect the M.2 SATA SSD and then power on the Pironman.
+#. Entfernen Sie die Micro-SD-Karte, schließen Sie die M.2 SATA SSD an und schalten Sie dann den Pironman ein.
