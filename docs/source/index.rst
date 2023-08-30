@@ -1,4 +1,3 @@
-
 Pironman V2.0- SunFounder Mini PC Kit for Raspberry Pi
 =================================================================
 
@@ -48,7 +47,16 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 
     .. image:: img/compitable_system_hm.png
 
+**About the display language**
 
+This document is available in other languages as well. To switch the display language, kindly click on the **Read the Docs** icon located in the lower left corner of the page.
+
+.. image:: img/translation.png
+       :align: center
+
+.. raw:: html
+
+   <br/>
 
 .. toctree::
     :maxdepth: 2
