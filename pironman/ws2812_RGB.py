@@ -99,23 +99,25 @@ class WS2812():
 		speed = 101 - speed
 		while True:
 			self.reinit()
-			# for i in range(2,101):
-			# 	r, g, b = [int(x*i*0.01) for x in color]
-			# 	for index in self.lights_order:
-			# 		self.strip.setPixelColor(index, Color(r,g,b))
-			# 	self.strip.show()
-			# 	time.sleep(0.001*speed)
-			# for i in range(100,1,-1):
-			# 	r, g, b = [int(x*i*0.01) for x in color]
-			# 	for index in self.lights_order:
-			# 		self.strip.setPixelColor(index, Color(r,g,b))
-			# 	self.strip.show()
-			# 	time.sleep(0.001*speed)
-			r, g, b =  color
-			for index in self.lights_order:
-				self.strip.setPixelColor(index, Color(r,g,b))
-			self.strip.show()
-			time.sleep(2)
+			for i in range(2,101):
+				r, g, b = [int(x*i*0.01) for x in color]
+				for index in self.lights_order:
+					self.strip.setPixelColor(index, Color(r,g,b))
+				self.strip.show()
+				time.sleep(0.001*speed)
+			for i in range(100,1,-1):
+				r, g, b = [int(x*i*0.01) for x in color]
+				for index in self.lights_order:
+					self.strip.setPixelColor(index, Color(r,g,b))
+				self.strip.show()
+				time.sleep(0.001*speed)
+			
+			# --- no breath ---
+			# r, g, b =  color
+			# for index in self.lights_order:
+			# 	self.strip.setPixelColor(index, Color(r,g,b))
+			# self.strip.show()
+			# time.sleep(2)
 
 	def leap(self, color:list=[255, 255, 255], speed=50):
 		speed = 101 - speed
