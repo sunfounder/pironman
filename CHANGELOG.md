@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.2.2] - 2023-8-31
+
+### Fixed
+- Fix the bug that the pironman script did not kill the process correctly
+- Fix the bug of print input parameters
+
+### Added
+- Add rgb style ：'colorful_leap'
+
+
 ## [2.2.1] - 2023-7-28
 
 ### Changed
