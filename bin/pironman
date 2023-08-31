@@ -75,7 +75,7 @@ run_in_background=true
 
 # Check if user is root
 if [ $(id -u) -ne 0 ]; then
-  echo "Script must be run as root. Try 'sudo pironman $#'\n"
+  echo -e "Script must be run as root. Try 'sudo pironman $@'\n"
   exit 1
 fi
 
@@ -117,7 +117,10 @@ start() {
 
 stop() {
   echo "stopping pironman"
-  kill "$(ps aux | grep $main | awk '{print $2}')" >/dev/null 2>&1
+  # kill $(ps aux | grep $main | awk '{ print $2 }') >/dev/null 2>&1
+  pid=$(ps aux | grep $main | awk '{print $2}')
+  echo "pid="$pid
+  kill $pid >/dev/null 2>&1
 }
 
 restart() {
@@ -294,13 +297,13 @@ while [[ $# -gt 0 ]]; do
       ;;
     -rs|--rgb_style)
       case "$2" in
-        breath|leap|flow|raise_up|colorful)
+        breath|leap|flow|raise_up|colorful|colorful_leap)
           echo "set rgb_style to $2 "
           sed -i -e "s:rgb_style.*=.*:rgb_style = $2:g" ${CONF}
           shift 2
         ;;
         *)
-          echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful]"
+          echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful / colorful_leap]"
           exit 1
         ;;
       esac
@@ -429,4 +432,4 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-start
+restart
