@@ -94,7 +94,7 @@ def do(msg="", cmd=""):
     while _thread.is_alive():
         time.sleep(0.01)
     # status
-    if status == 0 or status == None or result == "":
+    if status == 0:
         print('Done')
     else:
         print('\033[1;35mError\033[0m')

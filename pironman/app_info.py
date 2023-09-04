@@ -2,7 +2,7 @@ import os
 
 
 __app_name__ = 'pironman'
-__version__ = '2.2.2'
+__version__ = '2.2.3'
 
 try:
     username = os.getlogin() # can run at boot

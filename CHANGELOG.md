@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.2.3] - 2023-9-4
+
+### Fixed
+- Fix bug of determining whether the run_command is executed successfully in the install.py 
+
+
 ## [2.2.2] - 2023-8-31
 
 ### Fixed
