@@ -18,6 +18,10 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 
 <a id="update"></a>
 ## Update:
+2023-09-05:
+ - Added assembled videos and some short clips
+ - Change the Email to service@sunfounder.com
+
 2023-08-15:
  - Modify SSD-related content
 

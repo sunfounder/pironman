@@ -47,6 +47,9 @@ Pironman is SunFounder's customized Mini PC for Raspberry Pi. Just connect the s
 
     .. image:: img/compitable_system_hm.png
 
+If you have any questions, please send an email to service@sunfounder.com and we will respond as soon as possible.
+
+
 **About the display language**
 
 This document is available in other languages as well. To switch the display language, kindly click on the **Read the Docs** icon located in the lower left corner of the page.
@@ -61,6 +64,7 @@ This document is available in other languages as well. To switch the display lan
 .. toctree::
     :maxdepth: 2
 
+    About this Kit <self>
     what_do_we_need    
     list_and_assembly
     install_the_os
@@ -71,5 +75,7 @@ This document is available in other languages as well. To switch the display lan
     home_assistant    
     faq
 
+Copyright Notice
 
+All contents including but not limited to texts, images, and code in this manual are owned by the SunFounder Company. You should only use it for personal study,investigation, enjoyment, or other non-commercial or nonprofit purposes, under therelated regulations and copyrights laws, without infringing the legal rights of the author and relevant right holders. For any individual or organization that uses these for commercial profit without permission, the Company reserves the right to take legal action.
 
