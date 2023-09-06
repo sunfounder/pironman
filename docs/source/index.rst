@@ -46,10 +46,24 @@ PironmanはSunFounderのカスタマイズされたRaspberry Pi用ミニPCです
 
     .. image:: img/compitable_system_hm.png
 
+何か質問があれば、service@sunfounder.com までメールしてください。できるだけ早く対応させていただきます。
+
+**表示言語について**
+
+この文書は他の言語でも利用可能です。表示言語を切り替えるには、ページの左下にある **Read the Docs** アイコンをクリックしてください。
+
+.. image:: img/translation.png
+       :align: center
+
+.. raw:: html
+
+   <br/>
+
 
 .. toctree::
     :maxdepth: 2
 
+    このキットについて <self>
     what_do_we_need    
     list_and_assembly
     install_the_os
