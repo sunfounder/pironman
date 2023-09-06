@@ -46,11 +46,23 @@ Pironman ist SunFounders maßgeschneidertes Mini-PC-Kit für Raspberry Pi. Schli
 
     .. image:: img/compitable_system_hm.png
 
+Falls Sie Fragen haben, senden Sie bitte eine E-Mail an service@sunfounder.com. Wir werden so schnell wie möglich antworten.
 
+**Zur Anzeigesprache**
+
+Dieses Dokument ist auch in anderen Sprachen verfügbar. Um die Anzeigesprache zu wechseln, klicken Sie bitte auf das **Read the Docs**-Symbol, das sich in der unteren linken Ecke der Seite befindet.
+
+.. image:: img/translation.png
+       :align: center
+
+.. raw:: html
+
+   <br/>
 
 .. toctree::
     :maxdepth: 2
 
+    Über dieses Kit <self>
     what_do_we_need    
     list_and_assembly
     install_the_os
