@@ -99,9 +99,11 @@ Systems that passed the test on the Raspberry Pi 4B:
   | RetroPie | &#x2705; |
   | OctoPi | &#x2705; |
   | Homebridge | &#x2705; |
-  | HassOS | &#x2705; |
+  | HassOS* | &#x2705; |
   | LibreELEC | &#x274C; |
 </font>
+
+> For Home assistant, checkout [Pironman Addon](https://github.com/sunfounder/home-assistant-addon#pironman-addon)
 
 <a id="about_sunfounder"></a>
 ## About SunFounder
