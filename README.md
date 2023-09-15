@@ -84,12 +84,12 @@ Systems that passed the test on the Raspberry Pi 4B:
   | Raspberry Pi OS - Buster (32 bit) | &#x2705; |
   | Raspberry Pi OS lite - Buster (32 bit) | &#x2705; |
   | Ubuntu Desktop 22.04.3 (64 bit) | &#x2705; |
-  | Ubuntu Server 22.04.3 (32 bit/64 bit) | &#x2705; |
-  | Ubuntu Server 22.04.5 (32 bit/64 bit) | &#x2705; |
+  | Ubuntu Server 22.04.3 (32/64 bit) | &#x2705; |
+  | Ubuntu Server 22.04.5 (32/64 bit) | &#x2705; |
   | Ubuntu Server 22.10 (32/64 bit) | &#x2705; |
   | Ubuntu Desktop 22.10 (64 bit) | &#x2705; |
   | Ubuntu Desktop 23.04 (64 bit) | &#x2705; |
-  | Ubuntu Server 23.04   (32 bit/64 bit) | &#x2705; |
+  | Ubuntu Server 23.04   (32/64 bit) | &#x2705; |
   | Kali Linux (32/64 bit) | &#x2705; |
   | DietPi | &#x2705; |
   | OSMC | &#x2705; |
