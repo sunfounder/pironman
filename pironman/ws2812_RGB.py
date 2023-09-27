@@ -229,7 +229,8 @@ class WS2812():
 
 if __name__ == "__main__":
     speed = 80
-    strip = WS2812(16, 10)
+    strip = WS2812(16, 10)  # LED_COUNT, LED_PIN
+
     # strip.display('breath','#0000ff', speed=speed)
     # strip.display(style='leap',color='#0000ff', speed=speed)
     # strip.display(style='colorful', speed=speed)
