@@ -87,6 +87,20 @@ gettext_compact = False # Support for generating the contents of the folders ins
 
 rst_epilog = """
 
+.. |link_german_tutorials| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/pironman-v2/de/latest/" target="_blank">Deutsch Online-Kurs</a>
+
+.. |link_jp_tutorials| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/pironman-v2/ja/latest/" target="_blank">日本語オンライン教材</a>
+
+.. |link_en_tutorials| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/pironman-v2/en/latest/" target="_blank">English Online-tutorials</a>
+
+    
+
 .. |link_kodi| raw:: html
 
     <a href="https://kodi.tv/" target="_blank">Kodi</a>
