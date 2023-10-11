@@ -2,6 +2,18 @@
 Pironman V2.0 - SunFounder Mini PC Kit für Raspberry Pi
 =================================================================
 
+Danke, dass Sie sich für unser Pironman V2.0 entschieden haben.
+
+
+.. note::
+    Dieses Dokument ist in den folgenden Sprachen verfügbar.
+
+        * |link_german_tutorials|
+        * |link_jp_tutorials|
+        * |link_en_tutorials|
+    
+    Bitte klicken Sie auf die jeweiligen Links, um das Dokument in Ihrer bevorzugten Sprache aufzurufen.
+
 .. note::
 
     Wir bieten zwei Versionen von Pironman an. Es ist wichtig zu beachten, dass die Skripte in den Online-Tutorials jeder Version nicht austauschbar sind.
