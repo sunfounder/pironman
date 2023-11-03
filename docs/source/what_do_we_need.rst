@@ -6,7 +6,7 @@
 
 * Raspberry Pi 4 Model B
 
-    Pirionman is fully compatible with Raspberry Pi 4 Model B. If you have Raspberry Pi 1B+/2B/3B/3B+, you can use them as well, but the tower cooler inside the Pironman may not be as compatible.
+    Pirionman is fully compatible with Raspberry Pi 4 Model B.
 
 * 5V/3A Power Adapter
 
