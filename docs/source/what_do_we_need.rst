@@ -5,8 +5,7 @@
 
 * Raspberry Pi 4 Model B
 
-    PirionmanはRaspberry Pi 4 Model Bと完全に互換性があります。Raspberry Pi 1B+/2B/3B/3B+を持っている場合、それらも使用できますが、Pironman内部のタワークーラーとの互換性は完全でないかもしれません。
-
+    PirionmanはRaspberry Pi 4 Model Bと完全に互換性があります。
 * 5V/3A 電源アダプター
 
     この5V/3A電源アダプターはPironmanの電源コネクターに接続され、全てのコンポーネントに電力を供給します。他の多くの電力を消費するデバイスも接続している場合、Raspberry Pi 4を別途電源供給することができます。
