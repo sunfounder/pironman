@@ -5,8 +5,7 @@
 
 * Raspberry Pi 4 Model B
 
-    Pirionman ist vollständig kompatibel mit dem Raspberry Pi 4 Model B. Falls Sie ein Raspberry Pi 1B+/2B/3B/3B+ besitzen, können Sie dieses ebenfalls verwenden. Beachten Sie jedoch, dass der Turmkühler im Pironman möglicherweise nicht vollständig kompatibel ist.
-
+    Pirionman ist vollständig kompatibel mit dem Raspberry Pi 4 Model B.
 * 5V/3A Netzadapter
 
     Dieser 5V/3A Netzadapter wird an den Stromanschluss des Pironmans angeschlossen und versorgt alle Komponenten mit Strom. Sie können den Raspberry Pi 4 auch separat versorgen, wenn Sie andere stromintensive Geräte anschließen.
