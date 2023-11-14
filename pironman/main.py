@@ -235,6 +235,8 @@ def getIPAddress():
         interface = list(IPs.keys())[0]
         if IPs[interface] != None and IPs[interface] != '':
             ip = IPs[list(IPs.keys())[0]]
+        else:
+            ip = 'DISCONNECT'
     else:
         ip = 'DISCONNECT'
 
