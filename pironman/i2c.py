@@ -1,5 +1,4 @@
 from smbus import SMBus
-from time import sleep
 
 
 class I2C():

@@ -1,7 +1,6 @@
 import os
 import pwd
 import grp
-from sys import path
 
 
 __app_name__ = 'pironman'
