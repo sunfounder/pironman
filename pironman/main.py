@@ -231,6 +231,12 @@ def getIPAddress():
         ip = IPs['wlan0']
     elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
         ip = IPs['eth0']
+    elif len(IPs.keys()) > 0:
+        interface = list(IPs.keys())[0]
+        if IPs[interface] != None and IPs[interface] != '':
+            ip = IPs[list(IPs.keys())[0]]
+        else:
+            ip = 'DISCONNECT'
     else:
         ip = 'DISCONNECT'
 
