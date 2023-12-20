@@ -56,7 +56,7 @@ PIP_INSTALL_LIST = [
 def run_command(cmd=""):
     import subprocess
     p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
     p.wait()
     result = p.stdout.read()
     status = p.poll()
