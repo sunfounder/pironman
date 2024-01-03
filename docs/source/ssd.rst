@@ -24,9 +24,9 @@ Wir danken Ihnen für Ihr Verständnis unserer Designüberlegungen. Unser Ziel i
 
 M.2 SSD (M.2 Solid-State-Drive) gibt es in verschiedenen Modellen, abhängig von ihren Spezifikationen und Leistungsmerkmalen. Hier sind einige gängige M.2 SSD Modelle:
 
-* **SATA M.2 SSD**: Dies ist die gängigste Art von M.2 SSD, die die SATA-Schnittstelle verwendet. Sie bieten in der Regel niedrigere Lese-/Schreibgeschwindigkeiten und niedrigere Preise, geeignet für allgemeine Computing-Aufgaben.
-* **NVMe M.2 SSD**: Dies ist eine leistungsfähigere Art von M.2 SSD, die die NVMe (Non-Volatile Memory Express) Schnittstelle nutzt. NVMe SSDs bieten schnellere Übertragungsgeschwindigkeiten und geringere Latenzzeiten, geeignet für Aufgaben, die eine schnelle Datenübertragung erfordern, wie Gaming und die Verarbeitung großer Dateien.
-* **PCIe M.2 SSD**: Diese Art von M.2 SSD verwendet die PCI Express (PCIe) Schnittstelle und bietet eine höhere Bandbreite und schnellere Geschwindigkeiten. Sie sind in der Regel teurer als SATA und NVMe SSDs und eignen sich für professionelle Nutzer, die höchste Leistung benötigen, wie Video-Bearbeitung und wissenschaftliches Rechnen.
+* **M.2 SATA SSDs**: Diese nutzen die SATA-Schnittstelle, ähnlich wie 2,5-Zoll-SATA-SSDs, aber im kleineren M.2-Formfaktor. Sie sind durch die maximalen Geschwindigkeiten von SATA III mit etwa 600 MB/s begrenzt. Diese SSDs sind kompatibel mit M.2-Steckplätzen, die für B- und M-Schlüssel ausgelegt sind.
+* **M.2 NVMe SSDs**: Diese SSDs verwenden das NVMe-Protokoll über PCIe-Lanes und sind deutlich schneller als M.2 SATA SSDs. Sie eignen sich für Anwendungen, die hohe Lese-/Schreibgeschwindigkeiten erfordern, wie Gaming, Videobearbeitung und datenintensive Aufgaben. Diese SSDs benötigen in der Regel M-Keyed-Slots. Diese Laufwerke nutzen die PCIe-Schnittstelle (Peripheral Component Interconnect Express) mit verschiedenen Versionen wie 3.0, 4.0 und 5.0. Jede neue Version von PCIe verdoppelt effektiv die Datenübertragungsgeschwindigkeit ihres Vorgängers.
+
 
 M.2 SSDs gibt es in drei Haupttypen: B-Key, M-Key und B+M-Key. Später wurde jedoch der B+M-Key eingeführt, der die Funktionen des B-Key und M-Key kombiniert. Als Ergebnis ersetzte er den eigenständigen B-Key. Bitte beachten Sie das untenstehende Bild.
 
