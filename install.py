@@ -42,7 +42,7 @@ APT_INSTALL_LIST = [
     'libxcb1-dev',
     'build-essential', # arm-linux-gnueabihf-gcc for pip building
     'python3-dev', # for rpi-ws281x pip building
-    'gpiozero',
+    'python3-gpiozero',
 ]
 
 
