@@ -337,7 +337,7 @@ def main():
                 oled_stat = False
 
             # power key event
-            if get_io(power_key_pin) == 0:
+            if power_key.is_pressed:
                 # screen on
                 if oled_ok and oled_stat == False:
                     oled.on()
@@ -359,8 +359,7 @@ def main():
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
                     oled.image(image)
                     oled.display()
-                    while not get_io(power_key_pin):
-                        time.sleep(0.01)
+                    power_key.wait_for_release()
                     log("POWER OFF")
                     oled_stat = False
                     oled.off()
