@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import threading
-import RPi.GPIO as GPIO
+from gpiozero import Button, LED
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64
@@ -49,11 +49,16 @@ if status == 0:
     log("PCB info:", timestamp=False)
     log(f"{result}", timestamp=False)
 
+
 # region: config
 power_key_pin = 16
 fan_pin = 6
 rgb_pin = 10
 update_frequency = 0.5  # second
+
+
+fan = LED(fan_pin)
+power_key = Button(power_key_pin)
 
 temp_unit = 'C' # 'C' or 'F'
 fan_temp = 50 # celsius
@@ -174,29 +179,7 @@ except Exception as e:
     oled_ok = False
     oled_stat = False
 
-#endregion: oled init
-
-# region: io control
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
-def set_io(pin,val:bool):
-    GPIO.setup(pin,GPIO.OUT)
-    GPIO.output(pin,val)
-
-def get_io(pin):
-    GPIO.setup(pin,GPIO.IN)
-    return GPIO.input(pin)
-
-def fan_on():
-    global fan_pin
-    set_io(fan_pin,1)
-
-def fan_off():
-    global fan_pin
-    set_io(fan_pin,0)
-
-# endregion: io control
+# endregion: oled init
 
 # region: rgb_strip init
 try:
@@ -270,20 +253,20 @@ def main():
         # fan control
         if temp_unit == 'C':
             if CPU_temp_C > fan_temp:
-                fan_on()
+                fan.on()
             elif CPU_temp_C < fan_temp - temp_lower_set:
-                fan_off()
+                fan.off()
         elif temp_unit == 'F':
             if CPU_temp_F > fan_temp:
-                fan_on()
+                fan.on()
             elif CPU_temp_F < fan_temp - temp_lower_set*1.8:
-                fan_off()
+                fan.off()
         else:
             log('temp_unit error, use defalut value: 50\'C')
             if CPU_temp_C > 50:
-                fan_on()
+                fan.on()
             elif CPU_temp_C < 40:
-                fan_off()
+                fan.off()
 
         # oled control
         if oled_ok:
@@ -414,6 +397,6 @@ if __name__ == "__main__":
         log('error')
         log(e)
     finally:
-        GPIO.cleanup()
+        pass
 
 

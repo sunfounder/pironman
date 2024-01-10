@@ -41,8 +41,8 @@ APT_INSTALL_LIST = [
     'libpng-dev',
     'libxcb1-dev',
     'build-essential', # arm-linux-gnueabihf-gcc for pip building
-    'python3-rpi.gpio',
-    'python3-dev', # for RPi.GPIO, rpi-ws281x pip building
+    'python3-dev', # for rpi-ws281x pip building
+    'gpiozero',
 ]
 
 
