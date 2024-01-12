@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import threading
-from gpiozero import Button, LED
+# from gpiozero import Button, LED
 from configparser import ConfigParser
 from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64
@@ -57,8 +57,8 @@ rgb_pin = 10
 update_frequency = 0.5  # second
 
 
-fan = LED(fan_pin)
-power_key = Button(power_key_pin)
+# fan = LED(fan_pin)
+# power_key = Button(power_key_pin)
 
 temp_unit = 'C' # 'C' or 'F'
 fan_temp = 50 # celsius
@@ -251,22 +251,22 @@ def main():
         CPU_temp_F = float(CPU_temp_C * 1.8 + 32) # fahrenheit
 
         # fan control
-        if temp_unit == 'C':
-            if CPU_temp_C > fan_temp:
-                fan.on()
-            elif CPU_temp_C < fan_temp - temp_lower_set:
-                fan.off()
-        elif temp_unit == 'F':
-            if CPU_temp_F > fan_temp:
-                fan.on()
-            elif CPU_temp_F < fan_temp - temp_lower_set*1.8:
-                fan.off()
-        else:
-            log('temp_unit error, use defalut value: 50\'C')
-            if CPU_temp_C > 50:
-                fan.on()
-            elif CPU_temp_C < 40:
-                fan.off()
+        # if temp_unit == 'C':
+        #     if CPU_temp_C > fan_temp:
+        #         fan.on()
+        #     elif CPU_temp_C < fan_temp - temp_lower_set:
+        #         fan.off()
+        # elif temp_unit == 'F':
+        #     if CPU_temp_F > fan_temp:
+        #         fan.on()
+        #     elif CPU_temp_F < fan_temp - temp_lower_set*1.8:
+        #         fan.off()
+        # else:
+        #     log('temp_unit error, use defalut value: 50\'C')
+        #     if CPU_temp_C > 50:
+        #         fan.on()
+        #     elif CPU_temp_C < 40:
+        #         fan.off()
 
         # oled control
         if oled_ok:
@@ -338,7 +338,8 @@ def main():
 
             # power key event
             print("Check power_key")
-            if power_key.is_pressed:
+            # if power_key.is_pressed:
+            if False:
                 print("power_key is_pressed")
                 # screen on
                 if oled_ok and oled_stat == False:
@@ -364,7 +365,7 @@ def main():
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
                     oled.image(image)
                     oled.display()
-                    power_key.wait_for_release()
+                    # power_key.wait_for_release()
                     log("POWER OFF")
                     oled_stat = False
                     oled.off()
