@@ -397,6 +397,7 @@ if __name__ == "__main__":
         log('error')
         log(e)
     finally:
-        pass
+        power_key.close()
+        fan.close()
 
 
