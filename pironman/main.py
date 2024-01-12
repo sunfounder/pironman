@@ -337,7 +337,9 @@ def main():
                 oled_stat = False
 
             # power key event
+            print("Check power_key")
             if power_key.is_pressed:
+                print("power_key is_pressed")
                 # screen on
                 if oled_ok and oled_stat == False:
                     oled.on()
@@ -345,9 +347,12 @@ def main():
                     time_start = time.time()
                 # power off
                 if power_key_flag == False:
+                    print("power_key pressed detect")
                     power_key_flag = True
+                    print("power_key pressed over 2 second")
                     power_timer = time.time()
                 elif (time.time()-power_timer) > 2:
+                    print("power_key pressed over 2 second")
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
