@@ -172,29 +172,12 @@ except Exception as e:
     oled_ok = False
     oled_stat = False
 
-#endregion: oled init
 
-# region: io control
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+# fan io & powerkey io init
+# =================================================================
+fan = Fan(fan_pin)
+power_key = Button(power_key_pin)
 
-def set_io(pin,val:bool):
-    GPIO.setup(pin,GPIO.OUT)
-    GPIO.output(pin,val)
-
-def get_io(pin):
-    GPIO.setup(pin,GPIO.IN)
-    return GPIO.input(pin)
-
-def fan_on():
-    global fan_pin
-    set_io(fan_pin,1)
-
-def fan_off():
-    global fan_pin
-    set_io(fan_pin,0)
-
-# endregion: io control
 
 # rgb_strip init
 # =================================================================
@@ -226,7 +209,7 @@ def getIPAddress():
         IPs = ha.get_ip()
         if len(IPs) == 0:
             IPs = getIP()
-    log("Got IPs: %s" %IPs)
+    # log("Got IPs: %s" %IPs)
     if 'wlan0' in IPs and IPs['wlan0'] != None and IPs['wlan0'] != '':
         ip = IPs['wlan0']
     elif 'eth0' in IPs and IPs['eth0'] != None and IPs['eth0'] != '':
@@ -242,16 +225,55 @@ def getIPAddress():
 
     return ip
 
+# exit handler
+# =================================================================
+def exit_handler():
+    # clear power key
+    power_key.close()
+    # oled off
+    if oled_ok:
+        try:
+            oled.off()
+        except Exception as e:
+            log(f'clear oled failed: {e}')
+    # fan off
+    fan.off()
+    fan.close() # release gpio resource
+    # rgb off
+    if strip != None:
+        strip.clear()
+        time.sleep(0.2)
+    sys.exit(0)
 
+def signal_handler(signo, frame):
+    if signo == signal.SIGTERM or signo == signal.SIGINT:
+        log("Received SIGTERM or SIGINT signal. Cleaning up...")
+        exit_handler()
+
+# Register signal handlers
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
+
+# main
+# =================================================================
 def main():
     global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
     global oled_stat
 
     ip = 'DISCONNECT'
+    last_ip = 'DISCONNECT'
 
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
+
+    # close rgb
+    if 'close_rgb' in sys.argv:
+        log('close_rgb in sys.argv')
+        if strip != None:
+            log('rgb_strip clear')
+            strip.clear()
+        sys.exit(0)
 
     # ---- rgb_thread start ----
     if strip != None:
@@ -362,18 +384,20 @@ def main():
                 oled.off()
                 oled_stat = False
 
-            # power key event
-            if get_io(power_key_pin) == 0:
-                # screen on
-                if oled_ok and oled_stat == False:
-                    oled.on()
-                    oled_stat = True
-                    time_start = time.time()
-                # power off
-                if power_key_flag == False:
-                    power_key_flag = True
-                    power_timer = time.time()
-                elif (time.time()-power_timer) > 2:
+        # ---- power key event ----
+        if power_key.is_pressed:
+            # screen on
+            if oled_ok and oled_stat == False:
+                oled.on()
+                oled_stat = True
+                time_start = time.time()
+            # power off
+            if power_key_flag == False:
+                power_key_flag = True
+                power_timer = time.time()
+            elif (time.time()-power_timer) > 2:
+                #
+                if oled_ok:
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
@@ -385,8 +409,11 @@ def main():
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
                     oled.image(image)
                     oled.display()
-                    power_key.wait_for_release()
-                    log("POWER OFF")
+                #
+                power_key.wait_for_release()
+                log("POWER OFF")
+                #
+                if oled_ok:
                     oled_stat = False
                     oled.off()
                 if mode == HOME_ASSISTANT_ADDON:
@@ -394,11 +421,10 @@ def main():
                 else:
                     os.system('poweroff')
                     sys.exit(1)
-            else:
-                power_key_flag = False
+        else:
+            power_key_flag = False
 
         time.sleep(update_frequency)
-
 
 class Rect:
     def __init__(self, x, y, width, height):
@@ -422,7 +448,6 @@ if __name__ == "__main__":
         log('error')
         log(e)
     finally:
-        power_key.close()
-        fan.close()
+        exit_handler()
 
 
