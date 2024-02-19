@@ -4,7 +4,9 @@ import time
 import threading
 import signal
 
-import RPi.GPIO as GPIO
+from gpiozero import Button
+from gpiozero import DigitalOutputDevice as Fan
+
 from configparser import ConfigParser
 
 from PIL import Image,ImageDraw,ImageFont
@@ -170,9 +172,9 @@ except Exception as e:
     oled_ok = False
     oled_stat = False
 
+#endregion: oled init
 
-# fan control
-# =================================================================
+# region: io control
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -192,6 +194,7 @@ def fan_off():
     global fan_pin
     set_io(fan_pin,0)
 
+# endregion: io control
 
 # rgb_strip init
 # =================================================================
@@ -239,31 +242,7 @@ def getIPAddress():
 
     return ip
 
-# exit handler
-# =================================================================
-def exit_handler():
-    # oled off
-    if oled_ok:
-        oled.off()
-    # fan off
-    fan_off()
-    # rgb off
-    if strip != None:
-        strip.clear()
-        time.sleep(0.1)
-    sys.exit(0)
 
-def signal_handler(signo, frame):
-    if signo == signal.SIGTERM or signo == signal.SIGINT:
-        log("Received SIGTERM or SIGINT signal. Cleaning up...")
-        exit_handler()
-
-# Register signal handlers
-signal.signal(signal.SIGTERM, signal_handler)
-signal.signal(signal.SIGINT, signal_handler)
-
-# main
-# =================================================================
 def main():
     global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
     global oled_stat
@@ -294,20 +273,20 @@ def main():
         # ---- fan control ----
         if temp_unit == 'C':
             if CPU_temp_C > fan_temp:
-                fan_on()
+                fan.on()
             elif CPU_temp_C < fan_temp - temp_lower_set:
-                fan_off()
+                fan.off()
         elif temp_unit == 'F':
             if CPU_temp_F > fan_temp:
-                fan_on()
+                fan.on()
             elif CPU_temp_F < fan_temp - temp_lower_set*1.8:
-                fan_off()
+                fan.off()
         else:
             log('temp_unit error, use defalut value: 50\'C')
             if CPU_temp_C > 50:
-                fan_on()
+                fan.on()
             elif CPU_temp_C < 40:
-                fan_off()
+                fan.off()
 
         # ---- oled control ----
         if oled_ok and oled_stat == True:
@@ -383,20 +362,18 @@ def main():
                 oled.off()
                 oled_stat = False
 
-        # ---- power key event ----
-        if get_io(power_key_pin) == 0:
-            # screen on
-            if oled_ok and oled_stat == False:
-                oled.on()
-                oled_stat = True
-                time_start = time.time()
-            # power off
-            if power_key_flag == False:
-                power_key_flag = True
-                power_timer = time.time()
-            elif (time.time()-power_timer) > 2:
-                #
-                if oled_ok:
+            # power key event
+            if get_io(power_key_pin) == 0:
+                # screen on
+                if oled_ok and oled_stat == False:
+                    oled.on()
+                    oled_stat = True
+                    time_start = time.time()
+                # power off
+                if power_key_flag == False:
+                    power_key_flag = True
+                    power_timer = time.time()
+                elif (time.time()-power_timer) > 2:
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
@@ -408,13 +385,9 @@ def main():
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
                     oled.image(image)
                     oled.display()
-                #
-                while not get_io(power_key_pin):
-                    time.sleep(0.01)
-                log("POWER OFF")
-                #
-                oled_stat = False
-                if oled_ok:
+                    power_key.wait_for_release()
+                    log("POWER OFF")
+                    oled_stat = False
                     oled.off()
                 if mode == HOME_ASSISTANT_ADDON:
                     ha.shutdown() # shutdown homeassistant host
@@ -449,6 +422,7 @@ if __name__ == "__main__":
         log('error')
         log(e)
     finally:
-        GPIO.cleanup()
+        power_key.close()
+        fan.close()
 
 
