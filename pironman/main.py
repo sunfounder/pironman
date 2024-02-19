@@ -2,8 +2,11 @@ import os
 import sys
 import time
 import threading
+import signal
+
 import RPi.GPIO as GPIO
 from configparser import ConfigParser
+
 from PIL import Image,ImageDraw,ImageFont
 from oled import SSD1306_128_64
 from system_status import *
@@ -13,6 +16,8 @@ from ws2812_RGB import WS2812, RGB_styles
 
 from ha_api import HomeAssistantSupervisorAPI
 
+# Check if the environment is Home Assistant
+# =================================================================
 NORMAL = 0
 HOME_ASSISTANT_ADDON = 1
 
@@ -27,6 +32,7 @@ if 'SUPERVISOR_TOKEN' in os.environ:
     log('Home Assistant Addon mode')
 
 # print info
+# =================================================================
 line = '-'*24
 _time = time.strftime("%y/%m/%d %H:%M:%S", time.localtime())
 log('\n%s%s%s'%(line,_time,line), timestamp=False)
@@ -49,7 +55,8 @@ if status == 0:
     log("PCB info:", timestamp=False)
     log(f"{result}", timestamp=False)
 
-# region: config
+# read config
+# =================================================================
 power_key_pin = 16
 fan_pin = 6
 rgb_pin = 10
@@ -60,7 +67,6 @@ fan_temp = 50 # celsius
 screen_always_on = False
 screen_off_time = 60
 rgb_enable = True
-rgb_switch = True
 rgb_style = 'breath'  # 'breath', 'leap', 'flow', 'raise_up', 'colorful', 'colorful_leap'
 rgb_color = '0a1aff'
 rgb_blink_speed = 50
@@ -96,11 +102,6 @@ try:
         rgb_enable = False
     else:
         rgb_enable = True
-    rgb_switch = (config['all']['rgb_switch'])
-    if rgb_switch == 'False':
-        rgb_switch = False
-    else:
-        rgb_switch = True
     rgb_style = str(config['all']['rgb_style'])
     rgb_color = str(config['all']['rgb_color'])
     rgb_blink_speed = int(config['all']['rgb_blink_speed'])
@@ -114,7 +115,6 @@ except Exception as e:
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
                     'rgb_enable':rgb_enable,
-                    'rgb_switch':rgb_switch,
                     'rgb_style':rgb_style,
                     'rgb_color':rgb_color,
                     'rgb_blink_speed':rgb_blink_speed,
@@ -132,21 +132,17 @@ log("fan_temp : %s"%fan_temp)
 log("screen_always_on : %s"%screen_always_on)
 log("screen_off_time : %s"%screen_off_time)
 log("rgb_enable : %s"%rgb_enable)
-log("rgb_switch: %s"%rgb_switch)
 log("rgb_style : %s"%rgb_style)
 log("rgb_color : %s"%rgb_color)
 log("rgb_blink_speed : %s"%rgb_blink_speed)
 log("rgb_pwm_freq : %s"%rgb_pwm_freq)
 log("rgb_pin : %s"%rgb_pin)
-log("\n")
-# endregion: config
+log(">>>", timestamp=False)
 
-# region: oled init
+# oled init
+# =================================================================
 oled_ok = False
 oled_stat = False
-
-if rgb_enable:
-    from ws2812_RGB import WS2812, RGB_styles
 
 try:
     run_command("sudo modprobe i2c-dev")
@@ -174,9 +170,9 @@ except Exception as e:
     oled_ok = False
     oled_stat = False
 
-#endregion: oled init
 
-# region: io control
+# fan control
+# =================================================================
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -196,14 +192,15 @@ def fan_off():
     global fan_pin
     set_io(fan_pin,0)
 
-# endregion: io control
 
-# region: rgb_strip init
+# rgb_strip init
+# =================================================================
 try:
     strip = WS2812(LED_COUNT=16, LED_PIN=rgb_pin, LED_FREQ_HZ=rgb_pwm_freq*1000)
+    log('rgb_strip init success')
 except Exception as e:
     log('rgb_strip init failed:\n%s'%e)
-    rgb_switch = False
+    strip = None
 
 def rgb_show():
     log('rgb_show')
@@ -216,8 +213,8 @@ def rgb_show():
     except Exception as e:
         log(e,level='rgb_strip')
 
-# endregion: rgb_strip init
-
+# get IP
+# =================================================================
 def getIPAddress():
     ip = None
     if mode == NORMAL:
@@ -242,16 +239,44 @@ def getIPAddress():
 
     return ip
 
+# exit handler
+# =================================================================
+def exit_handler():
+    # oled off
+    if oled_ok:
+        oled.off()
+    # fan off
+    fan_off()
+    # rgb off
+    if strip != None:
+        strip.clear()
+        time.sleep(0.1)
+    sys.exit(0)
 
+def signal_handler(signo, frame):
+    if signo == signal.SIGTERM or signo == signal.SIGINT:
+        log("Received SIGTERM or SIGINT signal. Cleaning up...")
+        exit_handler()
+
+# Register signal handlers
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
+
+# main
+# =================================================================
 def main():
     global fan_temp, power_key_pin, screen_off_time, rgb_color, rgb_pin
     global oled_stat
+
+    ip = 'DISCONNECT'
+
     time_start = time.time()
     power_key_flag = False
     power_timer = 0
-    if rgb_enable:
-        # rgb_strip thread
-        if rgb_switch == True:
+
+    # ---- rgb_thread start ----
+    if strip != None:
+        if rgb_enable:
             rgb_thread = threading.Thread(target=rgb_show)
             rgb_thread.daemon = True
             rgb_thread.start()
@@ -259,15 +284,14 @@ def main():
             strip.clear()
 
 
-    ip = 'DISCONNECT'
-
+    # ---- main loop ----
     while True:
 
-        # CPU temp
+        # ---- get CPU temperature ----
         CPU_temp_C = float(getCPUtemperature()) # celcius
         CPU_temp_F = float(CPU_temp_C * 1.8 + 32) # fahrenheit
 
-        # fan control
+        # ---- fan control ----
         if temp_unit == 'C':
             if CPU_temp_C > fan_temp:
                 fan_on()
@@ -285,86 +309,94 @@ def main():
             elif CPU_temp_C < 40:
                 fan_off()
 
-        # oled control
-        if oled_ok:
-            if oled_stat == True:
-                # CPU usage
-                CPU_usage = float(getCPUuse())
-                # clear draw buffer
-                draw.rectangle((0,0,width,height), outline=0, fill=0)
-                # get info
-                # RAM
-                RAM_stats = getRAMinfo()
-                RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
-                RAM_used = round(int(RAM_stats[1]) / 1024/1024,1)
-                RAM_usage = round(RAM_used/RAM_total*100,1)
-                # Disk information
-                DISK_stats = getDiskSpace()
-                DISK_total = str(DISK_stats[0])
-                DISK_used = str(DISK_stats[1])
-                DISK_perc = float(DISK_stats[3])
+        # ---- oled control ----
+        if oled_ok and oled_stat == True:
+            # CPU usage
+            CPU_usage = float(getCPUuse())
+            # clear draw buffer
+            draw.rectangle((0,0,width,height), outline=0, fill=0)
+            # get info
+            # RAM
+            RAM_stats = getRAMinfo()
+            RAM_total = round(int(RAM_stats[0]) / 1024/1024,1)
+            RAM_used = round(int(RAM_stats[1]) / 1024/1024,1)
+            RAM_usage = round(RAM_used/RAM_total*100,1)
+            # Disk information
+            DISK_stats = getDiskSpace()
+            DISK_total = str(DISK_stats[0])
+            DISK_used = str(DISK_stats[1])
+            DISK_perc = float(DISK_stats[3])
 
-                # display info
-                ip_rect = Rect(48, 0, 81, 10)
-                ram_info_rect = Rect(46, 17, 81, 10)
-                ram_rect = Rect(46, 29, 81, 10)
-                rom_info_rect = Rect(46, 41, 81, 10)
-                rom_rect = Rect(46, 53, 81, 10)
+            # display info
+            ip_rect = Rect(48, 0, 81, 10)
+            ram_info_rect = Rect(46, 17, 81, 10)
+            ram_rect = Rect(46, 29, 81, 10)
+            rom_info_rect = Rect(46, 41, 81, 10)
+            rom_rect = Rect(46, 53, 81, 10)
 
-                # get ip if disconnected
-                if ip == 'DISCONNECT':
-                    ip = getIPAddress()
+            # get ip if disconnected
+            if mode == NORMAL:
+                ip = getIPAddress()
+            elif mode == HOME_ASSISTANT_ADDON and ip == 'DISCONNECT':
+                ip = getIPAddress()
 
-                draw_text('CPU',6,0)
-                draw.pieslice((0, 12, 30, 42), start=180, end=0, fill=0, outline=1)
-                draw.pieslice((0, 12, 30, 42), start=180, end=int(180+180*CPU_usage*0.01), fill=1, outline=1)
-                draw_text('{:^5.1f} %'.format(CPU_usage),2,27)
-                # Temp
-                if temp_unit == 'C':
-                    draw_text('{:>4.1f} \'C'.format(CPU_temp_C),2,38)
-                    draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
-                    draw.pieslice((0, 33, 30, 63), start=int(180-180*CPU_temp_C*0.01), end=180, fill=1, outline=1)
-                elif temp_unit == 'F':
-                    draw_text('{:>4.1f} \'F'.format(CPU_temp_F),2,38)
-                    draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
-                    pcent = (CPU_temp_F-32)/1.8
-                    draw.pieslice((0, 33, 30, 63), start=int(180-180*pcent*0.01), end=180, fill=1, outline=1)
-                # RAM
-                draw_text('RAM: {}/{} GB'.format(RAM_used,RAM_total),*ram_info_rect.coord())
-                # draw_text('{:>5.1f}'.format(RAM_usage)+' %',92,0)
-                draw.rectangle(ram_rect.rect(), outline=1, fill=0)
-                draw.rectangle(ram_rect.rect(RAM_usage), outline=1, fill=1)
-                # Disk
-                draw_text('ROM: {}/{} GB'.format(DISK_used ,DISK_total), *rom_info_rect.coord())
-                # draw_text('     ',72,32)
-                # draw_text(''+' G',72,32)
-                draw.rectangle(rom_rect.rect(), outline=1, fill=0)
-                draw.rectangle(rom_rect.rect(DISK_perc), outline=1, fill=1)
-                # IP
-                draw.rectangle((ip_rect.x-13,ip_rect.y,ip_rect.x+ip_rect.width,ip_rect.height), outline=1, fill=1)
-                draw.pieslice((ip_rect.x-25,ip_rect.y,ip_rect.x-3,ip_rect.height+10), start=270, end=0, fill=0, outline=0)
-                draw_text(ip,*ip_rect.coord(),0)
-                # draw the image buffer.
-                oled.image(image)
-                oled.display()
+            if last_ip != ip:
+                last_ip = ip
+                log("Get IP: %s" %ip)
+
+            # ---- display info ----
+            draw_text('CPU',6,0)
+            draw.pieslice((0, 12, 30, 42), start=180, end=0, fill=0, outline=1)
+            draw.pieslice((0, 12, 30, 42), start=180, end=int(180+180*CPU_usage*0.01), fill=1, outline=1)
+            draw_text('{:^5.1f} %'.format(CPU_usage),2,27)
+            # Temp
+            if temp_unit == 'C':
+                draw_text('{:>4.1f} \'C'.format(CPU_temp_C),2,38)
+                draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
+                draw.pieslice((0, 33, 30, 63), start=int(180-180*CPU_temp_C*0.01), end=180, fill=1, outline=1)
+            elif temp_unit == 'F':
+                draw_text('{:>4.1f} \'F'.format(CPU_temp_F),2,38)
+                draw.pieslice((0, 33, 30, 63), start=0, end=180, fill=0, outline=1)
+                pcent = (CPU_temp_F-32)/1.8
+                draw.pieslice((0, 33, 30, 63), start=int(180-180*pcent*0.01), end=180, fill=1, outline=1)
+            # RAM
+            draw_text('RAM: {}/{} GB'.format(RAM_used,RAM_total),*ram_info_rect.coord())
+            # draw_text('{:>5.1f}'.format(RAM_usage)+' %',92,0)
+            draw.rectangle(ram_rect.rect(), outline=1, fill=0)
+            draw.rectangle(ram_rect.rect(RAM_usage), outline=1, fill=1)
+            # Disk
+            draw_text('ROM: {}/{} GB'.format(DISK_used ,DISK_total), *rom_info_rect.coord())
+            # draw_text('     ',72,32)
+            # draw_text(''+' G',72,32)
+            draw.rectangle(rom_rect.rect(), outline=1, fill=0)
+            draw.rectangle(rom_rect.rect(DISK_perc), outline=1, fill=1)
+            # IP
+            draw.rectangle((ip_rect.x-13,ip_rect.y,ip_rect.x+ip_rect.width,ip_rect.height), outline=1, fill=1)
+            draw.pieslice((ip_rect.x-25,ip_rect.y,ip_rect.x-3,ip_rect.height+10), start=270, end=0, fill=0, outline=0)
+            draw_text(ip,*ip_rect.coord(),0)
+            # draw the image buffer.
+            oled.image(image)
+            oled.display()
 
             # screen off timer
             if screen_always_on == False and (time.time()-time_start) > screen_off_time:
                 oled.off()
                 oled_stat = False
 
-            # power key event
-            if get_io(power_key_pin) == 0:
-                # screen on
-                if oled_ok and oled_stat == False:
-                    oled.on()
-                    oled_stat = True
-                    time_start = time.time()
-                # power off
-                if power_key_flag == False:
-                    power_key_flag = True
-                    power_timer = time.time()
-                elif (time.time()-power_timer) > 2:
+        # ---- power key event ----
+        if get_io(power_key_pin) == 0:
+            # screen on
+            if oled_ok and oled_stat == False:
+                oled.on()
+                oled_stat = True
+                time_start = time.time()
+            # power off
+            if power_key_flag == False:
+                power_key_flag = True
+                power_timer = time.time()
+            elif (time.time()-power_timer) > 2:
+                #
+                if oled_ok:
                     oled.on()
                     draw.rectangle((0,0,width,height), outline=0, fill=0)
                     # draw_text('POWER OFF',36,24)
@@ -376,16 +408,19 @@ def main():
                     draw.text((text_x, text_y), text='POWER OFF', font=font_12, fill=1)
                     oled.image(image)
                     oled.display()
-                    while not get_io(power_key_pin):
-                        time.sleep(0.01)
-                    log("POWER OFF")
-                    oled_stat = False
+                #
+                while not get_io(power_key_pin):
+                    time.sleep(0.01)
+                log("POWER OFF")
+                #
+                oled_stat = False
+                if oled_ok:
                     oled.off()
-                    if mode == HOME_ASSISTANT_ADDON:
-                        ha.shutdown() # shutdown homeassistant host
-                    else:
-                        os.system('poweroff')
-                        sys.exit(1)
+                if mode == HOME_ASSISTANT_ADDON:
+                    ha.shutdown() # shutdown homeassistant host
+                else:
+                    os.system('poweroff')
+                    sys.exit(1)
             else:
                 power_key_flag = False
 
