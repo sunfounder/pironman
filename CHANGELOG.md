@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix the bug that the shutdown button is invalid when OLED initialization fails
+- Fix the bug of getting CPU usage on bookworm system
 
 ### Optimized
 
