@@ -118,7 +118,9 @@ stop() {
   # kill $(ps aux | grep $main | awk '{ print $2 }') >/dev/null 2>&1
   pid=$(ps aux | grep $main | awk '{print $2}')
   echo "pid="$pid
-  kill $pid >/dev/null 2>&1
+  kill -15 $pid >/dev/null 2>&1 # send SIGTERM signal
+  python3 $main close_rgb 1>/dev/null 2>>/opt/pironman/log & # close rgb
+  sleep 0.5 # exit handler
 }
 
 restart() {
