@@ -37,10 +37,18 @@ def getRAMinfo():
 
 # Return % of CPU used as a character string
 def getCPUuse():
-    cmd = "top -bn1 |awk 'NR==3 {print $8}'"
+    # execute top twice, ignoring the first data
+    cmd = "top -d 0.005 -bn2 | grep '%Cpu'| awk 'NR==2' | awk -F'ni|id' '{print $2}'"
+    # might be: ",100.0 " or ",100,0 "
     try:
-        CPU_usage = subprocess.check_output(cmd,shell=True).decode().replace(',', '.')
-        CPU_usage = round(100 - float(CPU_usage),1)
+        
+        result = subprocess.check_output(cmd,shell=True).decode().replace(' ', '').split(',')
+        if len(result) == 2:
+            CPU_usage = round(100 - float(result[1]),1)
+        elif len(result) == 3:
+            CPU_usage = round(100 - float(result[1]+'.'+result[2]),1)
+        else: # error
+            return 0.0
     except Exception as e:
         print('getCPUuse: %s' %e)
         return 0.0
