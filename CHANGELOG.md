@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.2.5] - 2024-2-19
+
+### Fixed
+
+- Fix the bug that the shutdown button is invalid when OLED initialization fails
+
+### Optimized
+
+- Optimize the exit handler (clean oled, close rgb strip)
+
 ## [2.2.4] - 2023-12-20
 
 ### Fixed
