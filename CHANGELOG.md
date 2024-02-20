@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.2.6] - 2024-2-20
+
+### Optimized
+
+- Optimize the exit handler
+- Optimize the getting of the system status
+
 ## [2.2.5] - 2024-2-19
 
 ### Fixed
