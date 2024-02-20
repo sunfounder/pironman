@@ -120,13 +120,12 @@ stop() {
   echo "pid="$pid
   kill -15 $pid >/dev/null 2>&1 # send SIGTERM signal
   python3 $main close_rgb 1>/dev/null 2>>/opt/pironman/log & # close rgb
-  sleep 0.5 # exit handler
+  sleep 0.1 # exit handler
 }
 
 restart() {
   echo "restarting pironman"
   stop
-  sleep 0.5
   start
 }
 
