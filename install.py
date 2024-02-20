@@ -51,6 +51,7 @@ PIP_INSTALL_LIST = [
     # 'pillow --no-binary :all:', # https://pillow.readthedocs.io/en/latest/installation.html
     'pillow --no-cache-dir',
     'requests',
+    'psutil',
 ]
 
 def run_command(cmd=""):
