@@ -338,8 +338,7 @@ def main():
                 disk_unit = 'G2'
   
             # get ip if disconnected
-            if mode == NORMAL:
-                ip = getIPAddress()
+            ip = getIPAddress()
 
             if last_ip != ip:
                 last_ip = ip
