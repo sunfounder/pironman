@@ -13,7 +13,10 @@ if os.geteuid() != 0:
 
 errors = []
 
-avaiable_options = ['-h', '--help', '--no-dep', '--skip-config-txt', '--skip-auto-startup', '--skip-reboot']
+avaiable_options = [
+    '-h', '--help', '--no-dep', '--skip-config-txt', '--skip-auto-startup',
+    '--skip-reboot'
+]
 
 usage = '''
 Usage:
@@ -27,24 +30,22 @@ Options:
     -h         --help               Show this help text and exit
 '''
 
-
 APT_INSTALL_LIST = [
     # 'libraspberrypi-bin',
     # 'raspi-config', # http://archive.raspberrypi.org/debian/pool/main/r/raspi-config/
     'net-tools',
     'python3-smbus',
     'i2c-tools',
-    'libtiff5-dev', # https://pillow.readthedocs.io/en/latest/installation.html
+    'libtiff5-dev',  # https://pillow.readthedocs.io/en/latest/installation.html
     'libopenjp2-7-dev',
     'zlib1g-dev',
     'libfreetype6-dev',
     'libpng-dev',
     'libxcb1-dev',
-    'build-essential', # arm-linux-gnueabihf-gcc for pip building
-    'python3-dev', # for rpi-ws281x pip building
+    'build-essential',  # arm-linux-gnueabihf-gcc for pip building
+    'python3-dev',  # for rpi-ws281x pip building
     'python3-gpiozero',
 ]
-
 
 PIP_INSTALL_LIST = [
     'rpi-ws281x',
@@ -54,34 +55,42 @@ PIP_INSTALL_LIST = [
     'psutil',
 ]
 
+
 def run_command(cmd=""):
     import subprocess
-    p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    p = subprocess.Popen(cmd,
+                         shell=True,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT,
+                         universal_newlines=True)
     p.wait()
     result = p.stdout.read()
     status = p.poll()
     return status, result
 
+
 at_work_tip_sw = False
+
+
 def working_tip():
     char = ['/', '-', '\\', '|']
     i = 0
     global at_work_tip_sw
-    while at_work_tip_sw:  
-            i = (i+1)%4 
-            sys.stdout.write('\033[?25l') # cursor invisible
-            sys.stdout.write('%s\033[1D'%char[i])
-            sys.stdout.flush()
-            time.sleep(0.5)
+    while at_work_tip_sw:
+        i = (i + 1) % 4
+        sys.stdout.write('\033[?25l')  # cursor invisible
+        sys.stdout.write('%s\033[1D' % char[i])
+        sys.stdout.flush()
+        time.sleep(0.5)
 
     sys.stdout.write(' \033[1D')
-    sys.stdout.write('\033[?25h') # cursor visible 
-    sys.stdout.flush() 
+    sys.stdout.write('\033[?25h')  # cursor visible
+    sys.stdout.flush()
+
 
 def do(msg="", cmd=""):
     print(" - %s... " % (msg), end='', flush=True)
-    # at_work_tip start 
+    # at_work_tip start
     global at_work_tip_sw
     at_work_tip_sw = True
     _thread = threading.Thread(target=working_tip)
@@ -102,6 +111,7 @@ def do(msg="", cmd=""):
         errors.append("%s error:\n  Status:%s\n  Error:%s" %
                       (msg, status, result))
 
+
 def set_config(msg="", name="", value=""):
     print(" - %s... " % (msg), end='', flush=True)
     try:
@@ -109,26 +119,24 @@ def set_config(msg="", name="", value=""):
         print('Done')
     except Exception as e:
         print('\033[1;35mError\033[0m')
-        errors.append("%s error:\n Error:%s" %(msg, e))       
+        errors.append("%s error:\n Error:%s" % (msg, e))
+
 
 class Config(object):
-    '''
-        To setup /boot/config.txt (Raspbian, Kali OSMC, etc)
-        /boot/firmware/config.txt (Ubuntu)
-     
-    '''
-    DEFAULT_FILE_1 = "/boot/config.txt" # raspbian
-    DEFAULT_FILE_2 = "/boot/firmware/config.txt" # ubuntu
+    DEFAULT_FILE = "/boot/firmware/config.txt"
+    BACKUP_FILE = "/boot/config.txt"
 
     def __init__(self, file=None):
         # check if file exists
         if file is None:
-            if os.path.exists(self.DEFAULT_FILE_1):
-                self.file = self.DEFAULT_FILE_1
-            elif os.path.exists(self.DEFAULT_FILE_2):
-                self.file = self.DEFAULT_FILE_2
+            if os.path.exists(self.DEFAULT_FILE):
+                self.file = self.DEFAULT_FILE
+            elif os.path.exists(self.BACKUP_FILE):
+                self.file = self.BACKUP_FILE
             else:
-                raise FileNotFoundError(f"{self.DEFAULT_FILE_1} or {self.DEFAULT_FILE_2} are not found.")
+                raise FileNotFoundError(
+                    f"{self.DEFAULT_FILE} or {self.BACKUP_FILE} are not found."
+                )
         else:
             self.file = file
             if not os.path.exists(file):
@@ -178,7 +186,9 @@ class Config(object):
 
 
 def install():
-    print(f"{__app_name__} {__version__} install process starts for {username}:\n")
+    print(
+        f"{__app_name__} {__version__} install process starts for {username}:\n"
+    )
 
     # print Kernel Version
     status, result = run_command("uname -a")
@@ -189,7 +199,8 @@ def install():
     if status == 0:
         print(f"OS Version:\n{result}")
     # print PCB information
-    status, result = run_command("cat /proc/cpuinfo|grep -E \'Revision|Model\'")
+    status, result = run_command(
+        "cat /proc/cpuinfo|grep -E \'Revision|Model\'")
     if status == 0:
         print(f"PCB info::\n{result}")
 
@@ -207,24 +218,19 @@ def install():
     #
     if "--no-dep" not in options:
         # update apt
-        do(msg="update apt",
-            cmd='apt update -y'
-        )
+        do(msg="update apt", cmd='apt update -y')
         # check whether pip has the option "--break-system-packages"
         _is_bsps = ''
         status, _ = run_command("pip3 help install|grep break-system-packages")
-        if status == 0: # if true
+        if status == 0:  # if true
             _is_bsps = "--break-system-packages"
             print("pip3 install need --break-system-packages")
         # update pip
         do(msg="update pip3",
-            cmd=f'python3 -m pip install --upgrade pip {_is_bsps}'
-        )
+           cmd=f'python3 -m pip install --upgrade pip {_is_bsps}')
         ##
         print("Install dependencies with apt-get")
-        do(msg="apt --fix-broken",
-            cmd="apt --fix-broken install -y"
-        )
+        do(msg="apt --fix-broken", cmd="apt --fix-broken install -y")
         # # check & install raspi-config
         # _status, _ = run_command("raspi-config nonint")
         # if _status != 0:
@@ -242,98 +248,76 @@ def install():
         #     )
         #
         for dep in APT_INSTALL_LIST:
-            do(msg="install %s"%dep,
-                cmd='apt install %s -y'%dep)
+            do(msg="install %s" % dep, cmd='apt install %s -y' % dep)
 
         print("Install dependencies with pip3")
         for dep in PIP_INSTALL_LIST:
-            do(msg="install %s"%dep,
-                cmd=f'pip3 install {dep} {_is_bsps}')
-    # 
+            do(msg="install %s" % dep, cmd=f'pip3 install {dep} {_is_bsps}')
+    #
     print("Config gpio")
     #
     if "--skip-config-txt" not in options:
         _status, _ = run_command("raspi-config nonint")
         if _status == 0:
-            do(msg="enable i2c ",
-                cmd='raspi-config nonint do_i2c 0'
-            )
-            do(msg="enable spi ",
-                cmd='raspi-config nonint do_spi 0'
-            )
+            do(msg="enable i2c ", cmd='raspi-config nonint do_i2c 0')
+            do(msg="enable spi ", cmd='raspi-config nonint do_spi 0')
         #
         set_config(msg="enable i2c in config",
-            name="dtparam=i2c_arm",
-            value="on"
-        )
-        set_config(msg="enable spi in config",
-            name="dtparam=spi",
-            value="on"
-        )
+                   name="dtparam=i2c_arm",
+                   value="on")
+        set_config(msg="enable spi in config", name="dtparam=spi", value="on")
         # set_config(msg="disable audio",
         #     name="dtparam=audio",
         #     value="off"
         # )
-        set_config(msg="set core_freq to 500",
-            name="core_freq",
-            value="500"
-        )
+        set_config(msg="set core_freq to 500", name="core_freq", value="500")
         set_config(msg="set core_freq_min to 500",
-            name="core_freq_min",
-            value="500"
-        )     
+                   name="core_freq_min",
+                   value="500")
         # dtoverlay=gpio-poweroff,gpio_pin=26,active_low=0
         set_config(msg="config gpio-poweroff",
-            name="dtoverlay=gpio-poweroff,gpio_pin",
-            value="26,active_low=0"
-        )
+                   name="dtoverlay=gpio-poweroff,gpio_pin",
+                   value="26,active_low=0")
         # dtoverlay=gpio-ir,gpio_pin=13
         set_config(msg="config gpio-ir",
-            name="dtoverlay=gpio-ir,gpio_pin",
-            value="13"
-        )
+                   name="dtoverlay=gpio-ir,gpio_pin",
+                   value="13")
     #
     print('create WorkingDirectory')
     do(msg="create dir",
-        cmd='mkdir -p /opt/%s'%__app_name__
-        +' && chmod -R 774 /opt/%s'%__app_name__
-        +' && chown %s:%s /opt/%s'%(username, username, __app_name__)
-    )
+       cmd='mkdir -p /opt/%s' % __app_name__ +
+       ' && chmod -R 774 /opt/%s' % __app_name__ + ' && chown %s:%s /opt/%s' %
+       (username, username, __app_name__))
     #
     if "--skip-auto-startup" not in options:
         do(msg='copy service file',
-            cmd='cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service '%(__app_name__, __app_name__)
-        )
+           cmd='cp -rpf ./bin/%s.service /usr/lib/systemd/system/%s.service ' %
+           (__app_name__, __app_name__))
         do(msg="add excutable mode for service file",
-            cmd='chmod +x /usr/lib/systemd/system/%s.service'%__app_name__
-        )
+           cmd='chmod +x /usr/lib/systemd/system/%s.service' % __app_name__)
     do(msg='copy bin file',
-        cmd='cp -rpf ./bin/%s /usr/local/bin/%s'%(__app_name__, __app_name__)
-        +' && cp -rpf ./%s/* /opt/%s/'%(__app_name__, __app_name__)
-    )
+       cmd='cp -rpf ./bin/%s /usr/local/bin/%s' %
+       (__app_name__, __app_name__) + ' && cp -rpf ./%s/* /opt/%s/' %
+       (__app_name__, __app_name__))
     do(msg="add excutable mode for bin file",
-        cmd='chmod +x /usr/local/bin/%s'%__app_name__
-        +' && chmod -R 774 /opt/%s'%__app_name__
-        +' && chown -R %s:%s /opt/%s'%(username, username, __app_name__)
-    )
-    do(msg='copy config file',
-        cmd=f'cp -rpf ./config.txt {config_file}'
-    )
+       cmd='chmod +x /usr/local/bin/%s' % __app_name__ +
+       ' && chmod -R 774 /opt/%s' % __app_name__ +
+       ' && chown -R %s:%s /opt/%s' % (username, username, __app_name__))
+    do(msg='copy config file', cmd=f'cp -rpf ./config.txt {config_file}')
     #
     if "--skip-auto-startup" not in options:
         do(msg='enable the service to auto-start at boot',
-            cmd='systemctl daemon-reload'
-            + f' && systemctl enable {__app_name__}.service'
-        )
-    # 
-    do(msg='run the service',
-        cmd='pironman restart'
-    )
+           cmd='systemctl daemon-reload' +
+           f' && systemctl enable {__app_name__}.service')
+    #
+    do(msg='run the service', cmd='pironman restart')
 
     if len(errors) == 0:
         print("Finished.")
         if "--skip-reboot" not in options:
-            print("\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m")
+            print(
+                "\033[1;32mWhether to restart for the changes to take effect(Y/N):\033[0m"
+            )
             while True:
                 key = input()
                 if key == 'Y' or key == 'y':
@@ -345,22 +329,26 @@ def install():
                 else:
                     continue
         else:
-            print("\033[1;32mPlease reboot for the changes to take effect.\033[0m")
+            print(
+                "\033[1;32mPlease reboot for the changes to take effect.\033[0m"
+            )
             sys.exit(0)
     else:
         print('\n\n\033[1;35mError happened in install process:\033[0m')
         for error in errors:
             print(error)
-        print("Try to fix it yourself, or contact service@sunfounder.com with this message")
+        print(
+            "Try to fix it yourself, or contact service@sunfounder.com with this message"
+        )
         sys.exit(1)
 
 
 if __name__ == "__main__":
     try:
-       install()
+        install()
     except KeyboardInterrupt:
         print("\n\nCanceled.")
     finally:
         sys.stdout.write(' \033[1D')
-        sys.stdout.write('\033[?25h') # cursor visible 
+        sys.stdout.write('\033[?25h')  # cursor visible
         sys.stdout.flush()

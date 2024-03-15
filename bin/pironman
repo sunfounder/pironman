@@ -65,8 +65,8 @@ GRAY='\033[1;30m'
 NC='\033[0m'
 
 # check boot configuration path
-BOOT_CONFIG_1="/boot/config.txt"
-BOOT_CONFIG_2="/boot/firmware/config.txt"
+DEFAULT_BOOT_CONFIG="/boot/firmware/config.txt"
+BACKUP_BOOT_CONFIG="/boot/config.txt"
 boot_config=""
 
 run_in_background=true
@@ -79,10 +79,10 @@ fi
 
 
 # check boot configuration path
-if [ -f "$BOOT_CONFIG_1" ]; then
-    boot_config=${BOOT_CONFIG_1}
-elif [ -f $BOOT_CONFIG_2 ]; then
-    boot_config=${BOOT_CONFIG_2}
+if [ -f "$DEFAULT_BOOT_CONFIG" ]; then
+    boot_config=${DEFAULT_BOOT_CONFIG}
+elif [ -f $BACKUP_BOOT_CONFIG ]; then
+    boot_config=${BACKUP_BOOT_CONFIG}
 else
     boot_config=""
     echo -e "${RED}Warning: Cannot find boot configuration file${NC}"
