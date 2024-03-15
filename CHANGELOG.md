@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.2.7] - 2024-3-15
+
+### Changed
+
+- Change the default path of boot config to '/boot/firmware/config.txt'
+
 ## [2.2.6] - 2024-2-20
 
 ### Optimized
