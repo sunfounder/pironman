@@ -34,7 +34,8 @@
 ####   -re|--rgb_enable)    [on/true/off/false], whether enable rgb strip,
 ####
 ####   -rs,--rgb_style      rgb strip display style, default: breath,
-####                        in [breath / leap / flow / raise_up / colorful]
+####                        in [breath / static / leap / flow / raise_up / colorful
+####                         / colorful_static / colorful_leap]
 ####
 ####   -rc,--rgb_color      [(HEX)color], set the color of rgb strip,
 ####                        default: 0a1aff
@@ -278,13 +279,13 @@ while [[ $# -gt 0 ]]; do
       ;;
     -rs|--rgb_style)
       case "$2" in
-        breath|leap|flow|raise_up|colorful|colorful_leap)
+        breath|static|leap|flow|raise_up|colorful|colorful_static|colorful_leap)
           echo "set rgb_style to $2 "
           sed -i -e "s:rgb_style.*=.*:rgb_style = $2:g" ${CONF}
           shift 2
         ;;
         *)
-          echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful / colorful_leap]"
+          echo "usage: pironman -rs|--rgb_style [breath / static / leap / flow / raise_up / colorful / colorful_static / colorful_leap]"
           exit 1
         ;;
       esac

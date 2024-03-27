@@ -12,7 +12,14 @@ from utils import log
 # LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
 RGB_styles = [
-    'breath', 'leap', 'flow', 'raise_up', 'colorful', 'colorful_leap'
+    'breath',
+    'static',
+    'leap',
+    'flow',
+    'raise_up',
+    'colorful',
+    'colorful_static',
+    'colorful_leap',
 ]
 colorful_leds = [
     "#ff0000",
@@ -129,12 +136,15 @@ class WS2812():
                 self.strip.show()
                 time.sleep(0.001 * speed)
 
+    def static(self, color: list = [255, 255, 255], speed=50):
+        while True:
+            self.reinit()
             # --- no breath ---
-            # r, g, b =  color
-            # for index in self.lights_order:
-            # 	self.strip.setPixelColor(index, Color(r,g,b))
-            # self.strip.show()
-            # time.sleep(2)
+            r, g, b =  color
+            for index in self.lights_order:
+                self.strip.setPixelColor(index, Color(r,g,b))
+            self.strip.show()
+            time.sleep(2)
 
     def leap(self, color: list = [255, 255, 255], speed=50):
         speed = 101 - speed
@@ -214,6 +224,17 @@ class WS2812():
                     self.strip.setPixelColor(index, Color(r, g, b))
                 self.strip.show()
                 time.sleep(0.001 * speed)
+
+    def colorful_static(self, color: list = None, speed=50):
+        _color = list(
+            self.hex_to_rgb(colorful_leds[i]) for i in range(self.led_count))
+        while True:
+            self.reinit()
+            for index in self.lights_order:
+                r, g, b =  _color[index]
+                self.strip.setPixelColor(index, Color(r,g,b))
+            self.strip.show()
+            time.sleep(2)
 
     def colorful_leap(self, color: list = None, speed=50):
         speed = 101 - speed

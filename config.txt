@@ -14,7 +14,7 @@
 #
 # rgb_enable, rgb strip enable
 #
-# rgb_style, rgb strip display style, in [breath / leap / flow / raise_up / colorful]
+# rgb_style, rgb strip display style, in [breath / static /leap / flow / raise_up / colorful / colorful_static]
 #
 # rgb_color, color of the RGB indicator inside the case
 #

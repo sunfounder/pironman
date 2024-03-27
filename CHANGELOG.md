@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.2.8] - 2024-3-27
+
+### Added
+
+- Add rgb styles : static, colorful_static
+
 ## [2.2.7] - 2024-3-15
 
 ### Changed
