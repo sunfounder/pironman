@@ -169,6 +169,10 @@ while [[ $# -gt 0 ]]; do
       restart
       exit 0
       ;;
+    gui|--gui)
+      python3 /opt/pironman/gui.py &
+      exit 0
+      ;;
     -h|--help)
       help
       exit 0

@@ -45,6 +45,7 @@ APT_INSTALL_LIST = [
     'build-essential',  # arm-linux-gnueabihf-gcc for pip building
     'python3-dev',  # for rpi-ws281x pip building
     'python3-gpiozero',
+    'python3-tk',
 ]
 
 PIP_INSTALL_LIST = [
@@ -53,6 +54,7 @@ PIP_INSTALL_LIST = [
     'pillow --no-cache-dir',
     'requests',
     'psutil',
+    'customtkinter',
 ]
 
 
