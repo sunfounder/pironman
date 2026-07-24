@@ -20,101 +20,103 @@ function changeLanguage() {
     if (pageLang !== browserLang) {
         // Check if the current language is supported
         if (Object.keys(supportLangs).indexOf(browserLang) !== -1) {
-            // Check if the current page is the default page, if so, redirect to the browser language
-            if (pageLang === "") {
-                newLink = window.location.protocol + '//' + window.location.host + pathname + browserLang + '/latest';
-                window.location.href = newLink;
-            } else {
-                if (localStorage.getItem('neverShowAgain') === 'true') {
-                    return;
-                }
-                // Create link
-                var link = window.location.protocol + '//' + window.location.host + pathname.replace('/' + pageLang + '/', '/' + browserLang + '/');
-
-                // Create notification
-                var notification = document.createElement('div');
-                notification.id = 'notification';
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 4px;
-                    right: 4px;
-                    width: 300px;
-                    border-radius: 10px;
-                    background-color: #fff;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-                    z-index: 9999;
-                    padding: 12px;
-                    font-size: 14px;
-                    line-height: 1.5;
-                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                    color: #333;
-                    display: flex;
-                    align-items: center;
-                `;
-
-                let svgContainer = document.createElement('div');
-                svgContainer.innerHTML = svgIcon;
-                svgContainer.style.cssText = 'display: inline-block; vertical-align: middle;';
-
-                var text = document.createElement('p');
-                text.style.cssText = 'margin: 0; display: inline-block; vertical-align: middle;';
-
-                text.innerHTML = supportLangs[browserLang][0] + ' <a href="' + link + '">' + supportLangs[browserLang][1] + '</a>';
-
-                var textAndButtonContainer = document.createElement('div');
-                textAndButtonContainer.style.cssText = `
-                    display: inline-block;
-                    vertical-align: middle;
-                    width: calc(100% - 40px);
-                    padding-left: 10px;
-                `;
-
-                var closeButton = document.createElement('button');
-                closeButton.style.cssText = `
-                    position: absolute;
-                    top: 4px;
-                    right: 4px;
-                    width: 16px;
-                    height: 16px;
-                    background-color: transparent;
-                    border: 0;
-                    font-size: 16px;
-                    line-height: 1;
-                    color: #999;
-                    cursor: pointer;
-                `;
-                closeButton.innerHTML = '×';
-                closeButton.onclick = function () {
-                    document.body.removeChild(notification);
-                };
-
-                // Create never-show button
-                var neverShowButton = document.createElement('button');
-                neverShowButton.style.cssText = `
-                    width: 100%;
-                    text-align: end;
-                    background-color: transparent;
-                    border: 0;
-                    font-size: 12px;
-                    line-height: 1;
-                    color: #999;
-                    cursor: pointer;
-                `;
-                neverShowButton.innerHTML = supportLangs[browserLang][2];
-                neverShowButton.onclick = function () {
-                    localStorage.setItem('neverShowAgain', 'true');
-                    document.body.removeChild(notification);
-                };
-
-                textAndButtonContainer.appendChild(text);
-                textAndButtonContainer.appendChild(neverShowButton);
-
-                notification.appendChild(svgContainer);
-                notification.appendChild(textAndButtonContainer);
-                notification.appendChild(closeButton);
-
-                document.body.appendChild(notification);
+            if (localStorage.getItem('neverShowAgain') === 'true') {
+                return;
             }
+
+            // Build the correct URL for the browser's language.
+            // If the current page has no language prefix (e.g. /latest/),
+            // insert one; otherwise replace the existing language segment.
+            var link;
+            if (pageLang === "") {
+                link = window.location.protocol + '//' + window.location.host + '/' + browserLang + pathname;
+            } else {
+                link = window.location.protocol + '//' + window.location.host + pathname.replace('/' + pageLang + '/', '/' + browserLang + '/');
+            }
+
+            // Create notification
+            var notification = document.createElement('div');
+            notification.id = 'notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 4px;
+                right: 4px;
+                width: 300px;
+                border-radius: 10px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                z-index: 9999;
+                padding: 12px;
+                font-size: 14px;
+                line-height: 1.5;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                color: #333;
+                display: flex;
+                align-items: center;
+            `;
+
+            let svgContainer = document.createElement('div');
+            svgContainer.innerHTML = svgIcon;
+            svgContainer.style.cssText = 'display: inline-block; vertical-align: middle;';
+
+            var text = document.createElement('p');
+            text.style.cssText = 'margin: 0; display: inline-block; vertical-align: middle;';
+
+            text.innerHTML = supportLangs[browserLang][0] + ' <a href="' + link + '">' + supportLangs[browserLang][1] + '</a>';
+
+            var textAndButtonContainer = document.createElement('div');
+            textAndButtonContainer.style.cssText = `
+                display: inline-block;
+                vertical-align: middle;
+                width: calc(100% - 40px);
+                padding-left: 10px;
+            `;
+
+            var closeButton = document.createElement('button');
+            closeButton.style.cssText = `
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                width: 16px;
+                height: 16px;
+                background-color: transparent;
+                border: 0;
+                font-size: 16px;
+                line-height: 1;
+                color: #999;
+                cursor: pointer;
+            `;
+            closeButton.innerHTML = '×';
+            closeButton.onclick = function () {
+                document.body.removeChild(notification);
+            };
+
+            // Create never-show button
+            var neverShowButton = document.createElement('button');
+            neverShowButton.style.cssText = `
+                width: 100%;
+                text-align: end;
+                background-color: transparent;
+                border: 0;
+                font-size: 12px;
+                line-height: 1;
+                color: #999;
+                cursor: pointer;
+            `;
+            neverShowButton.innerHTML = supportLangs[browserLang][2];
+            neverShowButton.onclick = function () {
+                localStorage.setItem('neverShowAgain', 'true');
+                document.body.removeChild(notification);
+            };
+
+            textAndButtonContainer.appendChild(text);
+            textAndButtonContainer.appendChild(neverShowButton);
+
+            notification.appendChild(svgContainer);
+            notification.appendChild(textAndButtonContainer);
+            notification.appendChild(closeButton);
+
+            document.body.appendChild(notification);
         }
     }
 }
