@@ -93,6 +93,7 @@ try:
     config.read(config_file)
     temp_unit = config['all']['temp_unit']
     fan_temp = float(config['all']['fan_temp'])
+    temp_lower_set = float(config['all'].get('temp_lower_set', 2))
     screen_always_on = config['all']['screen_always_on']
     if screen_always_on == 'True':
         screen_always_on = True
@@ -114,6 +115,7 @@ except Exception as e:
     config['all'] ={
                     'temp_unit':temp_unit,
                     'fan_temp':fan_temp,
+                    'temp_lower_set':temp_lower_set,
                     'screen_always_on':screen_always_on,
                     'screen_off_time':screen_off_time,
                     'rgb_enable':rgb_enable,
