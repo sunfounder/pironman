@@ -24,9 +24,13 @@
 #
 # rgb_pin, rgb signal pin, could be 10(spi), 12(PWM) or 21(PCM)
 #
+# temp_lower_set, hysteresis temperature offset for fan control (default 2)
+#                 fan will turn off when temp drops below (fan_temp - temp_lower_set)
+#
 
 temp_unit = C
-fan_temp = 50
+fan_temp = 60
+temp_lower_set = 15
 screen_always_on = False
 screen_off_time = 60
 rgb_enable = True
